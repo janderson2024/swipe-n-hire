@@ -17,7 +17,7 @@ export default function JobStatusToggle({ job }: { job: Job }) {
           type="checkbox"
           id={labelLinker}
           className="peer sr-only"
-          checked={!job.JobOpen}
+          defaultChecked={!job.JobOpen}
         />
 
         <div
