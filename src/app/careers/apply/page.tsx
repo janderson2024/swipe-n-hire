@@ -2,7 +2,6 @@ import Link from "next/link";
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 
-
 function BackToOpenings() {
   return (
     <Link href="/careers" className="text-blue-500">
@@ -20,7 +19,14 @@ export default function Apply() {
 
   return (
     <>
-      <NavBar LeftItem={Logo} RightItem={BackToOpenings}/>
+      <NavBar LeftItem={Logo} RightItem={BackToOpenings} />
+      <div className="text-center">
+      <Link href="/job-description" className="text-blue-500">
+        View Job Description
+      </Link>
+      </div>
+      <h2 className="text-center text-lg font-bold mb-2">Position Title</h2>
+      <p className="text-center text-gray-600">Job ID: XYZ123</p>
       <main className="flex min-h-screen items-center justify-center p-24">
         <div className="bg-white p-8 rounded shadow w-full xl:w-1/4">
           <form className="mt-4m">
