@@ -16,14 +16,6 @@ function CenterTitle() {
   return <span className="text-xl font-bold">Current Postings</span>;
 }
 
-function BackToOpenings() {
-  return (
-    <Link href="/careers" className="text-blue-500">
-      &lt; back to openings
-    </Link>
-  );
-}
-
 export default async function HRJobPostings() {
   const user = await getUser();
   if (!user) {
