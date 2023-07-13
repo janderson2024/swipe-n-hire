@@ -19,7 +19,7 @@ export default function HRLogin(){
      
       return (
         <form action={addCookie}>
-          <button type="submit">Add a "login cookie"</button>
+          <button type="submit">Add a login cookie</button>
         </form>
       )
 }
