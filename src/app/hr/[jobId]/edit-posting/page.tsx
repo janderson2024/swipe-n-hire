@@ -4,20 +4,20 @@ import HRProfileImage from "@/components/HRProfileImage";
 
 function BackToOpenings() {
     return (
-      <Link href="/careers" className="text-blue-500">
+      <Link href="../" className="text-blue-500">
         &lt; back to openings
       </Link>
     );
   }
 
-export default function Edit() {
+export default function EditPosting() {
     return (
         <div>
             <NavBar
-        LeftItem={BackToOpenings}
-        RightItem={HRProfileImage}
-      />
-        <h1> Edit Job Details </h1>
+              LeftItem={BackToOpenings}
+              RightItem={HRProfileImage}
+            />
+        <h1> Edit Job Posting Details </h1>
         </div>
     )
 }
