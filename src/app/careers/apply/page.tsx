@@ -3,7 +3,7 @@ import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 
 export default function Apply() {
-  const handleFileUpload = (event) => {
+  const handleFileUpload = (event: any) => {
     const file = event.target.files[0];
     console.log(file);
     // You can perform further actions with the uploaded file here
