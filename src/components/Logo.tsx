@@ -6,7 +6,7 @@ Currently Just a string, but we can replace this with a real img logo
 
 
 function getLogo(){
-    return "Total Real Company"
+    return "Real Company"
 }
 
 export default function Logo(){

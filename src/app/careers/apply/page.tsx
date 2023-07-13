@@ -2,6 +2,15 @@ import Link from "next/link";
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 
+
+function BackToOpenings() {
+  return (
+    <Link href="/careers" className="text-blue-500">
+      &lt; back to openings
+    </Link>
+  );
+}
+
 export default function Apply() {
   const handleFileUpload = (event: any) => {
     const file = event.target.files[0];
@@ -11,7 +20,7 @@ export default function Apply() {
 
   return (
     <>
-      <NavBar LeftItem={Logo} />
+      <NavBar LeftItem={Logo} RightItem={BackToOpenings}/>
       <main className="flex min-h-screen items-center justify-center p-24">
         <div className="bg-white p-8 rounded shadow w-full xl:w-1/4">
           <form className="mt-4m">
