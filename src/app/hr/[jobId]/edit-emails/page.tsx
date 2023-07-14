@@ -10,11 +10,27 @@ function BackToOpenings() {
     );
   }
 
+  function PostingsNavBar() {
+    return  (
+      <><Link href="/hr/{jobId}/edit-posting">
+        Edit Posting
+      </Link>
+      <Link href="/hr/{jobId}/resumes">
+          Resumes
+      </Link>
+      <Link href="/hr/{jobId}/edit-emails">
+        Customize Emails
+      </Link>
+      </>
+    );
+  }
+
 export default function EditEmails() {
     return (
         <div>
             <NavBar
                 LeftItem={BackToOpenings}
+                CenterItem={PostingsNavBar}
                 RightItem={HRProfileImage}
             />
         <h1> Edit Email Details </h1>
