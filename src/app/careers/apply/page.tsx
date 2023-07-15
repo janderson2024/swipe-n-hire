@@ -14,31 +14,31 @@ export default function Apply() {
   const handleFileUpload = (event: any) => {
     const file = event.target.files[0];
     console.log(file);
-    // You can perform further actions with the uploaded file here
   };
 
   return (
     <>
       <NavBar LeftItem={Logo} RightItem={BackToOpenings} />
-      <div className="text-center">
-      <Link href="/job-description" className="text-blue-500">
-        View Job Description
-      </Link>
-      </div>
-      <h2 className="text-center text-lg font-bold mb-2">Position Title</h2>
-      <p className="text-center text-gray-600">Job ID: XYZ123</p>
-      <main className="flex min-h-screen items-center justify-center p-24">
-        <div className="bg-white p-8 rounded shadow w-full xl:w-1/4">
-          <form className="mt-4m">
-            <label htmlFor="position" className="text-center">
+      <main className="bg-red-100 flex flex-col items-center justify-center min-h-screen">
+        <div className="bg-blue-100 text-center">
+        <Link href="/job-description" className="text-blue-500">
+            View Job Description
+          </Link>
+          <h2 className="text-center text-lg font-bold m-2">Position Title</h2>
+          <p className="text-center text-gray-600">Job ID: XYZ123</p>
+        </div>
+        <div className="bg-green-200 w-full md:w-2/3 lg:w-1/3 p-6 rounded">
+          <form className="bg-yellow-100">
+            <div className="bg-red-200 text-center">
+            <label htmlFor="position">
               Apply for this position:
             </label>
-
+            </div>
             <input
               type="text"
               id="firstName"
               name="firstName"
-              className="border border-black rounded md block w-full p-2 mb-4"
+              className="border border-black mx-auto justify-center rounded md block w-2/3 p-2 mb-4"
               placeholder="First Name*"
             />
 
@@ -46,7 +46,7 @@ export default function Apply() {
               type="text"
               id="lastName"
               name="lastName"
-              className="border border-black block rounded md w-full p-2 mb-4"
+              className="border border-black mx-auto justify-center block rounded md w-2/3 p-2 mb-4"
               placeholder="Last Name*"
             />
 
@@ -54,7 +54,7 @@ export default function Apply() {
               type="text"
               id="email"
               name="email"
-              className="border border-black block rounded md w-full p-2 mb-4"
+              className="border border-black mx-auto justify-center block rounded md w-2/3 p-2 mb-4"
               placeholder="Email*"
             />
 
@@ -62,7 +62,7 @@ export default function Apply() {
               type="text"
               id="phone"
               name="phone"
-              className="border border-black block rounded md w-full p-2 mb-4"
+              className="border border-black mx-auto justify-center block rounded md w-2/3 p-2 mb-4"
               placeholder="Phone*"
             />
 
@@ -70,13 +70,13 @@ export default function Apply() {
               type="text"
               id="linkedinURL"
               name="linkedinURL"
-              className="border border-black rounded md block w-full p-2 mb-4"
+              className="border border-black mx-auto justify-center rounded md block w-2/3 p-2 mb-4"
               placeholder="LinkedIn/portfolio URL"
             />
 
             <label
               htmlFor="fileInput"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded md cursor-pointer block w-full p-2 mb-4 text-center"
+              className="bg-blue-500 hover:bg-blue-700 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4 text-center"
             >
               Upload Resume
             </label>
@@ -84,7 +84,7 @@ export default function Apply() {
             <input
               type="submit"
               value="Submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded md  block w-full p-2 mb-4"
+              className="bg-blue-500 hover:bg-blue-700 mx-auto justify-center text-white font-bold py-2 px-4 rounded md block w-2/3 p-2 mb-4"
             />
           </form>
         </div>
