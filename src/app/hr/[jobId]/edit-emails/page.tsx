@@ -34,11 +34,13 @@ export default function EditEmails() {
           CenterItem={PostingsNavBar}
           RightItem={HRProfileImage}/>
       </div>
-      <main className="flex h-screen px-5 py-5 items-center justify-center">
-        <div className="w-11/12 p-6 bg-gray-100 shadow-lg rounded-md">
-          <h1 className="text-2xl font-bold m-5 text-center">Job Name</h1> 
-          <h2 className="text-2xl block text-center font-semibold text-purple-700">Customize Emails</h2>
-          <hr className='mt-3'></hr>
+      <div>
+        <h1 className="text-2xl font-bold m-5 text-center">Job Name</h1> 
+        <h2 className="text-2xl block text-center font-semibold text-purple-700">Customize Emails</h2>
+        <hr className='mt-3'></hr>
+      </div>
+      <main>
+        <div className="h-min-screen px-10 py-5">
         <form>
           <div className='mt-3 p-6'> 
           <label htmlFor="interviewEmail" className="block text-base mb-2">Interview Invitiation Email</label>

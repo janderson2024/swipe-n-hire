@@ -25,10 +25,11 @@ export default function HRLogin(){
 
       return (
         <>
-        <NavBar LeftItem={Logo}/>
         <div>
+        <NavBar LeftItem={Logo}/>
+        </div>
           <main className="flex h-screen items-center justify-center">
-            <div className="w-96 p-6 bg-gray-100 shadow-lg rounded-md">
+            <div className="max-h-screen w-96 p-6 bg-gray-100 rounded-md">
             <div className="text-2xl font-bold m-5 text-center"><Logo /></div>
               <h1 className="text-2xl block text-center font-semibold text-purple-700">Sign In</h1>
               <hr className='mt-3'></hr>
@@ -56,10 +57,10 @@ export default function HRLogin(){
               </div>
             </div>
           </main>
-        </div>
   
         <form action={addCookie}>
           <button type="submit">Add a login cookie</button>
-        </form></>
+        </form>
+        </>
       )
 }
