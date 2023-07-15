@@ -1,7 +1,6 @@
 import Link from "next/link";
 import NavBar from "@/components/navbar"
 import HRProfileImage from "@/components/HRProfileImage";
-import { getTestJobs, Job } from "@/types/job";
 
 function BackToOpenings() {
     return (
