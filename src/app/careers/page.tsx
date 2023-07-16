@@ -8,7 +8,7 @@ function JobPosting({ job }: {job:Job}) {
     <div className="border-b py-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-2 md:col-span-1">
-          <div className="text-s text-gray-4 m-4">ID: {job.id}</div>
+          <div className="text-s text-gray-4 m-4">ID: {job.JobID}</div>
           <Link
             href={`/job-description/${job.JobID}`}
             className="text-blue-500 text-lg font-bold m-4"
