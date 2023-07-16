@@ -1,4 +1,7 @@
 "use client";
+{
+  /*Do we want to avoid client-side rendering? */
+}
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 import { useState } from "react";
@@ -7,7 +10,23 @@ import BackToJobDescription from "@/components/BackToJobDescription";
 import TermsModal from "@/components/TermsModal";
 
 export default function Apply() {
-  const [showTerms, setShowTerms] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
+  // Function to handle checkbox click
+  const handleCheckboxClick = () => {
+    setIsChecked(!isChecked);
+  };
+
+  // Function to handle modal close
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  // Function to show the modal and check the checkbox
+  const openModal = () => {
+    setShowModal(true);
+  };
 
   const handleFileUpload = (event: any) => {
     const file = event.target.files[0];
@@ -86,18 +105,21 @@ export default function Apply() {
                 type="checkbox"
                 id="termsCheckbox"
                 className="form-checkbox h-4 w-4 text-blue-500 transition duration-150 ease-in-out"
-                checked={showTerms}
-                onChange={() => setShowTerms(!showTerms)}
+                checked={isChecked}
+                onChange={handleCheckboxClick}
               />
               <label
                 htmlFor="termsCheckbox"
                 className="w-1/2 cursor-pointer text-blue-500 ml-2 hover:text-purple-600 hover:underline"
+                onClick={openModal}
               >
                 I have read and agree to the Terms of Use
               </label>
             </div>
             {/* Terms and Conditions Modal */}
-            <TermsModal show={showTerms} onClose={() => setShowTerms(false)} />
+            {showModal && (
+              <TermsModal show={showModal} onClose={handleModalClose} />
+            )}
           </form>
         </div>
       </main>
