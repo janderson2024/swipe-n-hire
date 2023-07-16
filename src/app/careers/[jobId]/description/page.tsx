@@ -1,14 +1,6 @@
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
-import Link from "next/link";
-
-function BackToOpenings() {
-  return (
-    <Link href="/careers" className="text-blue-500">
-      &lt; back to openings
-    </Link>
-  );
-}
+import BackToOpenings from "@/components/BackToOpenings";
 
 function JobDescription() {
   const job = {
