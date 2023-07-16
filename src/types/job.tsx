@@ -4,25 +4,40 @@ export function getTestJobs() {
       JobID: 10,
       JobTitle: "Real Job",
       JobDate: "7/19/23",
+      JobEmployment: "Full-Time",
+      JobLocation: "City place USA",
+      JobDepartment: "Human Procurement",
       JobCreator: "Person",
       JobOpen: true,
       JobOpenApplications: 40,
+      JobAcceptedApplications: 10,
+      JobRejectedApplications: 37
     },
     {
       JobID: 11,
       JobTitle: "Fake Job",
       JobDate: "7/29/23",
+      JobEmployment: "One Hour on Sunday",
+      JobLocation: "My living room",
+      JobDepartment: "Modeling",
       JobCreator: "Alien",
       JobOpen: false,
       JobOpenApplications: 30,
+      JobAcceptedApplications: 2,
+      JobRejectedApplications: 124
     },
     {
       JobID: 12,
       JobTitle: "CEO",
       JobDate: "7/09/23",
+      JobEmployment: "Part-Time",
+      JobLocation: "New York",
+      JobDepartment: "Entire Company?",
       JobCreator: "Worm",
       JobOpen: true,
       JobOpenApplications: 4,
+      JobAcceptedApplications: 12,
+      JobRejectedApplications: 2
     },
   ];
   return testJobs;
@@ -31,14 +46,17 @@ export function getTestJobs() {
 export interface Job {
   JobID: number;
 
-  JobTitle?: string;
+  JobTitle: string;
   JobDate?: string;
   JobCreator?: string;
   JobSalary?: string;
   JobDepartment?: string;
   JobEmployment?: string;
+  JobLocation?: string;
 
   JobOpen: boolean;
 
   JobOpenApplications: number;
+  JobAcceptedApplications: number;
+  JobRejectedApplications: number;
 }

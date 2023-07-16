@@ -1,20 +1,21 @@
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 import Link from "next/link";
+import { getTestJobs, Job } from "@/types/job";
 
-function JobPosting({ job }) {
+function JobPosting({ job }: {job:Job}) {
   return (
     <div className="border-b py-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-2 md:col-span-1">
-          <div className="text-s text-gray-400 m-4">ID: {job.id}</div>
+          <div className="text-s text-gray-400 m-4">ID: {job.JobID}</div>
           <Link
-            href={`/job-description/${job.id}`}
+            href={`/job-description/${job.JobID}`}
             className="text-blue-500 text-lg font-bold m-4"
           >
-            {job.jobTitle}
+            {job.JobTitle}
           </Link>
-          <div className="text-gray-600 ml-4">Posted {job.postedDate}</div>
+          <div className="text-gray-600 ml-4">Posted {job.JobDate}</div>
         </div>
         <div className="flex flex-wrap justify-between md:flex-row md:gap-2 m-4">
 
@@ -40,7 +41,7 @@ function JobPosting({ job }) {
                 />
               </svg>
             </div>
-            <div className="ml-2">{job.employmentType}</div>
+            <div className="ml-2">{job.JobEmployment}</div>
           </div>
           <div className="flex items-center">
             <div className="bg-gray-300 p-2 rounded-full">
@@ -64,7 +65,7 @@ function JobPosting({ job }) {
                 />
               </svg>
             </div>
-            <div className="ml-2">{job.location}</div>
+            <div className="ml-2">{job.JobLocation}</div>
           </div>
           <div className="flex items-center">
             <div className="bg-gray-300 p-2 rounded-full">
@@ -83,7 +84,7 @@ function JobPosting({ job }) {
                 />
               </svg>
             </div>
-            <div className="ml-2">{job.department}</div>
+            <div className="ml-2">{job.JobDepartment}</div>
           </div>
         </div>
       </div>
@@ -91,7 +92,7 @@ function JobPosting({ job }) {
   );
 }
 
-const jobPostings = [
+/*const jobPostings = [
   {
     id: "123",
     jobTitle: "Software Engineer",
@@ -132,7 +133,7 @@ const jobPostings = [
     location: "Seattle, WA",
     department: "Marketing",
   },
-];
+];*/
 
 export default function JobPostings() {
   return (
@@ -166,8 +167,8 @@ export default function JobPostings() {
           </div>
         </div>
         <div className="mt-8 border border-black rounded">
-          {jobPostings.map((job) => (
-            <JobPosting key={job.id} job={job} />
+          {getTestJobs().map((job) => (
+            <JobPosting key={job.JobID} job={job} />
           ))}
         </div>
       </main>
