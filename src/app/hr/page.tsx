@@ -61,14 +61,17 @@ function HRJobControls({ job }: { job: Job }) {
 
   return (
     <div className="flex flex-row-reverse">
-      <Link href={HrLink}>
+      <Link
+        href={HrLink}
+        className="self-center mr-6 p-2 ml-8 rounded-full border-slate-500 border-2"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
           strokeWidth={2}
           stroke="currentColor"
-          className="w-6 h-6"
+          className="w-5 h-5 sm:w-10 sm:h-10"
         >
           <path
             strokeLinecap="round"
@@ -77,11 +80,25 @@ function HRJobControls({ job }: { job: Job }) {
           />
         </svg>
       </Link>
-      <JobStatusToggle job={job} />
-      <span className="font-sm">Created By: {job.JobCreator}</span>
-      <span className="font-lg font-bold">
-        {job.JobOpenApplications} Open Applications
-      </span>
+      <div id="non-edit" className="flex justify-around grow md:grow-[0.5]">
+        <div id="App-Counts" className="flex flex-col justify-self-center hidden sm:flex">
+          <Link href={"/hr/"+job.JobID+"/resumes"}className="text-violet-600 text-base font-bold underline lg:text-lg">
+            {job.JobOpenApplications} Open Applications
+          </Link>
+          <span className="text-sm">
+            Accpted: {job.JobAcceptedApplications}
+          </span>
+          <span className="text-sm">
+            Rejected: {job.JobRejectedApplications}
+          </span>
+        </div>
+
+        <div id="creator-toggle" className="flex flex-col justify-evenly">
+        <JobStatusToggle job={job} />
+        <span className="text-sm hidden sm:block">Created By: {job.JobCreator}</span>
+      </div>
+      </div>
+
     </div>
   );
 }

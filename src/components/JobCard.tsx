@@ -10,15 +10,15 @@ interface JobCardProps {
 export default function JobCard({ job, RightItem }: JobCardProps) {
   const jobLink = "/careers/" + job.JobID;
   return (
-    <div className="flex w-5/6">
-      <div id="leftSide" className="flex flex-col">
-        <span className="pl-2 text-slate-400 text-sm">ID: #{job.JobID}</span>
-        <Link href={jobLink}>
-          <span className="text-violet-600 text-xl font-bold underline">
+    <div className="flex w-5/6 flex-col flex-wrap sm:flex-nowrap sm:flex-row">
+      <div id="leftSide" className="flex flex-row grow sm:flex-col sm:grow-0">
+        <span className="pl-2 text-slate-400 text-sm hidden sm:block">ID: #{job.JobID}</span>
+        <Link href={jobLink} className="self-center sm:place-self-start">
+          <span className="text-violet-600 text-xl font-bold underline ">
             {job.JobTitle}
           </span>
         </Link>
-        <span className="pl-2 text-slate-400 text-sm">
+        <span className="pl-2 text-slate-400 text-sm hidden sm:block">
           Posted: {job.JobDate}
         </span>
       </div>
