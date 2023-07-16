@@ -11,7 +11,6 @@ function BackToOpenings() {
 }
 
 function JobDescription() {
-  // Placeholder data for the job description
   const job = {
     id: 1,
     jobTitle: "Software Engineer",
