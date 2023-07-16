@@ -1,21 +1,23 @@
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
+import Link from "next/link";
 
 function JobPosting({ job }) {
   return (
     <div className="border-b py-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-2 md:col-span-1">
-          <div className="font-bold text-lg">{job.id}</div>
-          <a
+          <div className="text-s text-gray-400 m-4">ID: {job.id}</div>
+          <Link
             href={`/job-description/${job.id}`}
-            className="text-blue-500 font-bold"
+            className="text-blue-500 text-lg font-bold m-4"
           >
             {job.jobTitle}
-          </a>
-          <div className="text-gray-600">Posted {job.postedDate}</div>
+          </Link>
+          <div className="text-gray-600 ml-4">Posted {job.postedDate}</div>
         </div>
-        <div className="flex flex-col items-center md:items-start justify-center md:flex-row md:gap-2">
+        <div className="flex flex-wrap justify-between md:flex-row md:gap-2 m-4">
+
           <div className="flex items-center">
             <div className="bg-gray-300 p-2 rounded-full">
               <svg
