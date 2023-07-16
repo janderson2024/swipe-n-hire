@@ -19,17 +19,17 @@ export default function Apply() {
   return (
     <>
       <NavBar LeftItem={Logo} RightItem={BackToOpenings} />
-      <main className="bg-red-100 flex flex-col items-center justify-center min-h-screen">
-        <div className="bg-blue-100 text-center">
+      <main className="flex flex-col items-center justify-center min-h-screen">
+        <div className="text-center">
         <Link href="/job-description" className="text-blue-500">
             View Job Description
           </Link>
           <h2 className="text-center text-lg font-bold m-2">Position Title</h2>
           <p className="text-center text-gray-600">Job ID: XYZ123</p>
         </div>
-        <div className="bg-green-200 w-full md:w-2/3 lg:w-1/3 p-6 rounded">
-          <form className="bg-yellow-100">
-            <div className="bg-red-200 text-center">
+        <div className="w-full md:w-2/3 lg:w-1/3 p-6 rounded">
+          <form>
+            <div className="text-center">
             <label htmlFor="position">
               Apply for this position:
             </label>
