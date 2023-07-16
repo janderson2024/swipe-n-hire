@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function BackToJobDescription() {
   return (
-    <Link href="/careers" className="text-blue-700 flex items-center">
+    <Link href="/careers/apply/description" className="text-blue-700 flex items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

@@ -4,9 +4,9 @@ import Logo from "@/components/Logo";
 import { useState } from "react";
 import BackToOpenings from "@/components/BackToOpenings";
 import BackToJobDescription from "@/components/BackToJobDescription";
+import TermsModal from "@/components/TermsModal";
 
 export default function Apply() {
-
   const [showTerms, setShowTerms] = useState(false);
 
   const handleFileUpload = (event: any) => {
@@ -19,7 +19,7 @@ export default function Apply() {
       <NavBar LeftItem={Logo} RightItem={BackToOpenings} />
       <main className="flex flex-col items-center justify-center min-h-screen">
         <div className="text-center">
-            <BackToJobDescription />
+          <BackToJobDescription />
           <h2 className="text-center text-lg font-bold m-2">Position Title</h2>
           <p className="text-center text-gray-600">Job ID: XYZ123</p>
         </div>
@@ -80,7 +80,6 @@ export default function Apply() {
               value="Submit"
               className="bg-purple-700 hover:bg-purple-900 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4"
             />
-
             {/* Checkbox for Terms and Conditions */}
             <div className="flex items-center justify-center mt-4">
               <input
@@ -97,20 +96,8 @@ export default function Apply() {
                 I have read and agree to the Terms of Use
               </label>
             </div>
-            {/* Terms and Conditions Box */}
-            {showTerms && (
-              <div className="m-auto mt-4 w-2/3 p-4 border border-gray-300 rounded">
-                <h3 className="text-lg font-bold">Terms of Use</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  cursus libero vitae semper accumsan. Phasellus nec hendrerit
-                  ex. Integer tempor quam id ante consectetur tincidunt. Nulla
-                  facilisi. Proin feugiat, dui a lacinia pulvinar, quam purus
-                  gravida dui, eget fringilla risus nisl at arcu. Nam euismod
-                  justo nec venenatis facilisis. Fusce vitae eleifend felis.
-                </p>
-              </div>
-            )}
+            {/* Terms and Conditions Modal */}
+            <TermsModal show={showTerms} onClose={() => setShowTerms(false)} />
           </form>
         </div>
       </main>
