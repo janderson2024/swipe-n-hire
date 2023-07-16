@@ -10,7 +10,6 @@ function BackToOpenings() {
       </Link>
     );
   }
-
   function PostingsNavBar() {
     return  (
       <><Link href="/hr/{jobId}/edit-posting">

@@ -26,9 +26,9 @@ function BackToOpenings() {
     );
   }
 
-
 export default function EditPosting() {
-    return (
+  
+  return (
       <>
       <div>
         <NavBar
@@ -37,43 +37,77 @@ export default function EditPosting() {
               RightItem={HRProfileImage}
         />
       </div>
+      
+      <div>
+        
+        <h2 className="text-2xl block text-center font-semibold text-purple-700 mt-4">Add/Edit Job Posting</h2>
+        <hr className='mt-4'></hr>
+      </div>
+      
       <main>
-        <div className="flex">
+        <div>
           <form>
-            <div>
-            <input type = "text" placeholder="Department" 
-                  id="department" name ="department" 
-                  className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
-              
-              <input type = "text" placeholder="Employment Type" 
-                  id="emplType" name ="emplType" 
-                  className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
-              
-              <input type = "text" placeholder="Salary Range" 
-                  id="salaryRange" name ="salaryRange" 
-                  className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
-
-              <input type = "text" placeholder="Location" 
+            <div className="flex justify-around py-5">
+              <div>
+                <div className="py-2">
+                  <input type = "text" placeholder="Job Title" 
                   id="jobTitle" name ="jobTitle" 
-                  className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
-
-              <input type = "text" placeholder="Job Title" 
-                  id="jobTitle" name ="jobTitle" 
-                  className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
-
-              <input type = "text" placeholder="Job ID Number" 
+                  className="border w-4/5 text-base px-2 py-1 border-gray-600"/>
+                </div>
+                <div className="py-2">
+                  <input type = "text" placeholder="Job ID Number" 
                   id="jodId" name ="jobId" 
-                  className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
+                  className="border w-4/5 text-base px-2 py-1 border-gray-600"/>
+                </div>
+              </div>
+            
+              <div>
+                <div className="py-2">
+                  <input type = "text" placeholder="Department" 
+                  id="department" name ="department" 
+                  className="border w-4/5 text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
+                </div>
 
-              <button type="button" className="w-1/5 border-2 border-purple-700 bg-purple-700 text-white py-1 w-full">Position Filled</button>
+                <div className="py-2">
+                  <input type = "text" placeholder="Employment Type" 
+                  id="emplType" name ="emplType" 
+                  className="border w-4/5 text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
+                </div>
+              </div>
+              
+              <div>
+              <div className="py-2">
+                  <input type = "text" placeholder="Salary Range" 
+                  id="salaryRange" name ="salaryRange" 
+                  className="border w-4/5 text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
+                </div>
 
-              {/* Toggle Button Here*/}
+                <div className="py-2">
+                  <input type = "text" placeholder="Location" 
+                  id="jobTitle" name ="jobTitle" 
+                  className="border w-4/5 text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
+                </div>
+              </div>
+              
+              <div>
+                <div className="py-2">
+                  <button type="button" className="w-full border-2 border-purple-700 bg-purple-700 text-white px-2 py-1">Position Filled</button>
+                </div>
 
-              <textarea id="jobDescription" name ="jobDescription" placeholder="Enter job descrption here" 
+                <div className="py-2">
+                  {/* Toggle Button Here*/}
+                  <button type="button" className="w-full border-2 border-purple-700 bg-purple-700 text-white px-3 py-1">Toggle</button>
+
+                </div>
+              </div>
+            </div>
+            <div className = 'flex justify-center px-5 py-4'>  
+              <textarea id="jobDescription" name ="jobDescription" placeholder="Enter job description here" 
               rows={8}
-              className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
-
-            <button type="button" className="w-1/5 border-2 border-purple-700 bg-purple-700 text-white py-1 w-full">Save Posting</button>
+              className="border w-4/5 text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"/>
+            </div>
+            <div className="flex justify-center">
+              <button type="button" className="justify-center w-40 border-2 border-purple-700 bg-purple-700 text-white py-1">Save Posting</button>
             </div>
           </form>
         </div>
