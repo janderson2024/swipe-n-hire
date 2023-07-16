@@ -81,8 +81,14 @@ function HRJobControls({ job }: { job: Job }) {
         </svg>
       </Link>
       <div id="non-edit" className="flex justify-around grow md:grow-[0.5]">
-        <div id="App-Counts" className="flex flex-col justify-self-center hidden sm:flex">
-          <Link href={"/hr/"+job.JobID+"/resumes"}className="text-violet-600 text-base font-bold underline lg:text-lg">
+        <div
+          id="App-Counts"
+          className="flex flex-col justify-self-center hidden sm:flex"
+        >
+          <Link
+            href={"/hr/" + job.JobID + "/resumes"}
+            className="text-violet-600 text-base font-bold underline lg:text-lg"
+          >
             {job.JobOpenApplications} Open Applications
           </Link>
           <span className="text-sm">
@@ -94,11 +100,12 @@ function HRJobControls({ job }: { job: Job }) {
         </div>
 
         <div id="creator-toggle" className="flex flex-col justify-evenly">
-        <JobStatusToggle job={job} />
-        <span className="text-sm hidden sm:block">Created By: {job.JobCreator}</span>
+          <JobStatusToggle job={job} />
+          <span className="text-sm hidden sm:block">
+            Created By: {job.JobCreator}
+          </span>
+        </div>
       </div>
-      </div>
-
     </div>
   );
 }
@@ -119,58 +126,70 @@ export default async function HRJobPostings() {
         CenterItem={CenterTitle}
         RightItem={HRProfileImage}
       />
-      <button>+ New Posting</button>
+      <main>
+        <div
+          id="topcontrols"
+          className="flex justify-around border-b-2 border-slate-500 p-2"
+        >
+          <button className="p-4 border-4 border-slate-700">
+            + New Posting
+          </button>
 
-      <ToggleSwitch />
+          <ToggleSwitch />
 
-      {/*TURN INTO JOBS OPEN TOGGLE COMP*/}
-      <JobStatusToggle job={testJob} />
+          <div id="bars" className="flex flex-col">
+            <div id="Filter-Bar" className="flex">
+              <input
+                type="text"
+                className="border-2 border-slate-700 m-1"
+                placeholder="Job title, Id, status..."
+              />
+              <button className="border-2 border-slate-700 m-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
+                  />
+                </svg>
+              </button>
+            </div>
 
-      <div id="Filter-Bar" className="flex">
-        <input
-          type="text"
-          className="border-2 border-slate-700 m-1"
-          placeholder="Job title, Id, status..."
-        />
-        <button className="border-2 border-slate-700 m-1">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
-            />
-          </svg>
-        </button>
-      </div>
-
-      <div id="sorting-input" className="flex">
-        <div className="border-2 border-slate-600">
-          <label htmlFor="sorting-select">Sort By: </label>
-          <select name="sorting" id="sorting-select" className="outline-none">
-            <option value="post-date">Date posted</option>
-            <option value="title">Title</option>
-            <option value="creator">Creator</option>
-            <option value="unseen-apps">Unseen Applications</option>
-            <option value="status">Application Status</option>
-          </select>
+            <div id="sorting-input" className="flex">
+              <div className="border-2 border-slate-600">
+                <label htmlFor="sorting-select">Sort By: </label>
+                <select
+                  name="sorting"
+                  id="sorting-select"
+                  className="outline-none"
+                >
+                  <option value="post-date">Date posted</option>
+                  <option value="title">Title</option>
+                  <option value="creator">Creator</option>
+                  <option value="unseen-apps">Unseen Applications</option>
+                  <option value="status">Application Status</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div
-        id="jobs"
-        className="flex flex-wrap flex-col content-center mt-5 divide-y-4 divide-slate-600"
-      >
-        {jobs.map((job: Job) => (
-          <JobCard key={job.JobID} job={job} RightItem={HRJobControls} />
-        ))}
-      </div>
+        <div
+          id="jobs"
+          className="flex flex-wrap flex-col content-center mt-5 divide-y-4 divide-slate-600"
+        >
+          {jobs.map((job: Job) => (
+            <JobCard key={job.JobID} job={job} RightItem={HRJobControls} />
+          ))}
+        </div>
+      </main>
     </>
   );
 }
