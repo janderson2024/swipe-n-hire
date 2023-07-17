@@ -31,16 +31,16 @@ export default function JobDescription({params}: {params: {jobId: string}}){
             <p>Location: {job.location}</p>
           </div>
         </div>
-        <div className="border p-6 w-2/3 justify-center rounded m-10">
+        <div className="border p-6 w-2/3 justify-center rounded m-10 md:w-5/6">
           <h1 className="text-lg font-bold mb-4">
             {job.jobTitle} - Job ID: {job.id}
           </h1>
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-600 mb-4 ">
             Job Description: {job.description}
           </p>
 
           <div className="flex justify-center">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button className="absolute bottom-0 left-0 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               <Link href={`/careers/${job.id}/apply`}>Apply for this Job</Link> {/*Not sure why this is going to the wrong page */}
             </button>
           </div>
