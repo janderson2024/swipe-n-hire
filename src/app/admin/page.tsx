@@ -43,12 +43,12 @@ async function getDeployments() {
   var deployments = [];
   const deploymentData = await resp.json();
 
-  for (var deploment of deploymentData.deployments) {
+  for (var i=0; i< deploymentData.deployments.length; i++) {
     deployments.push({
-      id: deploment.uid,
-      author: deploment.meta.gitlabCommitAuthorName,
-      title: deploment.meta.gitlabCommitMessage,
-      commitId: deploment.meta.gitlabCommitSha,
+      id: deploymentData.deployments[i].uid,
+      author: deploymentData.deployments[i].meta.gitlabCommitAuthorName,
+      title: deploymentData.deployments[i].meta.gitlabCommitMessage,
+      commitId: deploymentData.deployments[i].meta.gitlabCommitSha,
     });
   }
 
