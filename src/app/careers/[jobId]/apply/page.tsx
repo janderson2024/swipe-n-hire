@@ -1,13 +1,14 @@
 "use client";
-{
-  /*Do we want to avoid client-side rendering? */
-}
+
 import NavBar from "@/components/navbar";
+import Link from "next/link";
 import Logo from "@/components/Logo";
 import { useState } from "react";
-import BackToOpenings from "@/components/BackToOpenings";
-import BackToJobDescription from "@/components/BackToJobDescription";
+import BackArrow from "@/components/BackArrow";
 import TermsModal from "@/components/TermsModal";
+import BackToOpenings from "@/components/BackToOpenings";
+
+
 
 export default function Apply() {
   const [showModal, setShowModal] = useState(false);
@@ -38,7 +39,10 @@ export default function Apply() {
       <NavBar LeftItem={Logo} RightItem={BackToOpenings} />
       <main className="flex flex-col items-center justify-center min-h-screen">
         <div className="text-center">
-          <BackToJobDescription />
+          <Link href="./" className="text-blue-700 flex items-center">
+            <BackArrow/>
+            View Job Description
+          </Link>
           <h2 className="text-center text-lg font-bold m-2">Position Title</h2>
           <p className="text-center text-gray-600">Job ID: XYZ123</p>
         </div>

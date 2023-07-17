@@ -1,184 +1,49 @@
-{/*export default function JobDescription({
-  params,
-}: {
-  params: { jobId: string };
-}) {
-    console.log(params);
-  return <div>JOB: {params.jobId}</div>;
-} */}
-
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 import Link from "next/link";
-import { getTestJobs, Job } from "@/types/job";
+import BackToOpenings from "@/components/BackToOpenings";
 
-function JobPosting({ job }: {job:Job}) {
-  return (
-    <div className="border-b py-4">
-      <div className="grid grid-cols-2 gap-4">
-        <div className="col-span-2 md:col-span-1">
-          <div className="text-s text-gray-4 m-4">ID: {job.JobID}</div>
-          <Link
-            href={`/job-description/${job.JobID}`}
-            className="text-blue-500 text-lg font-bold m-4"
-          >
-            {job.JobTitle}
-          </Link>
-          <div className="text-gray-600 ml-4">Posted {job.JobDate}</div>
-        </div>
-        <div className="flex flex-wrap justify-between md:flex-row md:gap-2 m-4">
+export default function JobDescription({params}: {params: {jobId: string}}){
 
-          <div className="flex items-center">
-            <div className="bg-gray-300 p-2 rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 6h.008v.008H6V6z"
-                />
-              </svg>
-            </div>
-            <div className="ml-2">{job.JobEmployment}</div>
-          </div>
-          <div className="flex items-center">
-            <div className="bg-gray-300 p-2 rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                />
-              </svg>
-            </div>
-            <div className="ml-2">{job.JobLocation}</div>
-          </div>
-          <div className="flex items-center">
-            <div className="bg-gray-300 p-2 rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
-                />
-              </svg>
-            </div>
-            <div className="ml-2">{job.JobDepartment}</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/*const jobPostings = [
-  {
-    id: "123",
+  //get job from database with ID of params.jobId
+  const job = {
+    id: params.jobId,
     jobTitle: "Software Engineer",
-    postedDate: "July 15, 2023",
-    employmentType: "Full-time",
-    location: "San Francisco, CA",
+    description:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu augue ut lectus arcu bibendum at varius vel pharetra. Egestas dui id ornare arcu odio ut sem nulla. Duis convallis convallis tellus id interdum velit laoreet id. Magna etiam tempor orci eu lobortis elementum nibh tellus molestie. Aliquam vestibulum morbi blandit cursus risus at ultrices mi. Facilisis sed odio morbi quis commodo odio aenean sed. Id velit ut tortor pretium viverra suspendisse. Nunc mi ipsum faucibus vitae aliquet nec. Dictum sit amet justo donec enim diam vulputate ut. At tempor commodo ullamcorper a lacus vestibulum sed arcu non. Ornare aenean euismod elementum nisi. Ullamcorper dignissim cras tincidunt lobortis. Eu sem integer vitae justo eget magna fermentum. Iaculis eu non diam phasellus vestibulum. Sit amet est placerat in egestas. Senectus et netus et malesuada. Lectus vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare. Enim facilisis gravida neque convallis a cras. Leo vel orci porta non pulvinar neque. Velit sed ullamcorper morbi tincidunt ornare massa eget egestas. Elit sed vulputate mi sit. Pharetra diam sit amet nisl suscipit adipiscing bibendum. Ornare lectus sit amet est placerat in. Etiam dignissim diam quis enim lobortis scelerisque fermentum. Blandit libero volutpat sed cras. Volutpat maecenas volutpat blandit aliquam etiam erat velit. Ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Egestas congue quisque egestas diam in arcu cursus euismod quis. Sollicitudin tempor id eu nisl. Pulvinar mattis nunc sed blandit libero volutpat sed cras ornare. Sed sed risus pretium quam vulputate dignissim suspendisse. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Id interdum velit laoreet id donec ultrices tincidunt arcu non. Ullamcorper malesuada proin libero nunc. Phasellus faucibus scelerisque eleifend donec pretium. Dui accumsan sit amet nulla facilisi. Quis risus sed vulputate odio ut enim blandit. Pellentesque elit ullamcorper dignissim cras tincidunt. Dolor sit amet consectetur adipiscing elit ut aliquam. Dignissim sodales ut eu sem integer vitae justo. Aliquet eget sit amet tellus. Aliquet enim tortor at auctor urna nunc. Purus viverra accumsan in nisl nisi scelerisque eu ultrices. Lorem ipsum dolor sit amet consectetur adipiscing. Scelerisque in dictum non consectetur a erat nam at. Etiam non quam lacus suspendisse. Volutpat blandit aliquam etiam erat velit scelerisque in dictum non. Et odio pellentesque diam volutpat commodo sed egestas egestas fringilla. Tellus mauris a diam maecenas sed enim ut sem.",
     department: "Engineering",
-  },
-  {
-    id: "124",
-    jobTitle: "Product Manager",
-    postedDate: "July 16, 2023",
     employmentType: "Full-time",
-    location: "New York, NY",
-    department: "Product",
-  },
-  {
-    id: "125",
-    jobTitle: "UX Designer",
-    postedDate: "July 17, 2023",
-    employmentType: "Contract",
-    location: "Los Angeles, CA",
-    department: "Design",
-  },
-  {
-    id: "126",
-    jobTitle: "Data Scientist",
-    postedDate: "July 18, 2023",
-    employmentType: "Full-time",
-    location: "Chicago, IL",
-    department: "Data Science",
-  },
-  {
-    id: "127",
-    jobTitle: "Marketing Specialist",
-    postedDate: "July 19, 2023",
-    employmentType: "Part-time",
-    location: "Seattle, WA",
-    department: "Marketing",
-  },
-];*/
+    salary: "$80,000 - $100,000",
+    location: "New York, USA",
+  };
 
-export default function JobPostings() {
   return (
     <>
-      <NavBar LeftItem={Logo} />
-      <main className="p-8">
-        <div className="flex justify-between">
-          <h1 className="text-3xl font-bold">Current Openings</h1>
-          <div className="flex items-center">
-            <input
-              type="text"
-              placeholder="Search"
-              className="border p-2 rounded-l-md focus:outline-none w-full"
-            />
-            <button className="bg-gray-200 p-2 rounded-r-md focus:outline-none">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
-                />
-              </svg>
-            </button>
+      <NavBar LeftItem={Logo} RightItem={BackToOpenings} />
+      <main className="flex flex-col items-center justify-center">
+        <div className="w-full md:w-2/3 flex justify-between mt-4 px-6">
+          <div className="text-left">
+            <p>Department: {job.department}</p>
+            <p>Employment Type: {job.employmentType}</p>
+          </div>
+          <div className="text-right">
+            <p>Salary Range: {job.salary}</p>
+            <p>Location: {job.location}</p>
           </div>
         </div>
-        <div className="mt-8 border border-black rounded">
-          {getTestJobs().map((job) => (
-            <JobPosting key={job.JobID} job={job} />
-          ))}
+        <div className="border p-6 w-2/3 justify-center rounded m-10">
+          <h1 className="text-lg font-bold mb-4">
+            {job.jobTitle} - Job ID: {job.id}
+          </h1>
+          <p className="text-gray-600 mb-4">
+            Job Description: {job.description}
+          </p>
+
+          <div className="flex justify-center">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <Link href={`/careers/${job.id}/apply`}>Apply for this Job</Link> {/*Not sure why this is going to the wrong page */}
+            </button>
+          </div>
         </div>
       </main>
     </>

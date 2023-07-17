@@ -10,7 +10,7 @@ function JobPosting({ job }: {job:Job}) {
         <div className="col-span-2 md:col-span-1">
           <div className="text-s text-gray-4 m-4">ID: {job.JobID}</div>
           <Link
-            href={`/job-description/${job.JobID}`}
+            href={`/careers/${job.JobID}`}
             className="text-blue-500 text-lg font-bold m-4"
           >
             {job.JobTitle}
