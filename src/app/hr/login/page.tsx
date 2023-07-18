@@ -1,36 +1,19 @@
-import { redirect } from 'next/navigation'
-import { cookies } from 'next/headers'
+"use client"
+
+import { useState } from 'react';
 import Logo from "@/components/Logo";
 import Link from 'next/link';
 import NavBar from '@/components/navbar';
-
-
-/*
-TOTALLY TEMPORARY TO HELP ME TEST "LOGIN LOGIC" IN THE HR JOB POSTINGS VIEW /HR
-
-You can change up the return () with the actual styling
-*/
-
-async function addCookie(data: any) {
-  'use server'
-  //validate request
-
-  //do SQL stuff
-
-  //give user login cookie
-  cookies().set('userID', 'John Johnson')
-
-  //redirect
-  redirect("./hr")
-}
+import addCookie from '@/api/addCookie';
 
 
 export default function HRLogin(){
-      'use client'
       //These are here for when functionality is added later
+      const [thing, addThing] = useState(0);
       const email = '';
       const pass = '';
-     
+      console.log(thing);
+      addThing(12);
 
       return (
         <>
