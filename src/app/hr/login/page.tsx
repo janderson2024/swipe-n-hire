@@ -9,15 +9,24 @@ import NavBar from '@/components/navbar';
 TOTALLY TEMPORARY TO HELP ME TEST "LOGIN LOGIC" IN THE HR JOB POSTINGS VIEW /HR
 
 You can change up the return () with the actual styling
-
 */
+
+async function addCookie(data: any) {
+  'use server'
+  //validate request
+
+  //do SQL stuff
+
+  //give user login cookie
+  cookies().set('userID', 'John Johnson')
+
+  //redirect
+  redirect("./hr")
+}
+
+
 export default function HRLogin(){
-    async function addCookie(data: any) {
-        'use server'
-        cookies().set('userID', 'John Johnson')
-        redirect("./hr")
-      }
-     
+      'use client'
       //These are here for when functionality is added later
       const email = '';
       const pass = '';
@@ -33,7 +42,7 @@ export default function HRLogin(){
             <div className="text-2xl font-bold m-5 text-center"><Logo /></div>
               <h1 className="text-2xl block text-center font-semibold text-purple-700">Sign In</h1>
               <hr className='mt-3'></hr>
-              <form>
+              <form action={addCookie} method='POST'>
               <div className='mt-3'> 
                 <label htmlFor="email" className="block text-base mb-2">Email Address</label>
                 <input type = "email" placeholder="example@gmail.com" 
@@ -57,10 +66,6 @@ export default function HRLogin(){
               </div>
             </div>
           </main>
-  
-        <form action={addCookie}>
-          <button type="submit">Add a login cookie</button>
-        </form>
         </>
       )
 }
