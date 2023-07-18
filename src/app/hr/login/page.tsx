@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Logo from "@/components/Logo";
 import Link from 'next/link';
 import NavBar from '@/components/navbar';
-import addCookie from '@/api/addCookie';
+import addCookie from '@/backend/addCookie';
 
 
 export default function HRLogin(){
