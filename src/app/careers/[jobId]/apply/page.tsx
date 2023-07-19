@@ -21,7 +21,7 @@ export default function Apply() {
       setTimeout(() => {
         setIsSubmitDisabled(false);
         setIsSubmitted(false);
-      }, 10000);
+      }, 5000);
     }
   }, [isSubmitted]);
 
