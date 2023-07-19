@@ -8,11 +8,10 @@ import BackArrow from "@/components/BackArrow";
 import TermsModal from "@/components/TermsModal";
 import BackToOpenings from "@/components/BackToOpenings";
 
-
-
 export default function Apply() {
   const [showModal, setShowModal] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Function to handle checkbox click
   const handleCheckboxClick = () => {
@@ -34,20 +33,56 @@ export default function Apply() {
     console.log(file);
   };
 
+  // Function to check if the checkbox is checked
+  const isSubmitDisabled = !isChecked;
+
+  // Function to handle form submission
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    if (isSubmitDisabled || isSubmitting) {
+      return;
+    }
+
+    // Simulate form submission (you can replace this with your actual form submission logic)
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 10000); // 10 seconds delay before resetting to "Submit"
+  };
+
+  // Function to get the text of the submit button
+  const getSubmitButtonText = () => {
+    if (isSubmitting) {
+      return "Submitted";
+    }
+    return "Submit";
+  };
+
+  // Function to get the class name for the submit button
+  const getSubmitButtonClass = () => {
+    let className =
+      "bg-purple-700 hover:bg-purple-900 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4";
+    if (isSubmitDisabled) {
+      className += " bg-gray-500 cursor-not-allowed"; // Add gray purple color and disable the cursor
+    }
+    return className;
+  };
+
+
   return (
     <>
       <NavBar LeftItem={Logo} RightItem={BackToOpenings} />
       <main className="flex flex-col items-center justify-center min-h-screen">
         <div className="text-center">
           <Link href="./" className="text-blue-700 flex items-center">
-            <BackArrow/>
+            <BackArrow />
             View Job Description
           </Link>
           <h2 className="text-center text-lg font-bold m-2">Position Title</h2>
           <p className="text-center text-gray-600">Job ID: XYZ123</p>
         </div>
         <div className="w-full md:w-2/3 lg:w-1/3 p-6 rounded">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="text-center">
               <label htmlFor="position">Apply for this position:</label>
             </div>
@@ -99,10 +134,11 @@ export default function Apply() {
             </label>
 
             <input
-              type="submit"
-              value="Submit"
-              className="bg-purple-700 hover:bg-purple-900 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4"
-            />
+          type="submit"
+          value={getSubmitButtonText()} // Change the text based on submission status
+          className={getSubmitButtonClass()} // Apply the class based on the checkbox status
+          disabled={isSubmitDisabled || isSubmitting} // Disable the button if the checkbox is not checked or submission is in progress
+        />
             {/* Checkbox for Terms and Conditions */}
             <div className="flex items-center justify-center mt-4">
               <input
