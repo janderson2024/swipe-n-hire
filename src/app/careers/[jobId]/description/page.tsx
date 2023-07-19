@@ -39,7 +39,7 @@ function JobDescription() {
 
           <div className="flex justify-center">
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              <Link href="/">Apply for this Job</Link> {/*Not sure why this is going to the wrong page */}
+              <Link href="/careers/apply">Apply for this Job</Link> {/*Not sure why this is going to the wrong page */}
             </button>
           </div>
         </div>
