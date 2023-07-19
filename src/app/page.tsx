@@ -1,3 +1,5 @@
+//require('dotenv').config({ path: '.env.local' });
+
 import Image from 'next/image'
 
 export default function Home() {
