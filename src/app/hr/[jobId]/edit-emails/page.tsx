@@ -1,39 +1,6 @@
-import Link from "next/link";
-import NavBar from "@/components/navbar"
-import HRProfileImage from "@/components/HRProfileImage";
-
-function BackToOpenings() {
-    return (
-      <Link href="../" className="text-blue-500">
-        &lt; back to openings
-      </Link>
-    );
-  }
-
-  function PostingsNavBar() {
-    return  (
-      <><Link href="/hr/{jobId}/edit-posting">
-        Edit Posting
-      </Link>
-      <Link href="/hr/{jobId}/resumes">
-          Resumes
-      </Link>
-      <Link href="/hr/{jobId}/edit-emails">
-        Customize Emails
-      </Link>
-      </>
-    );
-  }
-
 export default function EditEmails() {
     return (
       <>
-      <div>
-        <NavBar
-          LeftItem={BackToOpenings}
-          CenterItem={PostingsNavBar}
-          RightItem={HRProfileImage}/>
-      </div>
       <div>
         <h1 className="text-2xl font-bold m-5 text-center">Job Name</h1> 
         <h2 className="text-2xl block text-center font-semibold text-purple-700">Customize Emails</h2>
