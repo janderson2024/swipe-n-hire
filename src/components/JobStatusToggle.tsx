@@ -1,7 +1,7 @@
 import { Job } from "@/types/job";
 
-export default function JobStatusToggle({ job }: { job: Job }) {
-  const labelLinker = "job" + job.JobID + "toggle";
+export default function JobStatusToggle({ job }: { job: any }) {
+  const labelLinker = "job" + job.Job_ID + "toggle";
 
   return (
     <label
@@ -17,7 +17,7 @@ export default function JobStatusToggle({ job }: { job: Job }) {
           type="checkbox"
           id={labelLinker}
           className="peer sr-only"
-          defaultChecked={!job.JobOpen}
+          defaultChecked={job.Job_Status == "closed"}
         />
 
         <div

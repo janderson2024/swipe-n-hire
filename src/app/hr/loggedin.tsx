@@ -49,8 +49,8 @@ function CenterTitle() {
     );
   }
   
-  function HRJobControls({ job }: { job: Job }) {
-    const HrLink = "/hr/" + job.JobID + "/edit-posting";
+  function HRJobControls({ job }: { job: any }) {
+    const HrLink = "/hr/" + job.Job_ID + "/edit-posting";
   
     return (
       <div className="flex flex-row-reverse">
@@ -79,23 +79,23 @@ function CenterTitle() {
             className="flex flex-col justify-self-center hidden sm:flex"
           >
             <Link
-              href={"/hr/" + job.JobID + "/resumes"}
+              href={"/hr/" + job.Job_ID + "/resumes"}
               className="text-violet-600 text-base font-bold underline lg:text-lg"
             >
-              {job.JobOpenApplications} Open Applications
+              {job.Open_Application_Count} Open Applications
             </Link>
             <span className="text-sm">
-              Accepted: {job.JobAcceptedApplications}
+              Accepted: {job.Accepted_Application_Count}
             </span>
             <span className="text-sm">
-              Rejected: {job.JobRejectedApplications}
+              Rejected: {job.Rejected_Application_Count}
             </span>
           </div>
   
           <div id="creator-toggle" className="flex flex-col justify-evenly">
             <JobStatusToggle job={job} />
             <span className="text-sm hidden sm:block">
-              Created By: {job.JobCreator}
+              Created By: {job.Employee_Name}
             </span>
           </div>
         </div>
@@ -103,10 +103,10 @@ function CenterTitle() {
     );
   }
 
-export default function HRLoggedIn(){
-    const jobs = getTestJobs();
-    var testJob = structuredClone(jobs[0]);
-    testJob.JobID = -1;
+export default function HRLoggedIn(jobs: any){
+    //var testJob = structuredClone(jobs[0]);
+    //testJob.Job_ID = -1;
+
     return (
         <>
     <NavBar
@@ -173,8 +173,8 @@ export default function HRLoggedIn(){
           id="jobs"
           className="flex flex-wrap flex-col content-center mt-5 divide-y-4 divide-slate-600"
         >
-          {jobs.map((job: Job) => (
-            <JobCard key={job.JobID} job={job} RightItem={HRJobControls} />
+          {jobs.jobs.map((job: any) => (
+            <JobCard key={job.Job_ID} job={job} RightItem={HRJobControls} />
           ))}
         </div>
       </main>
