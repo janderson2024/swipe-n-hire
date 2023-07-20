@@ -1,7 +1,13 @@
 "use client";
 import React from "react";
 
-const ApplicationForm = ({ handleSubmit, getSubmitButtonText, isSubmitDisabled }) => {
+interface ApplicationFormProps {
+  handleSubmit: any;
+  getSubmitButtonText: any;
+  isSubmitDisabled: boolean;
+}
+
+const ApplicationForm = ({ handleSubmit, getSubmitButtonText, isSubmitDisabled }: ApplicationFormProps) => {
   const inputFields = [
     {
       id: "firstName",
