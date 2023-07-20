@@ -8,8 +8,11 @@ import addCookie from "@/backend/addCookie";
 
 export default function HRLogin() {
   //These are here for when functionality is added later
+  const [thing, addThing] = useState(0);
   const email = "";
   const pass = "";
+  console.log(thing);
+  addThing(12);
 
   return (
     <>
