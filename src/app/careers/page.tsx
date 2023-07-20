@@ -138,7 +138,7 @@ function JobPosting({ job }: {job:Job}) {
 export default function JobPostings() {
   return (
     <>
-      <NavBar LeftItem={Logo} />
+      <NavBar LeftItem={<Logo/>} />
       <main className="p-8">
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold">Current Openings</h1>

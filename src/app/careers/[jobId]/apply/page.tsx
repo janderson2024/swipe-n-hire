@@ -71,7 +71,7 @@ export default function Apply() {
 
   return (
     <>
-      <NavBar LeftItem={Logo} RightItem={BackToOpenings} />
+      <NavBar LeftItem={<Logo/>} RightItem={BackToOpenings("/careers")} />
       <main className="flex flex-col items-center justify-center min-h-screen">
         <div className="text-center">
           <Link href="./" className="text-blue-700 flex items-center">
