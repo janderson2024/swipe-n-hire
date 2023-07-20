@@ -12,7 +12,6 @@ export default function HRLogin() {
   const email = "";
   const pass = "";
   console.log(thing);
-  addThing(12);
 
   return (
     <>
