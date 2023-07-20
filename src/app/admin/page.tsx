@@ -10,6 +10,7 @@ async function getDeploymentErrors(deploymentID: string) {
     headers: {
       Authorization: bearer,
     },
+    next:{revalidate: 60},
     method: "get",
   });
   const lines = await resp.json();
@@ -37,6 +38,7 @@ async function getDeployments() {
     headers: {
       Authorization: bearer,
     },
+    next:{revalidate: 60},
     method: "get",
   });
 
