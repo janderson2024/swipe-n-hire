@@ -92,7 +92,7 @@ function HRJobControls({ job }: { job: Job }) {
             {job.JobOpenApplications} Open Applications
           </Link>
           <span className="text-sm">
-            Accpted: {job.JobAcceptedApplications}
+            Accepted: {job.JobAcceptedApplications}
           </span>
           <span className="text-sm">
             Rejected: {job.JobRejectedApplications}
