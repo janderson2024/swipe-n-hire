@@ -3,7 +3,7 @@ import Logo from "@/components/Logo";
 import Link from "next/link";
 import { getTestJobs, Job } from "@/types/job";
 
-function JobPosting({ job }: {job:Job}) {
+function JobPosting({ job }: { job: Job }) {
   return (
     <div className="border-b py-4">
       <div className="grid grid-cols-2 gap-4">
@@ -18,7 +18,6 @@ function JobPosting({ job }: {job:Job}) {
           <div className="text-gray-600 ml-4">Posted {job.JobDate}</div>
         </div>
         <div className="flex flex-wrap justify-between md:flex-row md:gap-2 m-4">
-
           <div className="flex items-center">
             <div className="bg-gray-300 p-2 rounded-full">
               <svg
@@ -91,49 +90,6 @@ function JobPosting({ job }: {job:Job}) {
     </div>
   );
 }
-
-/*const jobPostings = [
-  {
-    id: "123",
-    jobTitle: "Software Engineer",
-    postedDate: "July 15, 2023",
-    employmentType: "Full-time",
-    location: "San Francisco, CA",
-    department: "Engineering",
-  },
-  {
-    id: "124",
-    jobTitle: "Product Manager",
-    postedDate: "July 16, 2023",
-    employmentType: "Full-time",
-    location: "New York, NY",
-    department: "Product",
-  },
-  {
-    id: "125",
-    jobTitle: "UX Designer",
-    postedDate: "July 17, 2023",
-    employmentType: "Contract",
-    location: "Los Angeles, CA",
-    department: "Design",
-  },
-  {
-    id: "126",
-    jobTitle: "Data Scientist",
-    postedDate: "July 18, 2023",
-    employmentType: "Full-time",
-    location: "Chicago, IL",
-    department: "Data Science",
-  },
-  {
-    id: "127",
-    jobTitle: "Marketing Specialist",
-    postedDate: "July 19, 2023",
-    employmentType: "Part-time",
-    location: "Seattle, WA",
-    department: "Marketing",
-  },
-];*/
 
 export default function JobPostings() {
   return (
