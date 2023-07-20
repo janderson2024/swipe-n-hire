@@ -1,7 +1,13 @@
 "use client";
 import React from "react";
 
-const TermsCheckbox = ({ isChecked, handleCheckboxClick, openModal }) => {
+interface TermsCheckboxProps {
+  isChecked: boolean,
+  handleCheckboxClick: any,
+  openModal: any
+}
+
+const TermsCheckbox = ({ isChecked, handleCheckboxClick, openModal }: TermsCheckboxProps) => {
   return (
     <>
       <div className="flex items-center justify-center mt-4">
