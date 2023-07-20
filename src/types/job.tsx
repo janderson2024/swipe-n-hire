@@ -43,6 +43,34 @@ export function getTestJobs() {
   return testJobs;
 }
 
+export interface JobDb {
+  Job_ID: number,
+  HR_Creator_ID?: number,
+
+  Job_Name: string,
+  Job_Description?: string,
+  Job_Date_Posted?: string
+
+  Job_Reject_Email?: string,
+  Job_Accepted_Email?: string,
+  
+  Job_Salary?: string,
+  Job_Location?: string,
+  Job_Department?: string,
+  Job_Employment_Type?: string,
+  
+  Job_Status?: "open" | "closed" | "filled",
+
+  Open_Application_Count?: number,
+  Rejected_Application_Count?: number,
+  Accepted_Application_Count?: number
+}
+
+export interface HRJobPostingsDB extends JobDb{
+  Employee_Name: string
+}
+
+
 export interface Job {
   JobID: number;
 

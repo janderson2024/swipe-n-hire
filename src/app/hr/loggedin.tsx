@@ -6,8 +6,9 @@ import Logo from "@/components/Logo";
 import JobStatusToggle from "@/components/JobStatusToggle";
 import JobCard from "@/components/JobCard";
 import Link from "next/link";
+import createNewPosting from "@/backend/createNewPosting";
 
-import { getTestJobs, Job } from "@/types/job";
+import { getTestJobs, HRJobPostingsDB, Job, JobDb } from "@/types/job";
 
 function CenterTitle() {
     return <span className="text-xl font-bold">Current Postings</span>;
@@ -49,7 +50,7 @@ function CenterTitle() {
     );
   }
   
-  function HRJobControls({ job }: { job: any }) {
+  function HRJobControls({ job }: { job: HRJobPostingsDB }) {
     const HrLink = "/hr/" + job.Job_ID + "/edit-posting";
   
     return (
@@ -103,9 +104,7 @@ function CenterTitle() {
     );
   }
 
-export default function HRLoggedIn(jobs: any){
-    //var testJob = structuredClone(jobs[0]);
-    //testJob.Job_ID = -1;
+export default function HRLoggedIn({jobs}:{jobs: HRJobPostingsDB[]}){
 
     return (
         <>
@@ -119,9 +118,11 @@ export default function HRLoggedIn(jobs: any){
           id="topcontrols"
           className="flex justify-around border-b-2 border-slate-500 p-2"
         >
-          <button className="p-4 border-4 border-slate-700">
+          <form action={createNewPosting}>
+          <button className="p-4 border-4 border-slate-700" type="submit">
             + New Posting
           </button>
+          </form>
 
           <ToggleSwitch />
 
@@ -173,7 +174,7 @@ export default function HRLoggedIn(jobs: any){
           id="jobs"
           className="flex flex-wrap flex-col content-center mt-5 divide-y-4 divide-slate-600"
         >
-          {jobs.jobs.map((job: any) => (
+          {jobs.map((job: HRJobPostingsDB) => (
             <JobCard key={job.Job_ID} job={job} RightItem={HRJobControls} />
           ))}
         </div>

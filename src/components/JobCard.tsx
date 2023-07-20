@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-import { Job } from "@/types/job";
+import { HRJobPostingsDB, JobDb } from "@/types/job";
 
 interface JobCardProps {
-  job: any;
-  RightItem?: React.FC<{ job: any }>;
+  job: HRJobPostingsDB;
+  RightItem?: React.FC<{ job: HRJobPostingsDB }>;
 }
 
 export default function JobCard({ job, RightItem }: JobCardProps) {
