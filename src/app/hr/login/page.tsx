@@ -7,11 +7,12 @@ import NavBar from "@/components/navbar";
 import addCookie from "@/backend/addCookie";
 
 export default function HRLogin() {
-  //These are here for when functionality is added later
   const [thing, addThing] = useState(0);
-  const email = "";
-  const pass = "";
-  console.log(thing);
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+
+  console.log(email);
+  console.log(pass);
 
   return (
     <>
@@ -27,12 +28,15 @@ export default function HRLogin() {
             Sign In
           </h1>
           <hr className="mt-3"></hr>
+
           <form action={addCookie} method="POST">
             <div className="mt-3">
               <label htmlFor="email" className="block text-base mb-2">
                 Email Address
               </label>
               <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 placeholder="example@gmail.com"
                 id="email"
@@ -45,6 +49,8 @@ export default function HRLogin() {
                 Password
               </label>
               <input
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
                 type="password"
                 placeholder="********"
                 id="password"
