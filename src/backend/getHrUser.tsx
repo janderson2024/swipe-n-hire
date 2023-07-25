@@ -8,3 +8,9 @@ export default async function getHrUser() {
   console.log(userID);
   return userID;
 }
+
+export async function getHrUserId() {
+  const cookieStore = cookies();
+  const userID = cookieStore.get("userID");
+  return userID?.value;
+}

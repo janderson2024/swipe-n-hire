@@ -67,6 +67,8 @@ export interface JobDb {
 }
 
 export interface HRJobPostingsDB extends JobDb{
+  Job_Date_Posted: string
+  Open_Application_Count: number,
   Employee_Name: string
 }
 
