@@ -1,7 +1,14 @@
-import { Job } from "@/types/job";
+import { JobDb } from "@/types/job";
+import { updateJobStatus } from "@/backend/editJobPosting";
 
-export default function JobStatusToggle({ job }: { job: any }) {
+
+export default function JobStatusToggle({ job }: { job: JobDb }) {
   const labelLinker = "job" + job.Job_ID + "toggle";
+
+  const sendChangeToServer = async (event:any) => {
+    const sendChange = await updateJobStatus(job.Job_ID, event.target.checked);
+    console.log(sendChange);
+  }
 
   return (
     <label
@@ -18,6 +25,7 @@ export default function JobStatusToggle({ job }: { job: any }) {
           id={labelLinker}
           className="peer sr-only"
           defaultChecked={job.Job_Status == "closed"}
+          onChange={sendChangeToServer}
         />
 
         <div
@@ -45,5 +53,6 @@ export default function JobStatusToggle({ job }: { job: any }) {
       </div>
       <span className="pl-2">Closed</span>
     </label>
+
   );
 }
