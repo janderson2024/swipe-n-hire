@@ -8,6 +8,7 @@ import TermsModal from "@/components/TermsModal";
 import BackToOpenings from "@/components/BackToOpenings";
 import Checkbox from "@/components/Checkbox";
 import ApplicationForm from "@/components/ApplyForm";
+import createNewApplication from "@/backend/createNewApplication";
 
 export default function Apply() {
   const [showModal, setShowModal] = useState(false);
@@ -44,7 +45,7 @@ export default function Apply() {
     if (!isChecked) {
       return;
     }
-
+    createNewApplication(...data);
     setIsSubmitted(true);
 
     // Simulate an API call or form submission
