@@ -10,7 +10,7 @@ export default async function addCookie(data: any) {
     //do SQL stuff
   
     //give user login cookie
-    cookies().set('userID', "1")
+    cookies().set('userID', "2")
   
     //redirect
     redirect("./hr")

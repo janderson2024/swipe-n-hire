@@ -7,23 +7,13 @@ import ApplicantJobPostings from "@/backend/JobsDb";
 import JobPosting from "@/components/JobPosting";
 
 export default function JobPostings() {
-  const [jobs, setJobs] = useState<ApplicantJobs[]>([]);
+  const [jobs, setJobs] = useState<JobDb[]>([]);
 
   useEffect(() => {
     async function fetchJobs() {
       try {
         const jobsFromDB: JobDb[] = await ApplicantJobPostings();
-        console.log(jobsFromDB);
-        const convertedJobs: ApplicantJobs[] = jobsFromDB.map((job) => ({
-          JobID: job.JobID,
-          JobTitle: job.JobTitle,
-          JobDate: job.Job_DatePosted,
-          JobSalary: job.JobSalary,
-          JobDepartment: job.JobDepartment,
-          JobEmployment: job.JobEmployment,
-          JobLocation: job.JobLocation
-        }));
-        setJobs(convertedJobs);
+        setJobs(jobsFromDB);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
@@ -63,7 +53,7 @@ export default function JobPostings() {
         </div>
         <div className="mt-8 border border-black rounded">
           {jobs.map((job) => (
-            <JobPosting key={job.JobID} job={job} />
+            <JobPosting key={job.Job_ID} job={job} />
           ))}
         </div>
       </main>

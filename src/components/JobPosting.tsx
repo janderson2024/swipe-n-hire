@@ -1,19 +1,19 @@
 "use client"
 import Link from "next/link";
-import { ApplicantJobs } from "@/types/job";
+import { JobDb } from "@/types/job";
 
-const JobPosting: React.FC<JobPostingProps> = ({ job }) => {
+export default function JobPosting({ job }: {job: JobDb}) {
   return (
     <div className="border-b py-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-2 md:col-span-1">
-          <div className="text-s text-gray-4 m-4">ID: {job.JobID}</div>
+          <div className="text-s text-gray-4 m-4">ID: {job.Job_ID}</div>
           <div className="text-blue-500 text-lg font-bold m-4">
-            <Link href={`/careers/${job.JobID}`}>
-              {job.JobTitle}
+            <Link href={`/careers/${job.Job_ID}`}>
+              {job.Job_Name}
             </Link>
           </div>
-          <div className="text-gray-600 ml-4">Posted {job.JobDate}</div>
+          <div className="text-gray-600 ml-4">Posted {job.Job_Date_Posted}</div>
         </div>
         <div className="flex flex-wrap justify-between md:flex-row md:gap-2 m-4">
           <div className="flex items-center">
@@ -38,7 +38,7 @@ const JobPosting: React.FC<JobPostingProps> = ({ job }) => {
                 />
               </svg>
             </div>
-            <div className="ml-2">{job.JobEmployment}</div>
+            <div className="ml-2">{job.Job_Employment_Type}</div>
           </div>
           <div className="flex items-center">
             <div className="bg-gray-300 p-2 rounded-full">
@@ -62,7 +62,7 @@ const JobPosting: React.FC<JobPostingProps> = ({ job }) => {
                 />
               </svg>
             </div>
-            <div className="ml-2">{job.JobLocation}</div>
+            <div className="ml-2">{job.Job_Location}</div>
           </div>
           <div className="flex items-center">
             <div className="bg-gray-300 p-2 rounded-full">
@@ -81,12 +81,10 @@ const JobPosting: React.FC<JobPostingProps> = ({ job }) => {
                 />
               </svg>
             </div>
-            <div className="ml-2">{job.JobDepartment}</div>
+            <div className="ml-2">{job.Job_Department}</div>
           </div>
         </div>
       </div>
     </div>
   );
 };
-
-export default JobPosting;

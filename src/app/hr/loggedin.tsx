@@ -129,8 +129,6 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
       return a.Employee_Name.localeCompare(b.Employee_Name);
     } else if (sorting == "unseen-apps") {
       return b.Open_Application_Count - a.Open_Application_Count;
-    } else if (sorting == "status") {
-      return b.Open_Application_Count - a.Open_Application_Count;
     }
     return a.Job_ID - b.Job_ID;
   });
@@ -244,7 +242,6 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
                   <option value="title">Title</option>
                   <option value="creator">Creator</option>
                   <option value="unseen-apps">Unseen Applications</option>
-                  <option value="status">Application Status</option>
                 </select>
               </div>
             </div>
