@@ -90,3 +90,14 @@ export interface Job {
   JobAcceptedApplications: number;
   JobRejectedApplications: number;
 }
+
+export interface ApplicantJobs {
+  JobID: number;
+  JobTitle: string;
+  JobDate?: string;
+  JobSalary?: string;
+  JobDepartment?: string;
+  JobEmployment?: string;
+  JobLocation?: string;
+
+}
