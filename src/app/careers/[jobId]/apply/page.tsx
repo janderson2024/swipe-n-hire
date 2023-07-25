@@ -45,7 +45,7 @@ export default function Apply() {
     if (!isChecked) {
       return;
     }
-    createNewApplication(...data);
+    //createNewApplication(...data);
     setIsSubmitted(true);
 
     // Simulate an API call or form submission
