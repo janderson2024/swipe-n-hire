@@ -7,9 +7,6 @@ export default async function updateHREmails(
   accept: string,
   reject: string
 ) {
-  const acceptedEmail = accept;
-  console.log(acceptedEmail);
-
   const updateDB =
     "UPDATE Jobs SET Job_Accepted_Email = ?, Job_Rejected_Email = ? WHERE Job_ID = ?";
 

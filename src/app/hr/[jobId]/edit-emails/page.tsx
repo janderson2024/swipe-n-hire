@@ -1,5 +1,6 @@
 "use client";
-import updateHREmails from "@/backend/hrDbFunctions";
+import updateHREmails from "@/backend/dbFunctions";
+import dbFunctions from "@/backend/updateHRJobPosting";
 import { useState } from "react";
 
 export default function EditEmails({ params }: { params: { jobId: string } }) {
@@ -9,9 +10,6 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
   const [rejectionEmail, setRejectionEmail] = useState(
     "Enter rejection email here"
   );
-
-  console.log(interviewEmail);
-  console.log(rejectionEmail);
 
   const changesSubmitted = async function () {
     await updateHREmails(params.jobId, interviewEmail, rejectionEmail);
