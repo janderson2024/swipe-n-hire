@@ -1,5 +1,5 @@
 "use client";
-import updateHREmails from "@/backend/hrDbFunctions";
+import updateHREmails from "@/backend/dbFunctions";
 import { useState } from "react";
 
 export default function EditEmails({ params }: { params: { jobId: string } }) {
