@@ -1,18 +1,30 @@
 "use client";
-
-import { useState } from "react";
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import NavBar from "@/components/navbar";
-import addCookie from "@/backend/addCookie";
+import { loginUser } from "@/backend/HrUser";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function HRLogin() {
-  const [thing, addThing] = useState(0);
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const router = useRouter();
+  const [cssHidden, setCssHidden] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  console.log(email);
-  console.log(pass);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function submitLoginData() {
+    const resp = await loginUser(email, password);
+    //if we make it to this point, there is an error. Otherwise it redirects
+
+    if (resp.error) {
+      setCssHidden(false);
+      setErrorMsg(resp.error);
+    } else {
+      router.push("/hr");
+    }
+  }
 
   return (
     <>
@@ -29,15 +41,18 @@ export default function HRLogin() {
           </h1>
           <hr className="mt-3"></hr>
 
-          <form action={addCookie} method="POST">
+          <div id="form">
             <div className="mt-3">
               <label htmlFor="email" className="block text-base mb-2">
                 Email Address
               </label>
               <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                required
                 type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 placeholder="example@gmail.com"
                 id="email"
                 name="email"
@@ -49,10 +64,13 @@ export default function HRLogin() {
                 Password
               </label>
               <input
-                value={pass}
-                onChange={(e) => setPass(e.target.value)}
+                required
                 type="password"
+                value={password}
                 placeholder="********"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
                 id="password"
                 name="password"
                 className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"
@@ -60,13 +78,22 @@ export default function HRLogin() {
             </div>
             <div className="mt-5">
               <button
-                type="submit"
+                type="button"
+                onClick={submitLoginData}
                 className="border-2 border-purple-700 bg-purple-700 text-white py-1 w-full"
               >
                 Sign In
               </button>
             </div>
-          </form>
+          </div>
+          <div
+            className={
+              "border-2 py-1 w-full border-red-700 bg-red-500 text-black text-center mt-2 rounded font-bold " +
+              (cssHidden && "hidden")
+            }
+          >
+            {errorMsg}
+          </div>
           <div className="mt-3 text-center text-xs font-semibold">
             <Link href="/hr/forgot-password" className="text-purple-600">
               Forgot Password?

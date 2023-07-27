@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { redirect } from "next/navigation";
-import getHrUser from "@/backend/getHrUser";
+import { getCurrentHrID } from "@/backend/HrUser";
 
 export const metadata: Metadata = {
   title: "Real Company HR Portal",
@@ -19,8 +19,8 @@ export default async function RootLayout({
   if (loginNotNeeded) {
     return <>{children}</>;
   }
-  const user = await getHrUser();
-  if (!user) {
+
+  if (! await getCurrentHrID()) {
     redirect("/hr/login");
   }
   return <>{children}</>;

@@ -3,7 +3,7 @@
 import { HRJobPostingsDB } from "@/types/job";
 import HRLoggedIn from "./loggedin";
 import dbConn from "@/backend/databaseConnect";
-import { getHrUserId } from "@/backend/getHrUser";
+import { getCurrentHrID } from "@/backend/HrUser";
 
 
 export default async function HRJobPostings() {
@@ -110,7 +110,7 @@ export default async function HRJobPostings() {
   const result = await dbConn.execute(getJobsSQL);
   const jobs: HRJobPostingsDB[] = result.rows as HRJobPostingsDB[];
 
-  const myUserID = await getHrUserId();
+  const myUserID = await getCurrentHrID();
   if(!myUserID){
     return; //shuts typescript up. you can never get to here
   }
