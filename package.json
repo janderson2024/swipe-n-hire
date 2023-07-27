@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@planetscale/database": "^1.8.0",
-    "@types/node": "20.4.1",
-    "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "ansi-to-html": "^0.7.2",
     "autoprefixer": "10.4.14",
@@ -22,7 +20,11 @@
     "postcss": "8.4.25",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "3.3.2",
+    "tailwindcss": "3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "20.4.4",
+    "@types/react": "18.2.16",
     "typescript": "5.1.6"
   }
 }

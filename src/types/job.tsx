@@ -99,5 +99,17 @@ export interface ApplicantJobs {
   JobDepartment?: string;
   JobEmployment?: string;
   JobLocation?: string;
+}
 
+export interface Applications {
+  Job_ID: number,
+  Application_ID?: number,
+  Applicant_Name: string,
+  Applicant_Email?: string,
+  Applicant_Phone?: string,
+  Applicant_Links?: string,
+  Applicant_Status?: string,
+  Applicant_Legal?: 1,
+  Application_Date?: Date,
+  Applicant_Resume?: string,
 }

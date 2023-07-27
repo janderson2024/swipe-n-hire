@@ -1,5 +1,4 @@
 "use server"
-
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 import Link from "next/link";
@@ -17,9 +16,7 @@ async function getJob(jobId: string) {
 }
 
 async function JobDescription({ params }: { params: { jobId: string } }) {
-  console.log("Hello")
   const job = await getJob(params.jobId);
-  console.log("Hi")
 
   return (
     <>
@@ -46,7 +43,6 @@ async function JobDescription({ params }: { params: { jobId: string } }) {
           <div className="flex justify-center">
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               <Link href={`/careers/${job.Job_ID}/apply`}>Apply for this Job</Link>{" "}
-              {/*Not sure why this is going to the wrong page */}
             </button>
           </div>
         </div>
