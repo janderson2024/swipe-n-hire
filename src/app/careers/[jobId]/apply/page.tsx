@@ -16,6 +16,9 @@ interface ApplicationFormProps {
   handleSubmit: any;
   getSubmitButtonText: any;
   isSubmitDisabled: boolean;
+  isChecked: boolean;
+  handleCheckboxClick: (event: any) => void;
+  openModal: () => void;
 }
 
 const ApplicationForm = ({
@@ -24,6 +27,9 @@ const ApplicationForm = ({
   handleSubmit,
   getSubmitButtonText,
   isSubmitDisabled,
+  isChecked,
+  handleCheckboxClick,
+  openModal,
 }: ApplicationFormProps) => {
   return (
     <form
@@ -87,11 +93,15 @@ const ApplicationForm = ({
         type="file"
         id="fileInput"
         name="Applicant_Resume"
-        // onChange={handleFileChange} // You can add back this if needed
+        // onChange={handleFileChange} // Add back this if needed
         accept=".pdf,.doc,.docx"
         style={{ display: "none" }}
       />
-
+      <Checkbox
+        isChecked={isChecked}
+        handleCheckboxClick={handleCheckboxClick}
+        openModal={openModal}
+      />
       <button
         type="button"
         onClick={handleSubmit}
@@ -157,19 +167,14 @@ export default function Apply({ params }: { params: { jobId: string } }) {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    //* if (!isChecked) {
-    //return;
 
     try {
-      // Call the createNewApplication function with formData
       const serverResponse = await createNewApplication(formData);
 
-      // Here, you can use the serverResponse if needed
       console.log(serverResponse);
 
       setIsSubmitted(true);
 
-      // Simulate an API call or form submission
       setTimeout(() => {
         setIsSubmitDisabled(false);
         setIsSubmitted(false);
@@ -204,12 +209,11 @@ export default function Apply({ params }: { params: { jobId: string } }) {
           handleChange={handleChange}
           getSubmitButtonText={getSubmitButtonText}
           isSubmitDisabled={isSubmitDisabled}
-        />
-        <Checkbox
           isChecked={isChecked}
           handleCheckboxClick={handleCheckboxClick}
           openModal={openModal}
         />
+
         {showModal && (
           <TermsModal show={showModal} onClose={handleModalClose} />
         )}
