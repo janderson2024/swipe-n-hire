@@ -11,7 +11,7 @@ export default function JobCard({ job, RightItem }: JobCardProps) {
   const jobLink = "/careers/" + job.Job_ID;
   return (
     <div className="flex w-5/6 flex-col flex-wrap sm:flex-nowrap sm:flex-row pt-2">
-      <div id="leftSide" className="flex flex-row grow sm:flex-col sm:grow-0">
+      <div id="leftSide" className="flex flex-row sm:w-1/3 sm:flex-col sm:grow-0">
         <span className="pl-2 text-slate-400 text-sm hidden sm:block">
           ID: #{job.Job_ID}
         </span>
@@ -24,7 +24,7 @@ export default function JobCard({ job, RightItem }: JobCardProps) {
           Posted: {job.Job_Date_Posted}
         </span>
       </div>
-      <div id="rightSide" className="grow">
+      <div id="rightSide" className="grow sm:w-2/3">
         {RightItem && <RightItem job={job} />}
       </div>
     </div>
