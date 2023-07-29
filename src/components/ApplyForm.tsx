@@ -86,12 +86,6 @@ const ApplicationForm = ({
         accept=".pdf,.doc,.docx"
         style={{ display: "none" }}
       />
-      <button
-        type="submit"
-        value={getSubmitButtonText()}
-        className="bg-purple-700 hover:bg-purple-900 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4"
-        disabled={isSubmitDisabled}
-      />
     </form>
   );
 };

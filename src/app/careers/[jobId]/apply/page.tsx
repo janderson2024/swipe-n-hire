@@ -95,10 +95,11 @@ const ApplicationForm = ({
       <button
         type="button"
         onClick={handleSubmit}
-        value={getSubmitButtonText()}
         className="bg-purple-700 hover:bg-purple-900 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4"
         disabled={isSubmitDisabled}
-      />
+      >
+        {getSubmitButtonText()}
+      </button>
     </form>
   );
 };
@@ -107,7 +108,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
   const [showModal, setShowModal] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
 
   const [formData, setFormData] = useState({
     Job_ID: params.jobId,
@@ -130,11 +131,12 @@ export default function Apply({ params }: { params: { jobId: string } }) {
   }, [isSubmitted]);
 
   const handleCheckboxClick = (event: any) => {
-    console.log(event)
     setFormData((prevFormData) => ({
       ...prevFormData,
-      ["Applicant_Legal"]: event.target.checked
+      ["Applicant_Legal"]: event.target.checked,
     }));
+
+    setIsSubmitDisabled(!event.target.checked);
   };
 
   const handleModalClose = () => {
@@ -155,9 +157,8 @@ export default function Apply({ params }: { params: { jobId: string } }) {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-   //* if (!isChecked) {
-      //return;
-  
+    //* if (!isChecked) {
+    //return;
 
     try {
       // Call the createNewApplication function with formData
@@ -197,7 +198,6 @@ export default function Apply({ params }: { params: { jobId: string } }) {
           <h2 className="text-center text-lg font-bold m-2">Position Title</h2>
           <p className="text-center text-gray-600">Job ID: {params.jobId}</p>
         </div>
-
         <ApplicationForm
           formData={formData}
           handleSubmit={handleSubmit}
@@ -205,7 +205,6 @@ export default function Apply({ params }: { params: { jobId: string } }) {
           getSubmitButtonText={getSubmitButtonText}
           isSubmitDisabled={isSubmitDisabled}
         />
-
         <Checkbox
           isChecked={isChecked}
           handleCheckboxClick={handleCheckboxClick}
