@@ -11,6 +11,7 @@ import Checkbox from "@/components/Checkbox";
 import createNewApplication from "@/backend/createNewApplication";
 import "@uploadthing/react/styles.css";
 import { UploadButton } from "@uploadthing/react";
+import { OurFileRouter } from "@/app/api/uploadthing/core"
 
 interface ApplicationFormProps {
   formData: any;
@@ -89,7 +90,7 @@ const ApplicationForm = ({
       <div className="text-center pb-3 font-semibold">
       <h3>Upload Your Resume:</h3>
      </div>
-      <UploadButton
+      <UploadButton<OurFileRouter>
         endpoint="imageUploader"
         onClientUploadComplete={(res:any) => {
           // Do something with the response
