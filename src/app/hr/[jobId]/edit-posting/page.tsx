@@ -17,7 +17,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
 
   const getJobData = async () => {
     const findJob = await getJob(params.jobId);
-    setJobStatus(findJob.Job_Status);
+    //setJobStatus(findJob.Job_Status);
     setJobTitle(findJob.Job_Name);
     setDepartment(findJob.Job_Department);
     setEmplType(findJob.Job_Employment_Type);
