@@ -11,5 +11,4 @@ export default async function updateHREmails(
     "UPDATE Jobs SET Job_Accepted_Email = ?, Job_Rejected_Email = ? WHERE Job_ID = ?";
 
   const emailUpdated = await dbConn.execute(updateDB, [accept, reject, jobId]);
-  console.log("DB updated successfully");
 }

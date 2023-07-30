@@ -1,14 +1,23 @@
 "use client";
-import updateHREmails from "@/backend/dbFunctions";
-import { useState } from "react";
+import getJob from "@/backend/getJob";
+import updateHREmails from "@/backend/updateHREmails";
+import { useEffect, useState } from "react";
 
 export default function EditEmails({ params }: { params: { jobId: string } }) {
-  const [interviewEmail, setInterviewEmail] = useState(
-    "Enter interview invitation here"
-  );
-  const [rejectionEmail, setRejectionEmail] = useState(
-    "Enter rejection email here"
-  );
+  const [jobTitle, setJobTitle] = useState("");
+  const [interviewEmail, setInterviewEmail] = useState("");
+  const [rejectionEmail, setRejectionEmail] = useState("");
+
+  const getJobData = async () => {
+    const findJob = await getJob(params.jobId);
+    setInterviewEmail(findJob.Job_Accepted_Email);
+    setRejectionEmail(findJob.Job_Rejected_Email);
+    setJobTitle(findJob.Job_Name);
+  };
+
+  useEffect(() => {
+    getJobData();
+  }, []);
 
   const changesSubmitted = async function () {
     await updateHREmails(params.jobId, interviewEmail, rejectionEmail);
@@ -18,7 +27,7 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
   return (
     <>
       <div>
-        <h1 className="text-2xl font-bold m-5 text-center">Job Name</h1>
+        <h1 className="text-2xl font-bold m-5 text-center">{jobTitle}</h1>
         <h2 className="text-2xl block text-center font-semibold text-purple-700">
           Customize Emails
         </h2>
@@ -31,6 +40,7 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
               Interview Invitiation Email
             </label>
             <textarea
+              value={interviewEmail}
               onChange={(e) => setInterviewEmail(e.target.value)}
               id="interviewEmail"
               name="interviewEmail"
@@ -44,6 +54,7 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
               Rejection Email
             </label>
             <textarea
+              value={rejectionEmail}
               onChange={(e) => setRejectionEmail(e.target.value)}
               id="rejectionEmail"
               name="rejectionEmail"
@@ -62,7 +73,6 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
             </button>
           </div>
         </div>
-        {/*Will want to update to display actual job name once functionality set up*/}
       </main>
     </>
   );

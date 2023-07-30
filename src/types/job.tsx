@@ -78,6 +78,8 @@ export interface EditJobDb extends JobDb {
   Job_Department: string;
   Job_Employment_Type: string;
   Job_Description: string;
+  Job_Rejected_Email: string;
+  Job_Accepted_Email: string;
 }
 
 export interface Job {

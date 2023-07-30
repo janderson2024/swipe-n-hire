@@ -15,6 +15,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
 
   const getJobData = async () => {
     const findJob = await getJob(params.jobId);
+    setJobTitle(findJob.Job_Name);
     setDepartment(findJob.Job_Department);
     setEmplType(findJob.Job_Employment_Type);
     setSalaryRange(findJob.Job_Salary);
@@ -162,15 +163,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
                 </button>
               </div>
 
-              <div className="py-2">
-                {/* Toggle Button Here*/}
-                <button
-                  type="button"
-                  className="w-full border-2 border-purple-700 bg-purple-700 text-white px-3 py-1"
-                >
-                  Toggle
-                </button>
-              </div>
+              <div className="py-2">{/* Toggle Button Here*/}</div>
             </div>
           </div>
 
