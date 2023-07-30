@@ -2,6 +2,7 @@ import { getTestJobs, Job } from "@/types/job";
 import BackToOpenings from "@/components/BackToOpenings";
 
 export default function ViewResumes() {
+  const resumeLink = "https://uploadthing.com/f/d2f9819d-1368-4fff-bbcb-a84a3f943de4_updated_resume.pdf";
   return (
     <>
       <main className="px-4">
@@ -29,7 +30,9 @@ export default function ViewResumes() {
           <div className="flex items-center p-4">
             <h2 className="text-l block text-center">Swipe to Reject</h2>
           </div>
-          <div className="flex h-96 w-4/5 bg-gray-100 rounded-md"></div>
+          <div className="h-96 w-4/5 bg-gray-100 rounded-md">
+          <iframe className="w-full h-full border-grey-500 border-2 overflow-y-scroll" src={resumeLink + '#view=FitH&toolbar=0'}></iframe>
+          </div>
           <div className="flex items-center p-4">
             <div>
               <h1 className="text-2xl block text-center"></h1>

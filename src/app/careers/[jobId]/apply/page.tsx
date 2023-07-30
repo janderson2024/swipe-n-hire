@@ -14,6 +14,7 @@ import { UploadButton } from "@uploadthing/react";
 
 interface ApplicationFormProps {
   formData: any;
+  setFormData:any;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: any;
   getSubmitButtonText: any;
@@ -25,6 +26,7 @@ interface ApplicationFormProps {
 
 const ApplicationForm = ({
   formData,
+  setFormData,
   handleChange,
   handleSubmit,
   getSubmitButtonText,
@@ -89,9 +91,16 @@ const ApplicationForm = ({
      </div>
       <UploadButton
         endpoint="imageUploader"
-        onClientUploadComplete={(res) => {
+        onClientUploadComplete={(res:any) => {
           // Do something with the response
           console.log("Files: ", res);
+          console.log(res[0].fileUrl);
+
+          setFormData((prevFormData:any) => ({
+            ...prevFormData,
+            ["Applicant_Resume"]: res[0].fileUrl,
+          }));
+
           alert("Upload Completed");
         }}
         onUploadError={(error: Error) => {
@@ -222,6 +231,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
         </div>
         <ApplicationForm
           formData={formData}
+          setFormData={setFormData}
           handleSubmit={handleSubmit}
           handleChange={handleChange}
           getSubmitButtonText={getSubmitButtonText}

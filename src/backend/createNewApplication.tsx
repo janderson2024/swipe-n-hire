@@ -22,7 +22,7 @@ export default async function createNewApplication(data: any) {
       
     const sqlData=[data.Job_ID, data.Applicant_Name, data.Applicant_Email, data.Applicant_Phone, data.Applicant_Links, data.Applicant_Legal, data.Applicant_Resume]
     const result = await dbConn.execute(createNewApplicationSQL, sqlData);
-    console.log(result);
+    //console.log(result);
 
     const updateJobStatusSQL =
     "UPDATE `Jobs` "+
@@ -30,7 +30,7 @@ export default async function createNewApplication(data: any) {
     "WHERE `Job_ID` = ?;";
 
     const statusResult = await dbConn.execute(updateJobStatusSQL, [data.Job_ID]);
-    console.log(statusResult);
+    //console.log(statusResult);
 
   } catch (error) {
     console.error("Error creating application:", error);
