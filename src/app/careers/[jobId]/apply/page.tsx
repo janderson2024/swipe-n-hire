@@ -9,6 +9,8 @@ import TermsModal from "@/components/TermsModal";
 import BackToOpenings from "@/components/BackToOpenings";
 import Checkbox from "@/components/Checkbox";
 import createNewApplication from "@/backend/createNewApplication";
+import "@uploadthing/react/styles.css";
+import { UploadButton } from "@uploadthing/react";
 
 interface ApplicationFormProps {
   formData: any;
@@ -36,7 +38,7 @@ const ApplicationForm = ({
       action={createNewApplication}
       className="w-full md:w-2/3 lg:w-1/3 p-6 rounded"
     >
-      <div className="text-center">
+      <div className="text-center font-semibold pb-3">
         <label htmlFor="position">Apply for this position:</label>
       </div>
 
@@ -82,8 +84,22 @@ const ApplicationForm = ({
         className="border border-black mx-auto justify-center rounded md block w-2/3 p-2 mb-4"
         placeholder="LinkedIn/portfolio URL"
       />
-
-      <label
+      <div className="text-center pb-3 font-semibold">
+      <h3>Upload Your Resume:</h3>
+     </div>
+      <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={(res) => {
+          // Do something with the response
+          console.log("Files: ", res);
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          // Do something with the error.
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
+     {/*} <label
         htmlFor="fileInput"
         className="bg-purple-700 hover:bg-purple-900 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4 text-center"
       >
@@ -96,7 +112,8 @@ const ApplicationForm = ({
         // onChange={handleFileChange} // Add back this if needed
         accept=".pdf,.doc,.docx"
         style={{ display: "none" }}
-      />
+      /> 
+      */}
       <Checkbox
         isChecked={isChecked}
         handleCheckboxClick={handleCheckboxClick}
@@ -105,7 +122,7 @@ const ApplicationForm = ({
       <button
         type="button"
         onClick={handleSubmit}
-        className="bg-purple-700 hover:bg-purple-900 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4"
+        className="bg-blue-600 hover:bg-blue-800 mx-auto justify-center text-white py-2 px-4 rounded md cursor-pointer block w-32 p-2 mb-4"
         disabled={isSubmitDisabled}
       >
         {getSubmitButtonText()}

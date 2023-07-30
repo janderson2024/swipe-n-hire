@@ -19,7 +19,7 @@ const TermsCheckbox = ({ isChecked, handleCheckboxClick, openModal }: TermsCheck
         />
         <label
           htmlFor="termsCheckbox"
-          className="w-1/2 cursor-pointer text-blue-500 ml-2 hover:text-purple-600 hover:underline"
+          className="w-48 cursor-pointer text-blue-500 ml-2 hover:text-purple-600 hover:underline pb-5"
           onClick={openModal}
         >
           I have read and agree to the Terms of Use
