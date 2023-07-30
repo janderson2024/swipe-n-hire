@@ -3,9 +3,11 @@
 import { useEffect, useState } from "react";
 import updateHRjobPosting from "@/backend/updateHRJobPosting";
 import getJob from "@/backend/getJob";
+import JobStatusToggle from "@/components/JobStatusToggle";
 import { JobDb } from "@/types/job";
 
 export default function EditPosting({ params }: { params: { jobId: string } }) {
+  const [jobStatus, setJobStatus] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [department, setDepartment] = useState("");
   const [emplType, setEmplType] = useState("");
@@ -15,6 +17,8 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
 
   const getJobData = async () => {
     const findJob = await getJob(params.jobId);
+    setJobStatus(findJob.Job_Status);
+    setJobTitle(findJob.Job_Name);
     setDepartment(findJob.Job_Department);
     setEmplType(findJob.Job_Employment_Type);
     setSalaryRange(findJob.Job_Salary);
@@ -163,13 +167,9 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
               </div>
 
               <div className="py-2">
-                {/* Toggle Button Here*/}
-                <button
-                  type="button"
-                  className="w-full border-2 border-purple-700 bg-purple-700 text-white px-3 py-1"
-                >
-                  Toggle
-                </button>
+                
+                {/*add this back*/}
+              {/*<JobStatusToggle Job_ID={Number(params.jobId)} Job_Status={jobStatus} />*/}
               </div>
             </div>
           </div>
