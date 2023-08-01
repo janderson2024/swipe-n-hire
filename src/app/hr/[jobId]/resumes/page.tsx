@@ -2,7 +2,7 @@ import { getTestJobs, Job } from "@/types/job";
 import BackToOpenings from "@/components/BackToOpenings";
 
 export default function ViewResumes() {
-  const resumeLink = "https://uploadthing.com/f/d2f9819d-1368-4fff-bbcb-a84a3f943de4_updated_resume.pdf";
+  const resumeLink = "https://uploadthing.com/f/f9237960-d263-4038-a11d-07d4b7167fef_DennisMBowenResume%20copy.pdf";
   return (
     <>
       <main className="px-4">
