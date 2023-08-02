@@ -37,7 +37,7 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
         <div className="h-min-screen px-10 py-5">
           <div className="mt-3 p-6">
             <label htmlFor="interviewEmail" className="block text-base mb-2">
-              Interview Invitiation Email
+              Interview Invitation Email
             </label>
             <textarea
               value={interviewEmail}
