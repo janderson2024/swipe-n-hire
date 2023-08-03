@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        'main-under-nav': 'calc(100vh - 64px)'
+        'main-under-nav': 'calc(100vh - 64px)',
+        'no-scrollbar': 'calc(100% - 20px)'
       }
     },
   },
