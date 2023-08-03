@@ -103,7 +103,8 @@ export default async function HRJobPostings() {
   "Jobs.Job_Name, Jobs.Job_Status, "+
   "Jobs.Open_Application_Count, Jobs.Rejected_Application_Count, "+
   "Jobs.Accepted_Application_Count, Jobs.Job_Date_Posted "+
-  "from Jobs INNER JOIN HR ON Jobs.HR_Creator_ID = HR.Employee_ID";
+  "FROM Jobs INNER JOIN HR ON Jobs.HR_Creator_ID = HR.Employee_ID " +
+  "WHERE Jobs.Job_Status = 'open' OR  Jobs.Job_Status = 'closed'";
 
   //const jobs: HRJobPostingsDB[] = test_jobs as HRJobPostingsDB[];
   //console.log("using test cache!!!!");
