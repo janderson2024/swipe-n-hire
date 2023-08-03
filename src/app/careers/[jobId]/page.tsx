@@ -18,17 +18,6 @@ async function getJob(jobId: string) {
 async function JobDescription({ params }: { params: { jobId: string } }) {
   const job = await getJob(params.jobId);
 
-  if (!job) {
-    return (
-      <>
-        <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />
-        <main className="flex flex-col items-center justify-center">
-          <p className="text-lg font-bold mb-4">No career openings available.</p>
-        </main>
-      </>
-    );
-  }
-
   return (
     <>
       <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />

@@ -16,7 +16,7 @@ async function JobTitle({ params }: { params: { jobId: string } }) {
 
   return (
       <h1 className="text-lg font-bold mb-4">
-        {job.Job_Name} - Job ID: {job.Job_ID}
+        {job.Job_Name}
       </h1>
   );
 }

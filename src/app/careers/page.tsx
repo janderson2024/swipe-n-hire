@@ -52,9 +52,11 @@ export default function JobPostings() {
           </div>
         </div>
         <div className="mt-8 border border-black rounded">
-          {jobs.map((job) => (
-            <JobPosting key={job.Job_ID} job={job} />
-          ))}
+          {jobs.length === 0 ? (
+            <p className="p-4 text-center">No career openings</p>
+          ) : (
+            jobs.map((job) => <JobPosting key={job.Job_ID} job={job} />)
+          )}
         </div>
       </main>
     </>
