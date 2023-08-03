@@ -1,10 +1,10 @@
-"use server"
+"use server";
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 import Link from "next/link";
 import BackToOpenings from "@/components/BackToOpenings";
 
-import dbConn from "@/backend/databaseConnect"
+import dbConn from "@/backend/databaseConnect";
 import { JobDb } from "@/types/job";
 
 async function getJob(jobId: string) {
@@ -17,6 +17,17 @@ async function getJob(jobId: string) {
 
 async function JobDescription({ params }: { params: { jobId: string } }) {
   const job = await getJob(params.jobId);
+
+  if (!job) {
+    return (
+      <>
+        <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />
+        <main className="flex flex-col items-center justify-center">
+          <p className="text-lg font-bold mb-4">No career openings available.</p>
+        </main>
+      </>
+    );
+  }
 
   return (
     <>
@@ -32,19 +43,23 @@ async function JobDescription({ params }: { params: { jobId: string } }) {
             <p>Location: {job.Job_Location}</p>
           </div>
         </div>
-        <div className="border p-6 w-2/3 justify-center rounded m-10">
           <h1 className="text-lg font-bold mb-4">
             {job.Job_Name} - Job ID: {job.Job_ID}
-          </h1>
-          <p className="text-gray-600 mb-4">
-            Job Description: {job.Job_Description}
-          </p>
-
+          </h1>           
+          <textarea
+              value={job.Job_Description}
+              id="jobDescription"
+              name="jobDescription"
+              placeholder="Enter job description here"
+              rows={8}
+              className="border w-2/3 text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"
+            />
           <div className="flex justify-center">
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              <Link href={`/careers/${job.Job_ID}/apply`}>Apply for this Job</Link>{" "}
+              <Link href={`/careers/${job.Job_ID}/apply`}>
+                Apply for this Job
+              </Link>{" "}
             </button>
-          </div>
         </div>
       </main>
     </>

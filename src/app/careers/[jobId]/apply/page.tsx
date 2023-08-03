@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import NavBar from "@/components/navbar";
-import dbConn from "@/backend/databaseConnect";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import BackArrow from "@/components/BackArrow";
@@ -12,6 +11,7 @@ import createNewApplication from "@/backend/createNewApplication";
 import "@uploadthing/react/styles.css";
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core"
+import ApplicantJobPostings from "@/backend/JobsDb";
 
 interface ApplicationFormProps {
   formData: any;
@@ -109,21 +109,7 @@ const ApplicationForm = ({
           alert(`ERROR! ${error.message}`);
         }}
       />
-     {/*} <label
-        htmlFor="fileInput"
-        className="bg-purple-700 hover:bg-purple-900 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4 text-center"
-      >
-        Upload Resume
-      </label>
-      <input
-        type="file"
-        id="fileInput"
-        name="Applicant_Resume"
-        // onChange={handleFileChange} // Add back this if needed
-        accept=".pdf,.doc,.docx"
-        style={{ display: "none" }}
-      /> 
-      */}
+    
       <Checkbox
         isChecked={isChecked}
         handleCheckboxClick={handleCheckboxClick}
@@ -141,14 +127,28 @@ const ApplicationForm = ({
   );
 };
 
-export default function Apply({ params }: { params: { jobId: string } }) {
+export default function Apply({ params }: { params: { jobId: string, jobTitle: string } }) {
   const [showModal, setShowModal] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [jobs, setJobs] = useState<JobDb[]>([]);
+
+  useEffect(() => {
+    async function fetchJobs() {
+      try {
+        const jobsFromDB: JobDb[] = await ApplicantJobPostings();
+        setJobs(jobsFromDB);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
+    }
+    fetchJobs();
+  }, []);
 
   const [formData, setFormData] = useState({
     Job_ID: params.jobId,
+    Job_Name: params.jobTitle,
     Applicant_Name: "",
     Applicant_Email: "",
     Applicant_Phone: "",
@@ -227,7 +227,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
             <BackArrow />
             View Job Description
           </Link>
-          <h2 className="text-center text-lg font-bold m-2">Position Title</h2>
+          <h2 className="text-center text-lg font-bold m-2">{params.Job_Title}</h2>
           <p className="text-center text-gray-600">Job ID: {params.jobId}</p>
         </div>
         <ApplicationForm
