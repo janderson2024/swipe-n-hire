@@ -2,12 +2,29 @@
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 import { useEffect, useState } from "react";
-import { ApplicantJobs, JobDb } from "@/types/job";
+import { JobDb } from "@/types/job";
 import ApplicantJobPostings from "@/backend/JobsDb";
 import JobPosting from "@/components/JobPosting";
 
 export default function JobPostings() {
   const [jobs, setJobs] = useState<JobDb[]>([]);
+  const [filter, setFilter] = useState(" ");
+  const [filterButton, setFilterButton] = useState(false);
+
+  const toggleFilterButton = () => {
+    setFilterButton(!filterButton);
+  };
+
+  let processedJobs = jobs;
+
+  if (filterButton) {
+    processedJobs = processedJobs.filter((job) => {
+      const possibleFilters = [job.Job_ID.toString(), job.Job_Name];
+      return possibleFilters.some((possibleFilter) => {
+        return possibleFilter?.includes(filter);
+      });
+    });
+  }
 
   useEffect(() => {
     async function fetchJobs() {
@@ -21,6 +38,13 @@ export default function JobPostings() {
     fetchJobs();
   }, []);
 
+  const filteredJobs = jobs.filter((job) => {
+    const possibleFilters = [job.Job_ID.toString(), job.Job_Name];
+    return possibleFilters.some((possibleFilter) =>
+      possibleFilter.includes(filter)
+    );
+  });
+
   return (
     <>
       <NavBar LeftItem={<Logo />} />
@@ -32,6 +56,10 @@ export default function JobPostings() {
               type="text"
               placeholder="Search"
               className="border p-2 rounded-l-md focus:outline-none w-full"
+              value={filter} 
+              onChange={(event) => {
+                setFilter(event.target.value);
+              }}
             />
             <button className="bg-gray-200 p-2 rounded-r-md focus:outline-none">
               <svg
@@ -41,6 +69,7 @@ export default function JobPostings() {
                 strokeWidth={1.5}
                 stroke="currentColor"
                 className="w-6 h-6"
+                onClick={toggleFilterButton}
               >
                 <path
                   strokeLinecap="round"
@@ -52,10 +81,10 @@ export default function JobPostings() {
           </div>
         </div>
         <div className="mt-8 border border-black rounded">
-          {jobs.length === 0 ? (
-            <p className="p-4 text-center">No career openings</p>
+          {filteredJobs.length === 0 ? ( 
+            <p className="p-4 text-center">No postings</p>
           ) : (
-            jobs.map((job) => <JobPosting key={job.Job_ID} job={job} />)
+            filteredJobs.map((job) => <JobPosting key={job.Job_ID} job={job} />)
           )}
         </div>
       </main>

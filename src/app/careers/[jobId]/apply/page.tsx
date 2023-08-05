@@ -10,8 +10,8 @@ import Checkbox from "@/components/Checkbox";
 import createNewApplication from "@/backend/createNewApplication";
 import "@uploadthing/react/styles.css";
 import { UploadButton } from "@uploadthing/react";
-import { OurFileRouter } from "@/app/api/uploadthing/core"
-import ApplicantJobPostings from "@/backend/JobsDb";
+import { OurFileRouter } from "@/app/api/uploadthing/core";
+// import { getJobName } from "@/components/JobTitle";
 
 interface ApplicationFormProps {
   formData: any;
@@ -93,7 +93,6 @@ const ApplicationForm = ({
       <UploadButton<OurFileRouter>
         endpoint="imageUploader"
         onClientUploadComplete={(res:any) => {
-          // Do something with the response
           console.log("Files: ", res);
           console.log(res[0].fileUrl);
 
@@ -105,7 +104,6 @@ const ApplicationForm = ({
           alert("Upload Completed");
         }}
         onUploadError={(error: Error) => {
-          // Do something with the error.
           alert(`ERROR! ${error.message}`);
         }}
       />
@@ -127,28 +125,18 @@ const ApplicationForm = ({
   );
 };
 
-export default function Apply({ params }: { params: { jobId: string, jobTitle: string } }) {
+export default function Apply({ params }: { params: { jobId: string, jobName: string } }) {
   const [showModal, setShowModal] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-  const [jobs, setJobs] = useState<JobDb[]>([]);
+  const [jobName, setJobName] = useState(""); 
 
-  useEffect(() => {
-    async function fetchJobs() {
-      try {
-        const jobsFromDB: JobDb[] = await ApplicantJobPostings();
-        setJobs(jobsFromDB);
-      } catch (error) {
-        console.error("Error fetching jobs:", error);
-      }
-    }
-    fetchJobs();
-  }, []);
+  console.log(params.jobName)
 
   const [formData, setFormData] = useState({
     Job_ID: params.jobId,
-    Job_Name: params.jobTitle,
+    Job_Name: params.jobName,
     Applicant_Name: "",
     Applicant_Email: "",
     Applicant_Phone: "",
@@ -157,6 +145,21 @@ export default function Apply({ params }: { params: { jobId: string, jobTitle: s
     Applicant_Resume: "",
   });
 
+  {/* useEffect(() => {
+    // Fetch the job name based on the job ID
+    async function fetchJobName() {
+      try {
+        const name = await getJobName(params.jobName);
+        setJobName(name);
+      } catch (error) {
+        console.error("Error fetching job name:", error);
+      }
+    }
+
+    fetchJobName();
+  }, [params.jobName]);
+
+*/}
   useEffect(() => {
     if (isSubmitted) {
       setIsSubmitDisabled(true);
@@ -227,8 +230,8 @@ export default function Apply({ params }: { params: { jobId: string, jobTitle: s
             <BackArrow />
             View Job Description
           </Link>
-          <h2 className="text-center text-lg font-bold m-2">{params.Job_Title}</h2>
-          <p className="text-center text-gray-600">Job ID: {params.jobId}</p>
+         {/*} <p className="text-center text-gray-600 p-5">{jobName}</p> */}
+          <p className="text-center text-gray-600 p-5">Job ID: {params.jobId}</p>
         </div>
         <ApplicationForm
           formData={formData}

@@ -1,24 +1,18 @@
-"use server";
-
 import dbConn from "@/backend/databaseConnect";
-import { JobDb } from "@/types/job";
 
-async function getJob(jobId: string) {
-  const getJobsSQL = "SELECT * from `Jobs` WHERE `Job_ID` = ?";
-  const result = await dbConn.execute(getJobsSQL, [jobId]);
-  console.log(result);
-  const job: JobDb = result.rows[0] as JobDb;
-  return job;
+export async function getJobName(jobId: string) {
+  try {
+    const getJobNameSQL = "SELECT `Job_Name` FROM `Jobs` WHERE `Job_ID` = ?";
+    const [rows] = await dbConn.execute(getJobNameSQL, [jobId]);
+
+    if (rows.length > 0) {
+      const jobName = rows[0].Job_Name;
+      return jobName;
+    } else {
+      throw new Error("Job not found.");
+    }
+  } catch (error) {
+    console.error("Error getting job name:", error);
+    throw error;
+  }
 }
-
-async function JobTitle({ params }: { params: { jobId: string } }) {
-  const job = await getJob(params.jobId);
-
-  return (
-      <h1 className="text-lg font-bold mb-4">
-        {job.Job_Name}
-      </h1>
-  );
-}
-
-export default JobTitle;
