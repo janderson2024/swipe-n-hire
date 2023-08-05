@@ -15,17 +15,6 @@ export default function JobPostings() {
     setFilterButton(!filterButton);
   };
 
-  let processedJobs = jobs;
-
-  if (filterButton) {
-    processedJobs = processedJobs.filter((job) => {
-      const possibleFilters = [job.Job_ID.toString(), job.Job_Name];
-      return possibleFilters.some((possibleFilter) => {
-        return possibleFilter?.includes(filter);
-      });
-    });
-  }
-
   useEffect(() => {
     async function fetchJobs() {
       try {
@@ -39,7 +28,12 @@ export default function JobPostings() {
   }, []);
 
   const filteredJobs = jobs.filter((job) => {
-    const possibleFilters = [job.Job_ID.toString(), job.Job_Name];
+    const possibleFilters = [
+      job.Job_ID.toString(),
+      job.Job_Name,
+      job.Job_Location,
+      job.Job_Employment_Type,
+    ];
     return possibleFilters.some((possibleFilter) =>
       possibleFilter.includes(filter)
     );
@@ -51,12 +45,12 @@ export default function JobPostings() {
       <main className="p-8">
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold">Current Openings</h1>
-          <div className="flex items-center">
+          <div className="flex items-center w-1/4 justify-end">
             <input
               type="text"
-              placeholder="Search"
+              placeholder="Job Title, Location, Status, or ID"
               className="border p-2 rounded-l-md focus:outline-none w-full"
-              value={filter} 
+              value={filter}
               onChange={(event) => {
                 setFilter(event.target.value);
               }}
@@ -81,8 +75,8 @@ export default function JobPostings() {
           </div>
         </div>
         <div className="mt-8 border border-black rounded">
-          {filteredJobs.length === 0 ? ( 
-            <p className="p-4 text-center">No postings</p>
+          {filteredJobs.length === 0 ? (
+            <p className="p-4 text-center">No career openings</p>
           ) : (
             filteredJobs.map((job) => <JobPosting key={job.Job_ID} job={job} />)
           )}
