@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
-import {restrictToWindowEdges} from '@dnd-kit/modifiers';
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { useDroppable } from "@dnd-kit/core";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
@@ -124,11 +124,13 @@ function Draggy(props: any) {
       className={"w-full h-full"}
       {...listeners}
       {...attributes}
-
     >
       <div
         id="PDF-Wrapper"
-        className={"w-full h-full overflow-y-scroll border-slate-500 border-4 " + props.rotate}
+        className={
+          "w-full h-full overflow-y-scroll border-slate-500 border-4 " +
+          props.rotate
+        }
         onResize={(event) => {
           console.log("resize");
           console.log(event);
@@ -150,7 +152,6 @@ function Draggy(props: any) {
 export default function TestPage() {
   const [applicant, setApplicant] = useState(1);
   const [rotate, setRotate] = useState("rotate-0");
-  
 
   console.log(applicant);
 
@@ -175,9 +176,9 @@ export default function TestPage() {
   function handleDragMove(event: any) {
     const mouseOffsetX = event.delta.x;
 
-    if(mouseOffsetX < -50){
+    if (mouseOffsetX < -50) {
       setRotate("-rotate-6");
-    } else if(mouseOffsetX > 50){
+    } else if (mouseOffsetX > 50) {
       setRotate("rotate-6");
     } else {
       setRotate("rotate-0");
@@ -202,7 +203,7 @@ export default function TestPage() {
         >
           <LeftDrop>{"Drop left"}</LeftDrop>
           <CenterDrop>
-              <Draggy rotate={rotate}/>
+            <Draggy rotate={rotate} />
           </CenterDrop>
           <RightDrop>{"Drop right"}</RightDrop>
         </DndContext>
