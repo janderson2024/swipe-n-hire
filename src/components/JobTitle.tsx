@@ -1,9 +1,11 @@
 import dbConn from "@/backend/databaseConnect";
+import { JobDb } from "@/types/job";
 
 export async function getJobName(jobId: string) {
   try {
     const getJobNameSQL = "SELECT `Job_Name` FROM `Jobs` WHERE `Job_ID` = ?";
-    const [rows] = await dbConn.execute(getJobNameSQL, [jobId]);
+    const result = await dbConn.execute(getJobNameSQL, [jobId]);
+    const rows:JobDb[] = result.rows as JobDb[];
 
     if (rows.length > 0) {
       const jobName = rows[0].Job_Name;

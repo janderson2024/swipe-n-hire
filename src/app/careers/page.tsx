@@ -34,9 +34,11 @@ export default function JobPostings() {
       job.Job_Location,
       job.Job_Employment_Type,
     ];
-    return possibleFilters.some((possibleFilter) =>
-      possibleFilter.includes(filter)
-    );
+    return possibleFilters.some((possibleFilter) =>{
+      if(possibleFilter){
+        possibleFilter.includes(filter)
+      }
+    });
   });
 
   return (
