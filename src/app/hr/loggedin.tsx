@@ -47,7 +47,7 @@ function HRJobControls({ job }: { job: HRJobPostingsDB }) {
         >
           <Link
             href={"/hr/" + job.Job_ID + "/resumes"}
-            className="text-violet-600 text-base font-bold underline lg:text-lg"
+            className="text-violet-600 text-base font-bold lg:text-lg"
           >
             {job.Open_Application_Count} Open Applications
           </Link>
@@ -250,7 +250,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
 
         <div
           id="jobs"
-          className="flex flex-nowrap pb-4 items-center flex-col divide-y-4 divide-slate-600 h-5/6 overflow-y-scroll"
+          className="flex flex-nowrap pb-4 items-center flex-col divide-y-2 divide-slate-500 h-5/6 overflow-y-scroll"
         >
           {processedJobs.map((job: HRJobPostingsDB) => (
             <JobCard key={job.Job_ID} job={job} RightItem={HRJobControls} />
