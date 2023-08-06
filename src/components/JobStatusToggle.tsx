@@ -1,7 +1,14 @@
-import { Job } from "@/types/job";
+import { JobDb } from "@/types/job";
+import { updateJobStatus } from "@/backend/editJobPosting";
 
-export default function JobStatusToggle({ job }: { job: Job }) {
-  const labelLinker = "job" + job.JobID + "toggle";
+
+export default function JobStatusToggle({ job }: { job: JobDb }) {
+  const labelLinker = "job" + job.Job_ID + "toggle";
+
+  const sendChangeToServer = async (event:any) => {
+    const sendChange = await updateJobStatus(job.Job_ID, event.target.checked);
+    console.log(sendChange);
+  }
 
   return (
     <label
@@ -17,7 +24,8 @@ export default function JobStatusToggle({ job }: { job: Job }) {
           type="checkbox"
           id={labelLinker}
           className="peer sr-only"
-          defaultChecked={!job.JobOpen}
+          defaultChecked={job.Job_Status == "closed"}
+          onChange={sendChangeToServer}
         />
 
         <div

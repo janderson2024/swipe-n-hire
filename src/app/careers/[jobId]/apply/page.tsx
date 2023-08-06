@@ -1,131 +1,244 @@
 "use client";
-
+import { useState, useEffect } from "react";
 import NavBar from "@/components/navbar";
 import Link from "next/link";
 import Logo from "@/components/Logo";
-import { useState } from "react";
 import BackArrow from "@/components/BackArrow";
 import TermsModal from "@/components/TermsModal";
 import BackToOpenings from "@/components/BackToOpenings";
+import Checkbox from "@/components/Checkbox";
+import createNewApplication from "@/backend/createNewApplication";
+import "@uploadthing/react/styles.css";
+import { UploadButton } from "@uploadthing/react";
+import { OurFileRouter } from "@/app/api/uploadthing/core";
+import getJob from "@/backend/getJob";
 
+interface ApplicationFormProps {
+  formData: any;
+  setFormData:any;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit: any;
+  getSubmitButtonText: any;
+  isSubmitDisabled: boolean;
+  isChecked: boolean;
+  handleCheckboxClick: (event: any) => void;
+  openModal: () => void;
+}
 
+const ApplicationForm = ({
+  formData,
+  setFormData,
+  handleChange,
+  handleSubmit,
+  getSubmitButtonText,
+  isSubmitDisabled,
+  isChecked,
+  handleCheckboxClick,
+  openModal,
+}: ApplicationFormProps) => {
+  return (
+    <form
+      action={createNewApplication}
+      className="w-full md:w-2/3 lg:w-1/3 p-6 rounded"
+    >
+      <div className="text-center font-semibold pb-3">
+        <label htmlFor="position">Apply for this position:</label>
+      </div>
 
-export default function Apply() {
+      <input
+        type="text"
+        id="fullName"
+        name="Applicant_Name"
+        value={formData.Applicant_Name}
+        onChange={handleChange}
+        className="border border-black mx-auto justify-center rounded md block w-2/3 p-2 mb-4"
+        placeholder="Full Name*"
+        required
+      />
+
+      <input
+        type="text"
+        id="email"
+        name="Applicant_Email"
+        value={formData.Applicant_Email}
+        onChange={handleChange}
+        className="border border-black mx-auto justify-center rounded md block w-2/3 p-2 mb-4"
+        placeholder="Email*"
+        required
+      />
+
+      <input
+        type="text"
+        id="phone"
+        name="Applicant_Phone"
+        value={formData.Applicant_Phone}
+        onChange={handleChange}
+        className="border border-black mx-auto justify-center rounded md block w-2/3 p-2 mb-4"
+        placeholder="Phone*"
+        required
+      />
+
+      <input
+        type="text"
+        id="linkedinURL"
+        name="Applicant_Links"
+        value={formData.Applicant_Links}
+        onChange={handleChange}
+        className="border border-black mx-auto justify-center rounded md block w-2/3 p-2 mb-4"
+        placeholder="LinkedIn/portfolio URL"
+      />
+      <div className="text-center pb-3 font-semibold">
+      <h3>Upload Your Resume:</h3>
+     </div>
+      <UploadButton<OurFileRouter>
+        endpoint="imageUploader"
+        onClientUploadComplete={(res:any) => {
+          console.log("Files: ", res);
+          console.log(res[0].fileUrl);
+
+          setFormData((prevFormData:any) => ({
+            ...prevFormData,
+            ["Applicant_Resume"]: res[0].fileUrl,
+          }));
+
+          alert("Upload Completed");
+        }}
+        onUploadError={(error: Error) => {
+          alert(`ERROR! ${error.message}`);
+        }}
+      />
+    
+      <Checkbox
+        isChecked={isChecked}
+        handleCheckboxClick={handleCheckboxClick}
+        openModal={openModal}
+      />
+      <button
+        type="button"
+        onClick={handleSubmit}
+        className="bg-purple-700 hover:bg-purple-500 mx-auto justify-center text-white py-2 px-4 rounded md cursor-pointer block w-32 p-2 mb-4"
+        disabled={isSubmitDisabled}
+      >
+        {getSubmitButtonText()}
+      </button>
+    </form>
+  );
+};
+
+export default function Apply({ params }: { params: { jobId: string } }) {
   const [showModal, setShowModal] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [jobTitle, setJobTitle] = useState("");
 
-  // Function to handle checkbox click
-  const handleCheckboxClick = () => {
-    setIsChecked(!isChecked);
+  const getJobData = async () => {
+    const findJob = await getJob(params.jobId);
+    setJobTitle(findJob.Job_Name);
   };
 
-  // Function to handle modal close
+  useEffect(() => {
+    getJobData();
+  },[params.jobId]);
+
+  const [formData, setFormData] = useState({
+    Job_ID: params.jobId,
+    Applicant_Name: "",
+    Applicant_Email: "",
+    Applicant_Phone: "",
+    Applicant_Links: "",
+    Applicant_Legal: false,
+    Applicant_Resume: "",
+  });
+  
+  useEffect(() => {
+    if (isSubmitted) {
+      setIsSubmitDisabled(true);
+      setTimeout(() => {
+        setIsSubmitDisabled(false);
+        setIsSubmitted(false);
+      }, 5000);
+    }
+  }, [isSubmitted]);
+
+  const handleCheckboxClick = (event: any) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      ["Applicant_Legal"]: event.target.checked,
+    }));
+
+    setIsSubmitDisabled(!event.target.checked);
+  };
+
   const handleModalClose = () => {
     setShowModal(false);
   };
 
-  // Function to show the modal and check the checkbox
   const openModal = () => {
     setShowModal(true);
   };
 
-  const handleFileUpload = (event: any) => {
-    const file = event.target.files[0];
-    console.log(file);
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event: any) => {
+    event.preventDefault();
+
+    try {
+      const serverResponse = await createNewApplication(formData);
+
+      console.log(serverResponse);
+
+      setIsSubmitted(true);
+
+      setTimeout(() => {
+        setIsSubmitDisabled(false);
+        setIsSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error creating application:", error);
+    }
+  };
+
+  const getSubmitButtonText = () => {
+    if (isSubmitted) {
+      return "Submitted";
+    }
+    return "Submit";
   };
 
   return (
     <>
-      <NavBar LeftItem={Logo} RightItem={BackToOpenings} />
+      <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />
       <main className="flex flex-col items-center justify-center min-h-screen">
         <div className="text-center">
-          <Link href="./" className="text-blue-700 flex items-center">
-            <BackArrow/>
+          <Link href="./" className="text-purple-700 flex items-center">
+            <BackArrow />
             View Job Description
           </Link>
-          <h2 className="text-center text-lg font-bold m-2">Position Title</h2>
-          <p className="text-center text-gray-600">Job ID: XYZ123</p>
+         <p className="text-center text-gray-600 p-5">{jobTitle}</p> 
+          <p className="text-center text-gray-600 p-5">Job ID: {params.jobId}</p>
         </div>
-        <div className="w-full md:w-2/3 lg:w-1/3 p-6 rounded">
-          <form>
-            <div className="text-center">
-              <label htmlFor="position">Apply for this position:</label>
-            </div>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              className="border border-black mx-auto justify-center rounded md block w-2/3 p-2 mb-4"
-              placeholder="First Name*"
-            />
+        <ApplicationForm
+          formData={formData}
+          setFormData={setFormData}
+          handleSubmit={handleSubmit}
+          handleChange={handleChange}
+          getSubmitButtonText={getSubmitButtonText}
+          isSubmitDisabled={isSubmitDisabled}
+          isChecked={isChecked}
+          handleCheckboxClick={handleCheckboxClick}
+          openModal={openModal}
+        />
 
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              className="border border-black mx-auto justify-center block rounded md w-2/3 p-2 mb-4"
-              placeholder="Last Name*"
-            />
-
-            <input
-              type="text"
-              id="email"
-              name="email"
-              className="border border-black mx-auto justify-center block rounded md w-2/3 p-2 mb-4"
-              placeholder="Email*"
-            />
-
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              className="border border-black mx-auto justify-center block rounded md w-2/3 p-2 mb-4"
-              placeholder="Phone*"
-            />
-
-            <input
-              type="text"
-              id="linkedinURL"
-              name="linkedinURL"
-              className="border border-black mx-auto justify-center rounded md block w-2/3 p-2 mb-4"
-              placeholder="LinkedIn/portfolio URL"
-            />
-
-            <label
-              htmlFor="fileInput"
-              className="bg-purple-700 hover:bg-purple-900 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4 text-center"
-            >
-              Upload Resume
-            </label>
-
-            <input
-              type="submit"
-              value="Submit"
-              className="bg-purple-700 hover:bg-purple-900 mx-auto justify-center text-white font-bold py-2 px-4 rounded md cursor-pointer block w-2/3 p-2 mb-4"
-            />
-            {/* Checkbox for Terms and Conditions */}
-            <div className="flex items-center justify-center mt-4">
-              <input
-                type="checkbox"
-                id="termsCheckbox"
-                className="form-checkbox h-4 w-4 text-blue-500 transition duration-150 ease-in-out"
-                checked={isChecked}
-                onChange={handleCheckboxClick}
-              />
-              <label
-                htmlFor="termsCheckbox"
-                className="w-1/2 cursor-pointer text-blue-500 ml-2 hover:text-purple-600 hover:underline"
-                onClick={openModal}
-              >
-                I have read and agree to the Terms of Use
-              </label>
-            </div>
-            {/* Terms and Conditions Modal */}
-            {showModal && (
-              <TermsModal show={showModal} onClose={handleModalClose} />
-            )}
-          </form>
-        </div>
+        {showModal && (
+          <TermsModal show={showModal} onClose={handleModalClose} />
+        )}
       </main>
     </>
   );
