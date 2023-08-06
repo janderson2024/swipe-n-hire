@@ -11,7 +11,7 @@ import createNewApplication from "@/backend/createNewApplication";
 import "@uploadthing/react/styles.css";
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
-import { getJobName } from "@/components/JobTitle";
+import getJob from "@/backend/getJob";
 
 interface ApplicationFormProps {
   formData: any;
@@ -125,18 +125,23 @@ const ApplicationForm = ({
   );
 };
 
-export default function Apply({ params }: { params: { jobId: string, jobName: string } }) {
+export default function Apply({ params }: { params: { jobId: string } }) {
   const [showModal, setShowModal] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-  const [jobName, setJobName] = useState(""); 
+  const [jobTitle, setJobTitle] = useState("");
 
-  console.log("Received params:", params);
+  const getJobData = async () => {
+    const findJob = await getJob(params.jobId);
+    setJobTitle(findJob.Job_Name);
+  };
+
+  useEffect(() => {
+    getJobData();
+  },[params.jobId]);
 
   const [formData, setFormData] = useState({
-    Job_ID: params.jobId,
-    Job_Name: params.jobName,
     Applicant_Name: "",
     Applicant_Email: "",
     Applicant_Phone: "",
@@ -144,22 +149,7 @@ export default function Apply({ params }: { params: { jobId: string, jobName: st
     Applicant_Legal: false,
     Applicant_Resume: "",
   });
-
-  useEffect(() => {
-    // Fetch the job name based on the job ID
-    async function fetchJobName() {
-      try {
-        const name = await getJobName(params.jobId); // Use the jobId parameter
-        setJobName(name);
-      } catch (error) {
-        console.error("Error fetching job name:", error);
-      }
-    }
-    
-    fetchJobName();
-  }, [params.jobId]); // Watch for changes in jobId
   
-
   useEffect(() => {
     if (isSubmitted) {
       setIsSubmitDisabled(true);
@@ -230,7 +220,7 @@ export default function Apply({ params }: { params: { jobId: string, jobName: st
             <BackArrow />
             View Job Description
           </Link>
-         <p className="text-center text-gray-600 p-5">{params.jobName}</p> 
+         <p className="text-center text-gray-600 p-5">{jobTitle}</p> 
           <p className="text-center text-gray-600 p-5">Job ID: {params.jobId}</p>
         </div>
         <ApplicationForm
