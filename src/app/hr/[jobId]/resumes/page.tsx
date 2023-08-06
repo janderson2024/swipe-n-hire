@@ -12,6 +12,7 @@ import { ApplicationsForHR } from "@/types/job";
 import { open } from "fs/promises";
 import { Fascinate_Inline } from "next/font/google";
 import { useEffect, useState } from "react";
+import ResumeSwiper from "@/components/ResumeSwiper";
 
 export default function ViewResumes({ params }: { params: { jobId: string } }) {
   const [jobTitle, setJobTitle] = useState("");
@@ -114,11 +115,11 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     updateApplicantDecision(params.jobId, false);
     updateApplicantStatus(applicantId, "Rejected");
     //Email functionality works... commenting out to reduce emails while testing
-    /*await sendEmail(
+    await sendEmail(
       applicantEmail,
       `Re: Your application for ${jobTitle}`,
       rejectionEmail
-    );*/
+    );
     checkApplicantIndex();
     checkCurrentResumeIndex();
     updateResumePage();
@@ -128,11 +129,11 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     updateApplicantDecision(params.jobId, true);
     updateApplicantStatus(applicantId, "Accepted");
     //Email functionality works... commenting out to reduce emails while testing
-    /*await sendEmail(
+    await sendEmail(
       applicantEmail,
       `Re: Your application for ${jobTitle}`,
       acceptedEmail
-    );*/
+    );
     checkApplicantIndex();
     checkCurrentResumeIndex();
     updateResumePage();
@@ -140,7 +141,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
 
   return (
     <>
-      <main className="px-4">
+      <main className="h-main-under-nav px-4">
         <div className="flex justify-end">
           <h2 className="text-l block text-center mt-4 mr-4">
             Accepted: {acceptedCount}
@@ -184,37 +185,12 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
           </div>
           */}
         </div>
-        <div className="flex justify-center mt-4">
-          <div className="flex justify-center mt-5"></div>
-          <div className="flex items-center p-4">
-            <button
-              onClick={updateApplicantReject}
-              type="button"
-              className="border-2 border-purple-700 bg-purple-700 text-l text-white block text-center"
-            >
-              Click to Reject
-            </button>
-          </div>
-          <div draggable className="h-96 w-4/5 bg-gray-100 rounded-md">
-            <iframe
-              className="w-full h-80 border-grey-500 border-2 overflow-y-scroll postion: relative z-index:-1"
-              src={applicantResume + "#view=FitH&toolbar=0"}
-            ></iframe>
-          </div>
-          <div className="flex items-center p-4">
-            <div>
-              <h1 className="text-2xl block text-center"></h1>
-            </div>
-            <div className="flex items-center p-4">
-              <button
-                onClick={updateApplicantAccept}
-                type="button"
-                className="border-2 border-purple-700 bg-purple-700 text-l text-white block text-center"
-              >
-                Click to Accept
-              </button>
-            </div>
-          </div>
+        <div id="resumeHolder" className="w-full h-4/6 justify-center mt-4">
+          <ResumeSwiper
+            resumeLink={applicantResume}
+            acceptFunction={updateApplicantAccept}
+            rejectFunction={updateApplicantReject}
+          />
         </div>
         {/** 
         <div>

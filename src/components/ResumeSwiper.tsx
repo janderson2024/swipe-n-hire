@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { DndContext, DragOverlay } from "@dnd-kit/core";
-import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { DndContext } from "@dnd-kit/core";
 import { useDroppable } from "@dnd-kit/core";
 import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
@@ -17,100 +16,94 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url
 ).toString();
 
-function customCollisionDetectionAlgorithm(args: any) {
-  // First, let's see if there are any collisions with the pointer
+function pointerDetector(args: any) {
   const pointerCollisions = pointerWithin(args);
-
-  // Collision detection algorithms return an array of collisions
   if (pointerCollisions.length > 0) {
     return pointerCollisions;
   }
-
-  // If there are no collisions with the pointer, return rectangle intersections
   return rectIntersection(args);
 }
 
-function LeftDrop(props: any) {
+function RejectDrop(props: any) {
   const { isOver, setNodeRef } = useDroppable({
-    id: "left droppy",
+    id: "RejectDrop",
   });
 
   //example of using isOver to change state
   //if the dragable is over this droppable
-  const color = isOver ? "bg-blue-500" : "bg-blue-300";
+  const color = isOver ? "bg-purple-200" : "bg-purple-100";
 
   return (
     <div
       ref={setNodeRef}
-      className={`${color} border-blue-700 border-4 h-full w-20`}
+      className={`${color} border-purple-300 border-4 h-full w-20 rounded`}
     >
       {props.children}
     </div>
   );
 }
 
-function CenterDrop(props: any) {
+function ResumeHolder(props: any) {
   const { setNodeRef } = useDroppable({
-    id: "center droppy",
+    id: "ResumeHolder",
   });
 
   return (
     <div
       ref={setNodeRef}
-      className="bg-yellow-300 border-yellow-500 border-4 h-full w-4/5"
+      className="bg-slate-300 border-slate-500 border-4 h-full w-4/5"
     >
       {props.children}
     </div>
   );
 }
 
-function RightDrop(props: any) {
+function AcceptDrop(props: any) {
   const { isOver, setNodeRef } = useDroppable({
-    id: "right droppy",
+    id: "AcceptDrop",
   });
 
   //example of using isOver to change state
   //if the dragable is over this droppable
-  const color = isOver ? "bg-green-500" : "bg-green-300";
+  const color = isOver ? "bg-purple-200" : "bg-purple-100";
 
   return (
     <div
       ref={setNodeRef}
-      className={`${color} border-green-700 border-4 h-full w-20`}
+      className={`${color} border-purple-300 border-4 h-full w-20 rounded`}
     >
       {props.children}
     </div>
   );
 }
 
-function Draggy(props: any) {
+interface DraggableResumeProps {
+  resumeLink: string;
+  rotateCss: string;
+}
+
+function DraggableResume({ resumeLink, rotateCss }: DraggableResumeProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: "draggyyy",
+    id: "DraggableResume",
   });
 
   const [pdfWidth, setPdfWidth] = useState(0);
-
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   const style: React.CSSProperties = {
     transform: CSS.Translate.toString(transform),
   };
-  const resumeLink =
-    "https://uploadthing.com/f/f9237960-d263-4038-a11d-07d4b7167fef_DennisMBowenResume%20copy.pdf";
 
   useEffect(() => {
-    // This code will run after the component is mounted (inserted into the DOM).
     setDivSize();
     window.addEventListener("resize", setDivSize);
 
-    // Clean-up function (equivalent to componentWillUnmount)
     return () => {
       window.removeEventListener("resize", setDivSize);
     };
   }, []);
 
   function setDivSize() {
-    console.log(wrapperRef);
     if (wrapperRef.current) {
       const width = wrapperRef.current.clientWidth;
       setPdfWidth(width);
@@ -129,12 +122,8 @@ function Draggy(props: any) {
         id="PDF-Wrapper"
         className={
           "w-full h-full overflow-y-scroll border-slate-500 border-4 " +
-          props.rotate
+          rotateCss
         }
-        onResize={(event) => {
-          console.log("resize");
-          console.log(event);
-        }}
         ref={wrapperRef}
       >
         <Document
@@ -149,33 +138,38 @@ function Draggy(props: any) {
   );
 }
 
-export default function TestPage() {
-  const [applicant, setApplicant] = useState(1);
+interface ResumeSwiperProps {
+  resumeLink: string;
+  rejectFunction: Function;
+  acceptFunction: Function;
+}
+export default function ResumeSwiper({
+  resumeLink,
+  rejectFunction,
+  acceptFunction,
+}: ResumeSwiperProps) {
   const [rotate, setRotate] = useState("rotate-0");
-
-  console.log(applicant);
 
   function handleDragEnd(event: any) {
     const { over } = event;
     if (over) {
       setRotate("rotate-[0deg]");
-      if (over.id == "center droppy") {
+      if (over.id == "ResumeHolder") {
         return;
       }
-      if (over.id == "left droppy") {
-        alert("LEFT");
+      if (over.id == "RejectDrop") {
+        //rejection!!
+        rejectFunction();
       }
-      if (over.id == "right droppy") {
-        alert("RIGHT");
+      if (over.id == "AcceptDrop") {
+        //accepted!!
+        acceptFunction();
       }
-      setApplicant(applicant + 1);
     }
-    console.log(over);
   }
 
   function handleDragMove(event: any) {
     const mouseOffsetX = event.delta.x;
-
     if (mouseOffsetX < -50) {
       setRotate("-rotate-6");
     } else if (mouseOffsetX > 50) {
@@ -183,31 +177,31 @@ export default function TestPage() {
     } else {
       setRotate("rotate-0");
     }
-
-    /*const rotation = Math.floor(mouseOffsetX / 10);
-
-    const updatedSet = tempSet;
-    updatedSet.add(rotation);
-    setTempSet(updatedSet);
-
-    setRotate(`rotate-[${rotation}deg]`);*/
   }
 
   return (
-    <main className="h-screen overflow-x-hidden overflow-y-hidden">
-      <div className="w-full h-full p-4 bg-red-500 border-red-700 flex justify-between">
+    <section className="h-full overflow-x-hidden overflow-y-hidden">
+      <div className="w-full h-full p-4 flex justify-between">
         <DndContext
           onDragEnd={handleDragEnd}
           onDragMove={handleDragMove}
-          collisionDetection={customCollisionDetectionAlgorithm}
+          collisionDetection={pointerDetector}
         >
-          <LeftDrop>{"Drop left"}</LeftDrop>
-          <CenterDrop>
-            <Draggy rotate={rotate} />
-          </CenterDrop>
-          <RightDrop>{"Drop right"}</RightDrop>
+          <RejectDrop>
+          <div className="w-full h-full flex flex-col justify-center">
+              <span className="text-center font-semibold">Reject</span>
+            </div>
+          </RejectDrop>
+          <ResumeHolder>
+            <DraggableResume resumeLink={resumeLink} rotateCss={rotate} />
+          </ResumeHolder>
+          <AcceptDrop>
+            <div className="w-full h-full flex flex-col justify-center">
+              <span className="text-center font-semibold">Accept</span>
+            </div>
+          </AcceptDrop>
         </DndContext>
       </div>
-    </main>
+    </section>
   );
 }
