@@ -161,7 +161,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
             <button
               type="button"
               onClick={previousApplicant}
-              className="justify-center w-40 border-2 border-purple-700 bg-purple-700 text-white py-1"
+              className="justify-center w-40 border-2 border-black text-purple-700 py-1"
             >
               Previous Applicant
             </button>
@@ -171,7 +171,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
             <button
               type="button"
               onClick={nextApplicant}
-              className="justify-center w-40 border-2 border-purple-700 bg-purple-700 text-white py-1"
+              className="justify-center w-40 border-2 border-black text-purple-700 py-1"
             >
               Next Applicant
             </button>
@@ -190,7 +190,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
             <button
               onClick={updateApplicantReject}
               type="button"
-              className="border-purple-700 text-l block text-center"
+              className="border-2 border-purple-700 bg-purple-700 text-l text-white block text-center"
             >
               Click to Reject
             </button>
@@ -209,7 +209,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
               <button
                 onClick={updateApplicantAccept}
                 type="button"
-                className="border-purple-700 text-l block text-center"
+                className="border-2 border-purple-700 bg-purple-700 text-l text-white block text-center"
               >
                 Click to Accept
               </button>
