@@ -142,6 +142,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
   },[params.jobId]);
 
   const [formData, setFormData] = useState({
+    Job_ID: params.jobId,
     Applicant_Name: "",
     Applicant_Email: "",
     Applicant_Phone: "",

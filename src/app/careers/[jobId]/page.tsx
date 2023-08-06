@@ -46,9 +46,7 @@ async function JobDescription({ params }: { params: { jobId: string } }) {
         <div className="flex justify-center">
           <button className="bg-purple-700 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded">
             <Link
-              href={`/careers/${job.Job_ID}/apply?jobId=${
-                job.Job_ID
-              }&jobName=${encodeURIComponent(job.Job_Name)}`}
+              href={`/careers/${job.Job_ID}/apply`}
             >
               Apply for this Job
             </Link>
