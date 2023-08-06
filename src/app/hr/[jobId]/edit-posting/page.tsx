@@ -156,7 +156,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
               </div>
             </div>
 
-            <div>
+            {/*<div>
               <div className="py-2">
                 <button
                   type="button"
@@ -167,7 +167,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
               </div>
 
               <div className="py-2">
-                {/* Toggle Button Here*/}
+                {/* Toggle Button Here}
                 <button
                   type="button"
                   className="w-full border-2 border-purple-700 bg-purple-700 text-white px-3 py-1"
@@ -175,7 +175,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
                   Toggle
                 </button>
               </div>
-            </div>
+            </div>*/}
           </div>
 
           <div className="flex justify-center px-5 py-4">
