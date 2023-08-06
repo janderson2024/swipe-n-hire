@@ -32,23 +32,27 @@ async function JobDescription({ params }: { params: { jobId: string } }) {
             <p>Location: {job.Job_Location}</p>
           </div>
         </div>
-          <h1 className="text-lg font-bold mb-4">
-            {job.Job_Name} - Job ID: {job.Job_ID}
-          </h1>           
-          <textarea
-              value={job.Job_Description}
-              id="jobDescription"
-              name="jobDescription"
-              placeholder="Enter job description here"
-              rows={8}
-              className="border w-2/3 text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"
-            />
-          <div className="flex justify-center">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              <Link href={`/careers/${job.Job_ID}/apply`}>
-                Apply for this Job
-              </Link>{" "}
-            </button>
+        <h1 className="text-lg font-bold mb-4">
+          {job.Job_Name} - Job ID: {job.Job_ID}
+        </h1>
+        <textarea
+          value={job.Job_Description}
+          id="jobDescription"
+          name="jobDescription"
+          placeholder="Enter job description here"
+          rows={8}
+          className="border w-2/3 text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"
+        />
+        <div className="flex justify-center">
+          <button className="bg-purple-700 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded">
+            <Link
+              href={`/careers/${job.Job_ID}/apply?jobId=${
+                job.Job_ID
+              }&jobName=${encodeURIComponent(job.Job_Name)}`}
+            >
+              Apply for this Job
+            </Link>
+          </button>
         </div>
       </main>
     </>

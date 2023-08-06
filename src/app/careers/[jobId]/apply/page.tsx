@@ -11,7 +11,7 @@ import createNewApplication from "@/backend/createNewApplication";
 import "@uploadthing/react/styles.css";
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
-// import { getJobName } from "@/components/JobTitle";
+import { getJobName } from "@/components/JobTitle";
 
 interface ApplicationFormProps {
   formData: any;
@@ -116,7 +116,7 @@ const ApplicationForm = ({
       <button
         type="button"
         onClick={handleSubmit}
-        className="bg-blue-600 hover:bg-blue-800 mx-auto justify-center text-white py-2 px-4 rounded md cursor-pointer block w-32 p-2 mb-4"
+        className="bg-purple-700 hover:bg-purple-500 mx-auto justify-center text-white py-2 px-4 rounded md cursor-pointer block w-32 p-2 mb-4"
         disabled={isSubmitDisabled}
       >
         {getSubmitButtonText()}
@@ -132,7 +132,7 @@ export default function Apply({ params }: { params: { jobId: string, jobName: st
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [jobName, setJobName] = useState(""); 
 
-  console.log(params.jobName)
+  console.log("Received params:", params);
 
   const [formData, setFormData] = useState({
     Job_ID: params.jobId,
@@ -145,21 +145,21 @@ export default function Apply({ params }: { params: { jobId: string, jobName: st
     Applicant_Resume: "",
   });
 
-  {/* useEffect(() => {
+  useEffect(() => {
     // Fetch the job name based on the job ID
     async function fetchJobName() {
       try {
-        const name = await getJobName(params.jobName);
+        const name = await getJobName(params.jobId); // Use the jobId parameter
         setJobName(name);
       } catch (error) {
         console.error("Error fetching job name:", error);
       }
     }
-
+    
     fetchJobName();
-  }, [params.jobName]);
+  }, [params.jobId]); // Watch for changes in jobId
+  
 
-*/}
   useEffect(() => {
     if (isSubmitted) {
       setIsSubmitDisabled(true);
@@ -226,11 +226,11 @@ export default function Apply({ params }: { params: { jobId: string, jobName: st
       <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />
       <main className="flex flex-col items-center justify-center min-h-screen">
         <div className="text-center">
-          <Link href="./" className="text-blue-700 flex items-center">
+          <Link href="./" className="text-purple-700 flex items-center">
             <BackArrow />
             View Job Description
           </Link>
-         {/*} <p className="text-center text-gray-600 p-5">{jobName}</p> */}
+         <p className="text-center text-gray-600 p-5">{params.jobName}</p> 
           <p className="text-center text-gray-600 p-5">Job ID: {params.jobId}</p>
         </div>
         <ApplicationForm

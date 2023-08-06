@@ -8,7 +8,7 @@ export default function JobPosting({ job }: {job: JobDb}) {
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-2 md:col-span-1">
           <div className="text-s text-gray-4 m-4">ID: {job.Job_ID}</div>
-          <div className="text-blue-500 text-lg font-bold m-4">
+          <div className="text-purple-700 text-lg font-bold m-4">
             <Link href={`/careers/${job.Job_ID}`}>
               {job.Job_Name}
             </Link>
