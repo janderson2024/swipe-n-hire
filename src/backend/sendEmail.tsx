@@ -10,7 +10,7 @@ export default async function sendEmail(recipient:string, subject:string, htmlBo
   console.log(`Sending email to ${recipient}`);
   try {
     const data = await resend.emails.send({
-      from: 'Company Name <swipe-n-hire@swipe-n-hire.com>',
+      from: 'Company Name <no-reply@swipe-n-hire.com>',
       to: [recipient],
       subject: subject,
       html: htmlBody,
