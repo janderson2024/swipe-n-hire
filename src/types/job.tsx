@@ -125,3 +125,9 @@ export interface Applications {
   Application_Date?: Date;
   Applicant_Resume?: string;
 }
+
+export interface ApplicationsForHR extends Applications {
+  Applicant_Name: string;
+  Applicant_Email: string;
+  Applicant_Resume: string;
+}
