@@ -1,8 +1,15 @@
+"use client"
+
 import { JobDb } from "@/types/job";
 import { updateJobStatus } from "@/backend/editJobPosting";
 
 
-export default function JobStatusToggle({ job }: { job: JobDb }) {
+export default function JobStatusToggle({ job }: { job: JobDb | undefined }) {
+  if(job == undefined){
+    return (
+      <></>
+    )
+  }
   const labelLinker = "job" + job.Job_ID + "toggle";
 
   const sendChangeToServer = async (event:any) => {

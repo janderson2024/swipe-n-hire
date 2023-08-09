@@ -93,7 +93,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
   let processedJobs = jobs;
   //only show mine
   if (showMyPosts) {
-    processedJobs = processedJobs.filter((job) => {
+    processedJobs = processedJobs.filter((job:any) => {
       return userId == job.HR_Creator_ID?.toString();
     });
   }
