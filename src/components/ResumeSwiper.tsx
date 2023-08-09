@@ -138,7 +138,7 @@ function DraggableResume({ resumeLink, rotateCss }: DraggableResumeProps) {
           className={"bg-inherit"}
         >
           {Array.from({ length: numPages }, (_, index) => (
-            <Page pageNumber={index+1} width={pdfWidth} className={"divide-y-2 divide-inherit"}/>
+            <Page pageNumber={index+1} key={index} width={pdfWidth} className={"divide-y-2 divide-inherit"}/>
 
           ))}
           
