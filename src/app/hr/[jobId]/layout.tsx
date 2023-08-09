@@ -4,6 +4,8 @@ import NavBar from "@/components/navbar";
 import HRProfileImage from "@/components/HRProfileImage";
 import Link from "next/link";
 import BackToOpenings from "@/components/BackToOpenings";
+import checkJobExists from "@/backend/checkJobExists";
+import { redirect } from "next/navigation";
 
 function PostingsNavBar(jobId: string) {
   return (
@@ -20,22 +22,25 @@ export const metadata: Metadata = {
   description: "IDK what to put here, but yeah. This is our project 3",
 };
 
-export default function HRJobsLayout({
+export default async function HRJobsLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: { jobId: string };
 }) {
-  return (
-        <>
+  if (await checkJobExists(params.jobId)) {
+    return (
+      <>
         <NavBar
           LeftItem={BackToOpenings("/hr")}
           CenterItem={PostingsNavBar(params.jobId)}
           RightItem={<HRProfileImage />}
         />
         {children}
-        </>
-
-  );
+      </>
+    );
+  } else {
+    redirect("/hr");
+  }
 }

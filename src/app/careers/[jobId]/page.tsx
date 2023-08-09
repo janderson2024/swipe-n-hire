@@ -20,7 +20,6 @@ async function JobDescription({ params }: { params: { jobId: string } }) {
 
   return (
     <>
-      <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />
       <main className="flex flex-col items-center justify-center">
         <div className="w-full md:w-2/3 flex justify-between mt-4 px-6">
           <div className="text-left">

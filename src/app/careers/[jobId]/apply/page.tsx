@@ -214,7 +214,6 @@ export default function Apply({ params }: { params: { jobId: string } }) {
 
   return (
     <>
-      <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />
       <main className="flex flex-col items-center justify-center min-h-screen">
         <div className="text-center">
           <Link href="./" className="text-purple-700 flex items-center">
