@@ -252,9 +252,12 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
           id="jobs"
           className="flex flex-nowrap pb-4 items-center flex-col divide-y-2 divide-slate-500 h-5/6 overflow-y-scroll"
         >
-          {processedJobs.map((job: HRJobPostingsDB) => (
+          {processedJobs.length > 0 ?(
+          processedJobs.map((job: HRJobPostingsDB) => (
             <HRJobCard key={job.Job_ID} job={job} RightItem={HRJobControls} />
-          ))}
+          ))) : (
+            <i className="p-4 text-center">No matching openings...</i>
+          )}
         </div>
       </main>
     </div>
