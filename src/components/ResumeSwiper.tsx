@@ -88,6 +88,7 @@ function DraggableResume({ resumeLink, rotateCss }: DraggableResumeProps) {
   });
 
   const [pdfWidth, setPdfWidth] = useState(0);
+  const [numPages, setNumPages] = useState(0);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
 
   const style: React.CSSProperties = {
@@ -108,6 +109,9 @@ function DraggableResume({ resumeLink, rotateCss }: DraggableResumeProps) {
       const width = wrapperRef.current.clientWidth;
       setPdfWidth(width);
     }
+  }
+  function onResumeLoadSuccess({ numPages }: { numPages: number }){
+    setNumPages(numPages);
   }
 
   return (
@@ -130,8 +134,14 @@ function DraggableResume({ resumeLink, rotateCss }: DraggableResumeProps) {
           file={resumeLink}
           externalLinkTarget={"_self"}
           loading={<h2>Loading...</h2>}
+          onLoadSuccess={onResumeLoadSuccess}
+          className={"bg-inherit"}
         >
-          <Page pageNumber={1} width={pdfWidth} />
+          {Array.from({ length: numPages }, (_, index) => (
+            <Page pageNumber={index+1} width={pdfWidth} className={"divide-y-2 divide-inherit"}/>
+
+          ))}
+          
         </Document>
       </div>
     </button>
