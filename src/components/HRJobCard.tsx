@@ -7,7 +7,7 @@ interface JobCardProps {
   RightItem?: React.FC<{ job: HRJobPostingsDB }>;
 }
 
-export default function JobCard({ job, RightItem }: JobCardProps) {
+export default function HRJobCard({ job, RightItem }: JobCardProps) {
   const jobLink = "/careers/" + job.Job_ID;
   return (
     <div className="flex w-5/6 flex-col flex-wrap sm:flex-nowrap sm:flex-row p-4">
@@ -15,7 +15,7 @@ export default function JobCard({ job, RightItem }: JobCardProps) {
         <span className="pl-2 text-slate-400 text-sm hidden sm:block">
           ID: #{job.Job_ID}
         </span>
-        <Link href={jobLink} className="self-center sm:place-self-start">
+        <Link href={jobLink} target="_blank" className="self-center sm:place-self-start">
           <span className="text-violet-600 text-xl font-bold ">
             {job.Job_Name}
           </span>

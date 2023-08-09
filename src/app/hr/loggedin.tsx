@@ -4,7 +4,7 @@ import NavBar from "@/components/navbar";
 import HRProfileImage from "@/components/HRProfileImage";
 import Logo from "@/components/Logo";
 import JobStatusToggle from "@/components/JobStatusToggle";
-import JobCard from "@/components/JobCard";
+import HRJobCard from "@/components/HRJobCard";
 import Link from "next/link";
 import createNewJob from "@/backend/createNewJob";
 
@@ -253,7 +253,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
           className="flex flex-nowrap pb-4 items-center flex-col divide-y-2 divide-slate-500 h-5/6 overflow-y-scroll"
         >
           {processedJobs.map((job: HRJobPostingsDB) => (
-            <JobCard key={job.Job_ID} job={job} RightItem={HRJobControls} />
+            <HRJobCard key={job.Job_ID} job={job} RightItem={HRJobControls} />
           ))}
         </div>
       </main>
