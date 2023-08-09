@@ -6,11 +6,11 @@ import Logo from "@/components/Logo";
 import JobStatusToggle from "@/components/JobStatusToggle";
 import JobCard from "@/components/JobCard";
 import Link from "next/link";
-import createNewPosting from "@/backend/createNewPosting";
+import createNewJob from "@/backend/createNewJob";
 
 import { useState } from "react";
 
-import { getTestJobs, HRJobPostingsDB, Job, JobDb } from "@/types/job";
+import {HRJobPostingsDB} from "@/types/job";
 
 function CenterTitle() {
   return <span className="text-xl font-bold">Current Postings</span>;
@@ -148,7 +148,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
           id="topcontrols"
           className="flex justify-around border-b-2 border-slate-500 p-2 h-1/6"
         >
-          <form action={createNewPosting}>
+          <form action={createNewJob}>
             <button className="p-4 border-4 border-slate-700" type="submit">
               + New Posting
             </button>
