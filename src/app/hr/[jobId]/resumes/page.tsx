@@ -152,7 +152,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
             Rejected: {rejectedCount}
           </h2>
         </div>
-        <div className="justify-center">
+        <div className="justify-center border-b-2 border-slate-300 pb-4">
           <div>
             <h1 className="text-2xl block text-center font-semibold text-purple-700 mt-1">
               {jobTitle}
@@ -185,7 +185,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
           </div>
           */}
         </div>
-        <div id="resumeHolder" className="w-full h-4/6 justify-center mt-4">
+        <div id="resumeHolder" className="w-full h-4/6 justify-center">
           <ResumeSwiper
             resumeLink={applicantResume}
             acceptFunction={updateApplicantAccept}
