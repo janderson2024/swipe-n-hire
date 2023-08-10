@@ -12,6 +12,8 @@ import "@uploadthing/react/styles.css";
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import getJob from "@/backend/getJob";
+import { useRouter } from "next/navigation";
+
 
 interface ApplicationFormProps {
   formData: any;
@@ -131,6 +133,8 @@ export default function Apply({ params }: { params: { jobId: string } }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [jobTitle, setJobTitle] = useState("");
+  const router = useRouter();
+
 
   const getJobData = async () => {
     const findJob = await getJob(params.jobId);
@@ -151,16 +155,6 @@ export default function Apply({ params }: { params: { jobId: string } }) {
     Applicant_Resume: "",
   });
   
-  useEffect(() => {
-    if (isSubmitted) {
-      setIsSubmitDisabled(true);
-      setTimeout(() => {
-        setIsSubmitDisabled(false);
-        setIsSubmitted(false);
-      }, 5000);
-    }
-  }, [isSubmitted]);
-
   const handleCheckboxClick = (event: any) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -195,11 +189,8 @@ export default function Apply({ params }: { params: { jobId: string } }) {
       console.log(serverResponse);
 
       setIsSubmitted(true);
-
-      setTimeout(() => {
-        setIsSubmitDisabled(false);
-        setIsSubmitted(false);
-      }, 5000);
+      router.push("/careers");
+  
     } catch (error) {
       console.error("Error creating application:", error);
     }
