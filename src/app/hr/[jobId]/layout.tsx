@@ -2,7 +2,7 @@ import NavBar from "@/components/navbar";
 import HRProfileImage from "@/components/HRProfileImage";
 import Link from "next/link";
 import BackToOpenings from "@/components/BackToOpenings";
-import { isJobFilled } from "@/backend/checkJobStatus";
+import { isJobNotFilled } from "@/backend/checkJobStatus";
 import { redirect } from "next/navigation";
 
 function PostingsNavBar(jobId: string) {
@@ -22,7 +22,7 @@ export default async function HRJobsLayout({
   children: React.ReactNode;
   params: { jobId: string };
 }) {
-  if (!await isJobFilled(params.jobId)) {
+  if (await isJobNotFilled(params.jobId)) {
     return (
       <>
         <NavBar
