@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
-
 import NavBar from "@/components/navbar";
 import HRProfileImage from "@/components/HRProfileImage";
 import Link from "next/link";
 import BackToOpenings from "@/components/BackToOpenings";
-import checkJobExists from "@/backend/checkJobExists";
+import { isJobFilled } from "@/backend/checkJobStatus";
 import { redirect } from "next/navigation";
 
 function PostingsNavBar(jobId: string) {
@@ -17,11 +15,6 @@ function PostingsNavBar(jobId: string) {
   );
 }
 
-export const metadata: Metadata = {
-  title: "Real Company HR Portal",
-  description: "IDK what to put here, but yeah. This is our project 3",
-};
-
 export default async function HRJobsLayout({
   children,
   params,
@@ -29,7 +22,7 @@ export default async function HRJobsLayout({
   children: React.ReactNode;
   params: { jobId: string };
 }) {
-  if (await checkJobExists(params.jobId)) {
+  if (!await isJobFilled(params.jobId)) {
     return (
       <>
         <NavBar

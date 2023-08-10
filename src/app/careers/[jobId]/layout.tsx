@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 import BackToOpenings from "@/components/BackToOpenings";
-import checkJobExists from "@/backend/checkJobExists";
+import { isJobOpen } from "@/backend/checkJobStatus";
 import { redirect } from "next/navigation";
 
 export default async function HRJobsLayout({
@@ -13,7 +13,7 @@ export default async function HRJobsLayout({
   children: React.ReactNode;
   params: { jobId: string };
 }) {
-    if (await checkJobExists(params.jobId)) {
+    if (await isJobOpen(params.jobId)) {
     return (
       <>
         <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />
