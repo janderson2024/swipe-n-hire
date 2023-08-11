@@ -5,6 +5,8 @@ import updateHRjobPosting from "@/backend/updateHRJobPosting";
 import getJob from "@/backend/getJob";
 import JobStatusToggle from "@/components/JobStatusToggle";
 import { JobDb } from "@/types/job";
+import { updateJobStatus } from "@/backend/editJobPosting";
+import updateJobStatusDB from "@/backend/updateJobStatusDB";
 
 export default function EditPosting({ params }: { params: { jobId: string } }) {
   const [job, setJob] = useState<JobDb>();
@@ -14,6 +16,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
   const [salaryRange, setSalaryRange] = useState("");
   const [location, setLocation] = useState("");
   const [jobDescription, setJobDescription] = useState("");
+  const [jobFilled, setFilled] = useState("filled");
 
   const getJobData = async () => {
     const findJob = await getJob(params.jobId);
@@ -41,6 +44,11 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
       jobDescription
     );
     alert("Your job posting has been saved!");
+  }
+
+  async function positionFilled() {
+    updateJobStatusDB(params.jobId, jobFilled);
+    alert("The position has been filled!");
   }
 
   return (
@@ -160,6 +168,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
               <div className="py-2">
                 <button
                   type="button"
+                  onClick={positionFilled}
                   className="w-full border-2 border-purple-700 bg-purple-700 text-white px-2 py-1"
                 >
                   Position Filled
@@ -168,7 +177,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
 
               <div className="py-2">
                 {/* Toggle Button Here*/}
-                <JobStatusToggle job={job}/>
+                <JobStatusToggle job={job} />
               </div>
             </div>
           </div>
