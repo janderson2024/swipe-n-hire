@@ -8,9 +8,10 @@ import HRJobCard from "@/components/HRJobCard";
 import Link from "next/link";
 import createNewJob from "@/backend/createNewJob";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {HRJobPostingsDB} from "@/types/job";
+import { useRouter } from "next/navigation";
 
 function CenterTitle() {
   return <span className="text-xl font-bold">Current Postings</span>;
@@ -77,6 +78,11 @@ interface HRLoggedInProps {
 
 export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
   const [showMyPosts, setShowMyPosts] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+  },[]);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setShowMyPosts(!event.target.checked);
