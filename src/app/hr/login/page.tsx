@@ -5,6 +5,7 @@ import NavBar from "@/components/navbar";
 import { loginUser } from "@/backend/HrUser";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import BackToOpenings from "@/components/BackToOpenings";
 
 export default function HRLogin() {
   const router = useRouter();
@@ -15,6 +16,7 @@ export default function HRLogin() {
   const [password, setPassword] = useState("");
 
   async function submitLoginData() {
+    console.log("hey");
     const resp = await loginUser(email, password);
     //if we make it to this point, there is an error. Otherwise it redirects
 
@@ -28,10 +30,8 @@ export default function HRLogin() {
 
   return (
     <>
-      <div>
-        <NavBar LeftItem={<Logo />} />
-      </div>
-      <main className="flex h-screen items-center justify-center">
+      <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")}/>
+      <main className="flex h-main-under-nav items-center justify-center">
         <div className="max-h-screen w-96 p-6 bg-gray-100 rounded-md">
           <div className="text-2xl font-bold m-5 text-center">
             <Logo />
