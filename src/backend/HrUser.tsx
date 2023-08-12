@@ -5,6 +5,8 @@ import dbConn from "@/backend/databaseConnect";
 import { HRDb } from "@/types/hr";
 import { redirect } from "next/navigation";
 
+const COOKIE_NAME = "userID";
+
 async function signCookie(cookie: string) {
   return cookie + ":" + (await hashInput(cookie));
 }
@@ -48,16 +50,19 @@ export async function loginUser(email: string, password: string) {
     `Logged in User: ${userID} with email: ${email} password: ${password}`
   );
 
-  cookies().set("userID", await signCookie(userID.toString()));
+  cookies().set(COOKIE_NAME, await signCookie(userID.toString()));
   return { success: "we succeeeded" };
 }
 
+export async function logoutUser(){
+  cookies().delete(COOKIE_NAME);
+  return "logged out";
+}
+
 export async function getCurrentHrID() {
-  const cookieStore = cookies();
-  const IDCookie = cookieStore.get("userID");
+  const IDCookie = cookies().get(COOKIE_NAME);
   if (!IDCookie) {
     return false;
   }
-  console.log(IDCookie.value);
   return unsignCookie(IDCookie.value);
 }
