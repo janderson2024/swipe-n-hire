@@ -13,9 +13,9 @@ export default function JobPosting({ job }: {job: JobDb}) {
               {job.Job_Name}
             </Link>
           </div>
-          <div className="text-gray-600 ml-4 break-words">Posted {job.Job_Date_Posted}</div>
+          <div className="text-gray-600 ml-4">Posted {job.Job_Date_Posted}</div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-3 pl-4">
           <div className="flex items-center">
             <div className="bg-gray-300 p-2 rounded-full">
               <svg

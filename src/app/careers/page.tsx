@@ -8,7 +8,7 @@ import JobPosting from "@/components/JobPosting";
 
 export default function JobPostings() {
   const [jobs, setJobs] = useState<JobDb[]>([]);
-  const [filter, setFilter] = useState(" ");
+  const [filter, setFilter] = useState("");
   const [filterButton, setFilterButton] = useState(false);
 
   const toggleFilterButton = () => {
