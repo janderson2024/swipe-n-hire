@@ -18,7 +18,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
   const [jobTitle, setJobTitle] = useState("");
   const [acceptedCount, setAcceptedCount] = useState(Number);
   const [rejectedCount, setRejectedCount] = useState(Number);
-  const [openApplications, setOpenApplications] = useState(Number);
+  const [pendingApplicantCount, setPendingApplicantCount] = useState(Number);
   const [acceptedEmail, setAcceptedEmail] = useState("");
   const [rejectionEmail, setRejectionEmail] = useState("");
   const [applicantEmail, setApplicantEmail] = useState("");
@@ -27,15 +27,14 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
   const [applicants, setApplicants] = useState<ApplicationsForHR[]>([]);
   const [currentApplicant, setCurrentApplicant] = useState(Object);
   const [applicantId, setApplicantId] = useState("");
-  const [currentResumeIndex, setCurrentResumeIndex] = useState(1);
+  const [currentResumeIndex, setCurrentResumeIndex] = useState(0);
 
   useEffect(() => {
     async function fetchInitialApplicants() {
       try {
-        const pendingApplicants: ApplicationsForHR[] = await getApplicants(
-          params.jobId
-        );
-        setApplicants(pendingApplicants);
+        const currentPendingApplicants: ApplicationsForHR[] =
+          await getApplicants(params.jobId);
+        setApplicants(currentPendingApplicants);
       } catch (error) {
         console.error("Error fetching applicants", error);
       }
@@ -43,17 +42,10 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     fetchInitialApplicants();
   }, []);
 
-  const checkApplicantIndex = async () => {
-    if (applicantIndex == applicants.length - 1) {
-      setApplicantIndex(applicantIndex - 1);
-    }
-  };
-
-  const checkCurrentResumeIndex = async () => {
-    if (currentResumeIndex == applicants.length) {
-      setCurrentResumeIndex(currentResumeIndex - 1);
-    }
-  };
+  useEffect(() => {
+    getCurrentApplicant();
+    getHRJobData();
+  });
 
   const getCurrentApplicant = async () => {
     setCurrentApplicant(
@@ -62,6 +54,20 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     setApplicantResume(currentApplicant.Applicant_Resume);
     setApplicantEmail(currentApplicant.Applicant_Email);
     setApplicantId(currentApplicant.Application_ID);
+  };
+
+  const checkApplicantIndex = async () => {
+    if (applicantIndex == applicants.length - 1) {
+      setApplicantIndex(applicantIndex - 1);
+    }
+  };
+
+  const checkCurrentResumeIndex = async () => {
+    if (applicants.length == 0) {
+      setCurrentResumeIndex(0);
+    } else if (currentResumeIndex == applicants.length) {
+      setCurrentResumeIndex(currentResumeIndex - 1);
+    }
   };
 
   const getUpdatedApplicantList = async () => {
@@ -76,15 +82,10 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     setJobTitle(findJob.Job_Name);
     setAcceptedCount(findJob.Accepted_Application_Count);
     setRejectedCount(findJob.Rejected_Application_Count);
-    setOpenApplications(findJob.Open_Application_Count);
+    setPendingApplicantCount(applicants.length);
     setAcceptedEmail(findJob.Job_Accepted_Email);
     setRejectionEmail(findJob.Job_Rejected_Email);
   };
-
-  useEffect(() => {
-    getHRJobData();
-    getCurrentApplicant();
-  });
 
   function updateResumePage() {
     getUpdatedApplicantList();
@@ -180,7 +181,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
               </svg>
             </button>
             <h2 className="text-l block text-center">
-              {currentResumeIndex} of {openApplications} Applications
+              {currentResumeIndex} of {pendingApplicantCount} Applications
             </h2>
             <button
               type="button"
