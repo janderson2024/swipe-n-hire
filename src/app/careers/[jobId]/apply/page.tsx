@@ -14,7 +14,6 @@ import { OurFileRouter } from "@/app/api/uploadthing/core";
 import getJob from "@/backend/getJob";
 import { useRouter } from "next/navigation";
 
-
 interface ApplicationFormProps {
   formData: any;
   setFormData:any;
