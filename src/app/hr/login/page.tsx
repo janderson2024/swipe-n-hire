@@ -16,7 +16,6 @@ export default function HRLogin() {
   const [password, setPassword] = useState("");
 
   async function submitLoginData() {
-    console.log("hey");
     const resp = await loginUser(email, password);
     //if we make it to this point, there is an error. Otherwise it redirects
 

@@ -1,6 +1,6 @@
 "use client"
 import { logoutUser } from "@/backend/HrUser";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 /*
 Simple profile image component for the HR views
@@ -12,8 +12,8 @@ export default function HRProfileImage() {
   async function logout(){
     const resp = await logoutUser();
     console.log(resp);
-    router.push("/hr/login");
-  
+    router.push("/hr/login/");
+    router.refresh();
   }
 
   return (
