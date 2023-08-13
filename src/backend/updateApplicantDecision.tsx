@@ -6,7 +6,6 @@ export default async function updateApplicantDecision(
   jobId: string,
   isAccepted: Boolean
 ) {
-  console.log(isAccepted);
   let updateDB = "";
   const acceptAppCount = "Accepted_Application_Count";
   const rejectedAppCount = "Reject_Application_Count";
@@ -19,8 +18,4 @@ export default async function updateApplicantDecision(
   }
 
   const e = await dbConn.execute(updateDB, [jobId]);
-
-  /*Open_Application_Count: number;
-  Rejected_Application_Count: number;
-  Accepted_Application_Count: number;*/
 }

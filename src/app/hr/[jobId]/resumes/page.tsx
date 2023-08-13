@@ -13,6 +13,8 @@ import { open } from "fs/promises";
 import { Fascinate_Inline } from "next/font/google";
 import { useEffect, useState } from "react";
 import ResumeSwiper from "@/components/ResumeSwiper";
+import { list } from "postcss";
+import { useRouter } from "next/navigation";
 
 export default function ViewResumes({ params }: { params: { jobId: string } }) {
   const [jobTitle, setJobTitle] = useState("");
@@ -27,7 +29,9 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
   const [applicants, setApplicants] = useState<ApplicationsForHR[]>([]);
   const [currentApplicant, setCurrentApplicant] = useState(Object);
   const [applicantId, setApplicantId] = useState("");
-  const [currentResumeIndex, setCurrentResumeIndex] = useState(0);
+  const [currentResumeIndex, setCurrentResumeIndex] = useState(1);
+  const [openApplicationCount, setOpenApplicationCount] = useState(Number);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchInitialApplicants() {
@@ -41,6 +45,16 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     }
     fetchInitialApplicants();
   }, []);
+
+  const getHRJobData = async () => {
+    const findJob = await getJob(params.jobId);
+    setJobTitle(findJob.Job_Name);
+    setAcceptedCount(findJob.Accepted_Application_Count);
+    setRejectedCount(findJob.Rejected_Application_Count);
+    setAcceptedEmail(findJob.Job_Accepted_Email);
+    setRejectionEmail(findJob.Job_Rejected_Email);
+    setPendingApplicantCount(applicants.length);
+  };
 
   useEffect(() => {
     getCurrentApplicant();
@@ -62,34 +76,31 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     }
   };
 
-  const checkCurrentResumeIndex = async () => {
-    if (applicants.length == 0) {
-      setCurrentResumeIndex(0);
-    } else if (currentResumeIndex == applicants.length) {
-      setCurrentResumeIndex(currentResumeIndex - 1);
-    }
-  };
-
   const getUpdatedApplicantList = async () => {
     const pendingApplicants: ApplicationsForHR[] = await getApplicants(
       params.jobId
     );
+    let listLength = pendingApplicants.length;
+    if (listLength == 0) {
+      alert("A decision has been made on all pending applications.");
+      router.push("/hr");
+    }
     setApplicants(pendingApplicants);
   };
 
-  const getHRJobData = async () => {
-    const findJob = await getJob(params.jobId);
-    setJobTitle(findJob.Job_Name);
-    setAcceptedCount(findJob.Accepted_Application_Count);
-    setRejectedCount(findJob.Rejected_Application_Count);
-    setPendingApplicantCount(applicants.length);
-    setAcceptedEmail(findJob.Job_Accepted_Email);
-    setRejectionEmail(findJob.Job_Rejected_Email);
-  };
-
   function updateResumePage() {
+    checkCurrentResumeIndex();
     getUpdatedApplicantList();
     getCurrentApplicant();
+  }
+
+  function checkCurrentResumeIndex() {
+    let openApplications = applicants.length;
+    if (openApplications == 0) {
+      setCurrentResumeIndex(0);
+    } else if (currentResumeIndex == openApplications) {
+      setCurrentResumeIndex(currentResumeIndex - 1);
+    }
   }
 
   function previousApplicant() {
@@ -97,7 +108,6 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
       setApplicantIndex(applicantIndex - 1);
       setCurrentResumeIndex(currentResumeIndex - 1);
     }
-    console.log(applicantIndex);
   }
 
   function nextApplicant() {
@@ -105,7 +115,6 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
       setApplicantIndex(applicantIndex + 1);
       setCurrentResumeIndex(currentResumeIndex + 1);
     }
-    getCurrentApplicant;
   }
 
   //Hard-coded resume
@@ -122,7 +131,6 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
       rejectionEmail
     );
     checkApplicantIndex();
-    checkCurrentResumeIndex();
     updateResumePage();
   };
 
@@ -136,7 +144,6 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
       acceptedEmail
     );
     checkApplicantIndex();
-    checkCurrentResumeIndex();
     updateResumePage();
   };
 
@@ -204,13 +211,18 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
               </svg>
             </button>
           </div>
-          {/** Application Index being displayed for testing
+          {/**This section added for testing
           <div>
             <h2 className="text-l block text-center mt-2">
               Application Index: {applicantIndex}
             </h2>
-          </div>
-          */}
+            <h2 className="text-l block text-center mt-2">
+              Resume Index: {currentResumeIndex}
+            </h2>
+            <h2 className="text-l block text-center mt-2">
+              Number of Applicants: {pendingApplicantCount}
+            </h2>
+        </div>*/}
         </div>
         <div id="resumeHolder" className="w-full h-4/6 justify-center">
           <ResumeSwiper

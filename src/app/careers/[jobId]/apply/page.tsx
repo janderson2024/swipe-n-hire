@@ -16,7 +16,7 @@ import { useRouter } from "next/navigation";
 
 interface ApplicationFormProps {
   formData: any;
-  setFormData:any;
+  setFormData: any;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: any;
   getSubmitButtonText: any;
@@ -89,15 +89,15 @@ const ApplicationForm = ({
         placeholder="LinkedIn/portfolio URL"
       />
       <div className="text-center pb-3 font-semibold">
-      <h3>Upload Your Resume:</h3>
-     </div>
+        <h3>Upload Your Resume:</h3>
+      </div>
       <UploadButton<OurFileRouter>
         endpoint="imageUploader"
-        onClientUploadComplete={(res:any) => {
+        onClientUploadComplete={(res: any) => {
           console.log("Files: ", res);
           console.log(res[0].fileUrl);
 
-          setFormData((prevFormData:any) => ({
+          setFormData((prevFormData: any) => ({
             ...prevFormData,
             ["Applicant_Resume"]: res[0].fileUrl,
           }));
@@ -108,7 +108,7 @@ const ApplicationForm = ({
           alert(`ERROR! ${error.message}`);
         }}
       />
-    
+
       <Checkbox
         isChecked={isChecked}
         handleCheckboxClick={handleCheckboxClick}
@@ -134,7 +134,6 @@ export default function Apply({ params }: { params: { jobId: string } }) {
   const [jobTitle, setJobTitle] = useState("");
   const router = useRouter();
 
-
   const getJobData = async () => {
     const findJob = await getJob(params.jobId);
     setJobTitle(findJob.Job_Name);
@@ -142,7 +141,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
 
   useEffect(() => {
     getJobData();
-  },[params.jobId]);
+  }, [params.jobId]);
 
   const [formData, setFormData] = useState({
     Job_ID: params.jobId,
@@ -153,7 +152,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
     Applicant_Legal: false,
     Applicant_Resume: "",
   });
-  
+
   const handleCheckboxClick = (event: any) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -189,7 +188,6 @@ export default function Apply({ params }: { params: { jobId: string } }) {
 
       setIsSubmitted(true);
       router.push("/careers");
-  
     } catch (error) {
       console.error("Error creating application:", error);
     }
@@ -210,8 +208,10 @@ export default function Apply({ params }: { params: { jobId: string } }) {
             <BackArrow />
             View Job Description
           </Link>
-         <p className="text-center text-gray-600 p-5">{jobTitle}</p> 
-          <p className="text-center text-gray-600 p-5">Job ID: {params.jobId}</p>
+          <p className="text-center text-gray-600 p-5">{jobTitle}</p>
+          <p className="text-center text-gray-600 p-5">
+            Job ID: {params.jobId}
+          </p>
         </div>
         <ApplicationForm
           formData={formData}
