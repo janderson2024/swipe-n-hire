@@ -110,7 +110,7 @@ function DraggableResume({ resumeLink, rotateCss }: DraggableResumeProps) {
       setPdfWidth(width);
     }
   }
-  function onResumeLoadSuccess({ numPages }: { numPages: number }){
+  function onResumeLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
   }
 
@@ -132,16 +132,22 @@ function DraggableResume({ resumeLink, rotateCss }: DraggableResumeProps) {
       >
         <Document
           file={resumeLink}
-          externalLinkTarget={"_self"}
           loading={<h2>Loading...</h2>}
           onLoadSuccess={onResumeLoadSuccess}
           className={"bg-inherit"}
+          externalLinkRel="_blank"
+          externalLinkTarget="_blank"
         >
           {Array.from({ length: numPages }, (_, index) => (
-            <Page pageNumber={index+1} key={index} width={pdfWidth} className={"divide-y-2 divide-inherit"}/>
-
+            <Page
+              pageNumber={index + 1}
+              key={index}
+              width={pdfWidth}
+              className={"divide-y-2 divide-inherit"}
+              renderAnnotationLayer={true}
+              
+            />
           ))}
-          
         </Document>
       </div>
     </button>
@@ -198,7 +204,7 @@ export default function ResumeSwiper({
           collisionDetection={pointerDetector}
         >
           <RejectDrop>
-          <div className="w-full h-full flex flex-col justify-center">
+            <div className="w-full h-full flex flex-col justify-center">
               <span className="text-center font-semibold">Reject</span>
             </div>
           </RejectDrop>
