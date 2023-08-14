@@ -39,7 +39,7 @@ export default function JobStatusToggle({ job }: { job: JobDb | undefined }) {
           w-14 
           rounded-full 
           bg-slate-400
-          peer-checked:bg-purple-700"
+          peer-checked:bg-purple-400"
         ></div>
         <div
           className="dot 
