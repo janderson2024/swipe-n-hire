@@ -10,7 +10,6 @@ import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import getJob from "@/backend/getJob";
 import { useRouter } from "next/navigation";
-import { M_PLUS_Code_Latin } from "next/font/google";
 
 interface ApplicationFormProps {
   formData: any;
@@ -201,19 +200,9 @@ export default function Apply({ params }: { params: { jobId: string } }) {
   return (
     <>
       <main className="flex flex-col items-center justify-center min-h-screen">
-        <div className="text-center">
-          <Link
-            href="./"
-            className="text-purple-700 font-semibold flex items-center hover:underline hover:text-purple-400"
-          >
-            <BackArrow />
-            View Job Description
-          </Link>
-          <p className="text-center text-gray-600 p-5 font-semibold text-lg">
-            {jobTitle}
+          <p className="text-center text-gray-600 font-semibold text-lg">
+            Job ID: {params.jobId} - {jobTitle}
           </p>
-          <p className="text-center text-gray-600">Job ID: {params.jobId}</p>
-        </div>
         <ApplicationForm
           formData={formData}
           setFormData={setFormData}
