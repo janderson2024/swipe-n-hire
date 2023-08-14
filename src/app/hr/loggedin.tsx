@@ -10,7 +10,7 @@ import createNewJob from "@/backend/createNewJob";
 
 import { useEffect, useState } from "react";
 
-import {HRJobPostingsDB} from "@/types/job";
+import { HRJobPostingsDB } from "@/types/job";
 import { useRouter } from "next/navigation";
 
 function CenterTitle() {
@@ -82,7 +82,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
 
   useEffect(() => {
     router.refresh();
-  },[]);
+  }, []);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setShowMyPosts(!event.target.checked);
@@ -99,7 +99,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
   let processedJobs = jobs;
   //only show mine
   if (showMyPosts) {
-    processedJobs = processedJobs.filter((job:any) => {
+    processedJobs = processedJobs.filter((job: any) => {
       return userId == job.HR_Creator_ID?.toString();
     });
   }
@@ -110,7 +110,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
       const possibleFilters = [
         job.Job_ID.toString(),
         job.Job_Name,
-        job.Employee_Name
+        job.Employee_Name,
       ];
       return possibleFilters.some((possibleFilter) => {
         return possibleFilter?.includes(filter);
@@ -258,10 +258,11 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
           id="jobs"
           className="flex flex-nowrap pb-4 items-center flex-col divide-y-2 divide-slate-500 h-5/6 overflow-y-scroll"
         >
-          {processedJobs.length > 0 ?(
-          processedJobs.map((job: HRJobPostingsDB) => (
-            <HRJobCard key={job.Job_ID} job={job} RightItem={HRJobControls} />
-          ))) : (
+          {processedJobs.length > 0 ? (
+            processedJobs.map((job: HRJobPostingsDB) => (
+              <HRJobCard key={job.Job_ID} job={job} RightItem={HRJobControls} />
+            ))
+          ) : (
             <i className="p-4 text-center">No matching openings...</i>
           )}
         </div>

@@ -145,7 +145,6 @@ function DraggableResume({ resumeLink, rotateCss }: DraggableResumeProps) {
               width={pdfWidth}
               className={"divide-y-2 divide-inherit"}
               renderAnnotationLayer={true}
-              
             />
           ))}
         </Document>

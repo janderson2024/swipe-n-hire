@@ -1,16 +1,11 @@
 "use client";
 
-import { updateJobStatus } from "@/backend/editJobPosting";
 import getApplicants from "@/backend/getApplicants";
 import getJob from "@/backend/getJob";
 import sendEmail from "@/backend/sendEmail";
 import updateApplicantDecision from "@/backend/updateApplicantDecision";
 import updateApplicantStatus from "@/backend/updateApplicantStatus";
-import BackToOpenings from "@/components/BackToOpenings";
-import ChrevronRight from "@/components/ChevronRight";
 import { ApplicationsForHR } from "@/types/job";
-import { open } from "fs/promises";
-import { Fascinate_Inline } from "next/font/google";
 import { useEffect, useState } from "react";
 import ResumeSwiper from "@/components/ResumeSwiper";
 

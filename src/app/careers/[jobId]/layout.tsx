@@ -1,5 +1,3 @@
-import type { Metadata } from "next";
-
 import NavBar from "@/components/navbar";
 import Logo from "@/components/Logo";
 import BackToOpenings from "@/components/BackToOpenings";
@@ -13,7 +11,7 @@ export default async function HRJobsLayout({
   children: React.ReactNode;
   params: { jobId: string };
 }) {
-    if (await isJobOpen(params.jobId)) {
+  if (await isJobOpen(params.jobId)) {
     return (
       <>
         <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />

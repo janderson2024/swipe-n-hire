@@ -1,21 +1,18 @@
-"use client"
+"use client";
 
 import { JobDb } from "@/types/job";
 import { updateJobStatus } from "@/backend/editJobPosting";
 
-
 export default function JobStatusToggle({ job }: { job: JobDb | undefined }) {
-  if(job == undefined){
-    return (
-      <></>
-    )
+  if (job == undefined) {
+    return <></>;
   }
   const labelLinker = "job" + job.Job_ID + "toggle";
 
-  const sendChangeToServer = async (event:any) => {
+  const sendChangeToServer = async (event: any) => {
     const sendChange = await updateJobStatus(job.Job_ID, event.target.checked);
     console.log(sendChange);
-  }
+  };
 
   return (
     <label

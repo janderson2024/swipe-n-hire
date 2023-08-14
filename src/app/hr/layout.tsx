@@ -20,7 +20,7 @@ export default async function RootLayout({
     return <>{children}</>;
   }
 
-  if (! await getCurrentHrID()) {
+  if (!(await getCurrentHrID())) {
     redirect("/hr/login");
   }
   return <>{children}</>;

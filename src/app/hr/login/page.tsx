@@ -29,7 +29,7 @@ export default function HRLogin() {
 
   return (
     <>
-      <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")}/>
+      <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />
       <main className="flex h-main-under-nav items-center justify-center">
         <div className="max-h-screen w-96 p-6 bg-gray-100 rounded-md">
           <div className="text-2xl font-bold m-5 text-center">

@@ -1,15 +1,3 @@
-/*
-Customizable Nav bar that should be useable for every view
-
-LeftItem will be the "LOGO" or the "<back to postings" in the HR job view
-
-CenterItem will be used for "Current Postings" or the tabs in the Hr job view
-
-Right Item will be the "HR profile image" or the "< Back to openings" in the Applicant view
-
-
-*/
-
 interface HRNavBarProps {
   LeftItem: React.ReactElement;
   CenterItem?: React.ReactElement;

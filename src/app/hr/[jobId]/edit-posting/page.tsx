@@ -5,7 +5,6 @@ import updateHRjobPosting from "@/backend/updateHRJobPosting";
 import getJob from "@/backend/getJob";
 import JobStatusToggle from "@/components/JobStatusToggle";
 import { JobDb } from "@/types/job";
-import { updateJobStatus } from "@/backend/editJobPosting";
 import updateJobStatusDB from "@/backend/updateJobStatusDB";
 
 export default function EditPosting({ params }: { params: { jobId: string } }) {

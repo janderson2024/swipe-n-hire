@@ -1,17 +1,15 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { JobDb } from "@/types/job";
 
-export default function JobPosting({ job }: {job: JobDb}) {
+export default function JobPosting({ job }: { job: JobDb }) {
   return (
     <div className="border-b py-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-2 md:col-span-1">
           <div className="text-s text-gray-4 m-4">ID: {job.Job_ID}</div>
           <div className="text-purple-700 text-lg font-bold m-4">
-            <Link href={`/careers/${job.Job_ID}`}>
-              {job.Job_Name}
-            </Link>
+            <Link href={`/careers/${job.Job_ID}`}>{job.Job_Name}</Link>
           </div>
           <div className="text-gray-600 ml-4">Posted {job.Job_Date_Posted}</div>
         </div>
@@ -87,4 +85,4 @@ export default function JobPosting({ job }: {job: JobDb}) {
       </div>
     </div>
   );
-};
+}

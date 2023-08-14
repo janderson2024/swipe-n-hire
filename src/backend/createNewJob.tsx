@@ -11,7 +11,7 @@ export default async function createNewJob(data: any) {
     "`Job_Status`, `Open_Application_Count`, `Rejected_Application_Count`, " +
     "`Accepted_Application_Count`, `Job_Date_Posted`, `Job_Rejected_Email`, `Job_Accepted_Email`)" +
     "VALUES (?, 'New Posting', 'Description...', 'closed', 0, 0, 0, now(), " +
-    "'EXAMPLE REJECTION: We have reviewed your resume and have decided to not move forward with your application.', "+
+    "'EXAMPLE REJECTION: We have reviewed your resume and have decided to not move forward with your application.', " +
     "'EXAMPLE ACCEPTION: We have reviewed your resume, and you seem to be a good fit for this role. The next steps would be a first interview with HR. We will send you an email with potential interview times and dates.');";
 
   const cookieStore = cookies();

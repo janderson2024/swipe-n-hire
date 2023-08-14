@@ -3,7 +3,6 @@
 import { cookies } from "next/headers";
 import dbConn from "@/backend/databaseConnect";
 import { HRDb } from "@/types/hr";
-import { redirect } from "next/navigation";
 
 const COOKIE_NAME = "userID";
 
