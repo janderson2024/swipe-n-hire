@@ -204,7 +204,7 @@ export default function ResumeSwiper({
         >
           <RejectDrop>
             <div className="w-full h-full flex flex-col justify-center">
-              <span className="text-center font-semibold">Reject</span>
+              <span className="text-center font-semibold">Swipe to<br/>Reject</span>
             </div>
           </RejectDrop>
           <ResumeHolder>
@@ -212,7 +212,7 @@ export default function ResumeSwiper({
           </ResumeHolder>
           <AcceptDrop>
             <div className="w-full h-full flex flex-col justify-center">
-              <span className="text-center font-semibold">Accept</span>
+              <span className="text-center font-semibold">Swipe to<br/>Accept</span>
             </div>
           </AcceptDrop>
         </DndContext>
