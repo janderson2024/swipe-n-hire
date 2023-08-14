@@ -4,5 +4,5 @@ function getLogo() {
 
 export default function Logo() {
   const logo = getLogo();
-  return <span className="text-xl font-bold">{logo}</span>;
+  return <span className="text-xl text-white font-bold">{logo}</span>;
 }

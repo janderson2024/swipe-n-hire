@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
-    "@dnd-kit/modifiers": "^6.0.1",
     "@planetscale/database": "^1.8.0",
     "@types/react-dom": "18.2.6",
     "@uploadthing/react": "^5.2.0",
