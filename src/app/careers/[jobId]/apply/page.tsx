@@ -198,27 +198,26 @@ export default function Apply({ params }: { params: { jobId: string } }) {
   };
 
   return (
-    <>
-      <main className="flex flex-col items-center justify-center min-h-screen">
-          <p className="text-center text-gray-600 font-semibold text-lg">
-            Job ID: {params.jobId} - {jobTitle}
-          </p>
-        <ApplicationForm
-          formData={formData}
-          setFormData={setFormData}
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          getSubmitButtonText={getSubmitButtonText}
-          isSubmitDisabled={isSubmitDisabled}
-          isChecked={isChecked}
-          handleCheckboxClick={handleCheckboxClick}
-          openModal={openModal}
-        />
-
-        {showModal && (
-          <TermsModal show={showModal} onClose={handleModalClose} />
-        )}
-      </main>
-    </>
+    <main className="flex flex-col items-center justify-center h-max">
+      <Link href="./" className="text-purple-700 hover:text-purple-400 font-semibold flex items-center p-4">
+        <BackArrow />
+        View Job Description
+      </Link>
+      <h2 className="text-center text-gray-600 font-semibold text-lg">
+        Job ID: {params.jobId} - {jobTitle}
+      </h2>
+      <ApplicationForm
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        getSubmitButtonText={getSubmitButtonText}
+        isSubmitDisabled={isSubmitDisabled}
+        isChecked={isChecked}
+        handleCheckboxClick={handleCheckboxClick}
+        openModal={openModal}
+      />
+      {showModal && <TermsModal show={showModal} onClose={handleModalClose} />}
+    </main>
   );
 }

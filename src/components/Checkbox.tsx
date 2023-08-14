@@ -23,7 +23,7 @@ const TermsCheckbox = ({
         />
         <label
           htmlFor="termsCheckbox"
-          className="w-48 cursor-pointer text-purple-600 ml-2 hover:text-purple-400 hover:underline pb-5"
+          className="w-48 text-sm cursor-pointer text-purple-600 ml-2 hover:text-purple-400 hover:underline pb-5"
           onClick={openModal}
         >
           I have read and agree to the Terms of Use
