@@ -5,7 +5,7 @@ export default function BackToOpenings(backLink: string) {
   return (
     <Link
       href={backLink}
-      className="text-white font-semibold flex items-center"
+      className="text-white font-semibold flex items-center hover:underline"
     >
       <BackArrow />
       Back to Openings

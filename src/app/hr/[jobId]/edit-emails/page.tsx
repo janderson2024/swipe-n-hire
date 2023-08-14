@@ -64,11 +64,11 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
               className="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus: border-gray-600"
             />
           </div>
-          <div className="flex justify-center mt-5">
+          <div className="flex justify-center">
             <button
               onClick={changesSubmitted}
               type="button"
-              className="border-2 border-purple-700 bg-purple-700 text-white py-1 w-1/4"
+              className="justify-center p-4 border-4 border-purple-300 bg-purple-100 hover:bg-purple-200 rounded py-1"
             >
               Submit Changes
             </button>

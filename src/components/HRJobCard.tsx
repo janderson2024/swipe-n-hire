@@ -23,7 +23,7 @@ export default function HRJobCard({ job, RightItem }: JobCardProps) {
           target="_blank"
           className="self-center sm:place-self-start"
         >
-          <span className="text-violet-600 text-xl font-bold ">
+          <span className="text-purple-700 hover:text-purple-400 text-xl font-bold ">
             {job.Job_Name}
           </span>
         </Link>
