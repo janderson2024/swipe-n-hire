@@ -201,12 +201,12 @@ export default function Apply({ params }: { params: { jobId: string } }) {
     <>
       <main className="flex flex-col items-center justify-center min-h-screen">
         <div className="text-center">
-          <Link href="./" className="text-purple-700 flex items-center">
+          <Link href="./" className="text-purple-700 font-semibold flex items-center hover:underline hover:text-purple-400">
             <BackArrow />
             View Job Description
           </Link>
           <p className="text-center text-gray-600 p-5 font-semibold text-lg">{jobTitle}</p>
-          <p className="text-center text-gray-600 p-5">
+          <p className="text-center text-gray-600">
             Job ID: {params.jobId}
           </p>
         </div>
