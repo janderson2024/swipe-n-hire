@@ -8,9 +8,15 @@ import { redirect } from "next/navigation";
 function PostingsNavBar(jobId: string) {
   return (
     <>
-      <Link href={`/hr/${jobId}/edit-posting`} className="text-white">Edit Posting</Link>
-      <Link href={`/hr/${jobId}/resumes`} className="text-white">Resumes</Link>
-      <Link href={`/hr/${jobId}/edit-emails`} className="text-white">Customize Emails</Link>
+      <Link href={`/hr/${jobId}/edit-posting`} className="text-white">
+        Edit Posting
+      </Link>
+      <Link href={`/hr/${jobId}/resumes`} className="text-white">
+        Resumes
+      </Link>
+      <Link href={`/hr/${jobId}/edit-emails`} className="text-white">
+        Customize Emails
+      </Link>
     </>
   );
 }
