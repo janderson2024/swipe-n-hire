@@ -155,7 +155,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
           className="flex justify-around border-b-2 border-slate-500 p-2 h-1/6"
         >
           <form action={createNewJob}>
-            <button className="p-4 border-4 border-slate-700" type="submit">
+            <button className="p-4 border-4 border-purple-300 bg-purple-100 hover:bg-purple-200 rounded" type="submit">
               + New Posting
             </button>
           </form>
@@ -202,7 +202,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
             <div id="Filter-Bar" className="flex">
               <input
                 type="text"
-                className="border-2 border-slate-700 m-1"
+                className="border-2 border-slate-500 m-1 rounded"
                 placeholder="Job title, Id, status..."
                 onChange={(event) => {
                   setFilter(event.target.value);
@@ -212,7 +212,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
                 className={
                   (filterButton &&
                     "bg-slate-500 color-white hover:bg-slate-700") +
-                  " border-2 border-slate-700 m-1 hover:bg-slate-300"
+                  " border-2 border-slate-700 m-1 hover:bg-slate-300 rounded"
                 }
                 onClick={toggleFilterButton}
               >
@@ -234,7 +234,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
             </div>
 
             <div id="sorting-input" className="flex">
-              <div className="border-2 border-slate-600">
+              <div className="border-2 border-slate-500 rounded">
                 <label htmlFor="sorting-select">Sort By: </label>
                 <select
                   name="sorting"

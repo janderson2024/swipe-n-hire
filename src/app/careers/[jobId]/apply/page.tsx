@@ -205,7 +205,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
             <BackArrow />
             View Job Description
           </Link>
-          <p className="text-center text-gray-600 p-5">{jobTitle}</p>
+          <p className="text-center text-gray-600 p-5 font-semibold text-lg">{jobTitle}</p>
           <p className="text-center text-gray-600 p-5">
             Job ID: {params.jobId}
           </p>
