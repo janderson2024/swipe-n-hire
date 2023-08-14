@@ -14,7 +14,7 @@ import {HRJobPostingsDB} from "@/types/job";
 import { useRouter } from "next/navigation";
 
 function CenterTitle() {
-  return <span className="text-xl font-bold">Current Postings</span>;
+  return <span className="text-xl text-white font-bold">Current Postings</span>;
 }
 
 function HRJobControls({ job }: { job: HRJobPostingsDB }) {
@@ -181,7 +181,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
           h-8 w-14 
           rounded-full 
           bg-slate-400
-          peer-checked:bg-green-500"
+          peer-checked:bg-purple-700"
               ></div>
 
               <div

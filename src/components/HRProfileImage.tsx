@@ -24,7 +24,7 @@ export default function HRProfileImage() {
       viewBox="0 0 24 24"
       strokeWidth="2"
       stroke="currentColor"
-      className="rounded-full h-10 w-10"
+      className="text-white rounded-full h-10 w-10"
     >
       <path
         strokeLinecap="round"
