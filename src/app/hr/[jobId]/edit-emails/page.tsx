@@ -1,15 +1,18 @@
 "use client";
 import getJob from "@/backend/getJob";
 import updateHREmails from "@/backend/updateHREmails";
+import PostingsNavBar from "@/components/PostingsNavBar";
 import { useEffect, useState } from "react";
 
 export default function EditEmails({ params }: { params: { jobId: string } }) {
   const [jobTitle, setJobTitle] = useState("");
+  const [jobID, setJobID] = useState(0);
   const [interviewEmail, setInterviewEmail] = useState("");
   const [rejectionEmail, setRejectionEmail] = useState("");
 
   const getJobData = async () => {
     const findJob = await getJob(params.jobId);
+    setJobID(findJob.Job_ID);
     setInterviewEmail(findJob.Job_Accepted_Email);
     setRejectionEmail(findJob.Job_Rejected_Email);
     setJobTitle(findJob.Job_Name);
@@ -26,14 +29,12 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
 
   return (
     <>
-      <div>
-        <h1 className="text-2xl font-bold m-5 text-center">{jobTitle}</h1>
-        <h2 className="text-2xl block text-center font-semibold text-purple-700">
-          Customize Emails
-        </h2>
-        <hr className="mt-3"></hr>
-      </div>
-      <main>
+      <PostingsNavBar jobId={params.jobId} segment="edit-emails" />
+      <main className="h-main-under-nav p-4">
+        <div>
+          <h1 className="text-2xl font-bold text-center">{jobTitle}</h1>
+          <hr className="mt-3"></hr>
+        </div>
         <div className="h-min-screen px-10 py-5">
           <div className="mt-3 p-6">
             <label htmlFor="interviewEmail" className="block text-base mb-2">

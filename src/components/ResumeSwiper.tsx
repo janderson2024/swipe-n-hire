@@ -36,7 +36,7 @@ function RejectDrop(props: any) {
   return (
     <div
       ref={setNodeRef}
-      className={`${color} border-purple-300 border-4 h-full w-20 rounded`}
+      className={`${color} border-purple-300 border-4 h-full w-32 rounded`}
     >
       {props.children}
     </div>
@@ -51,7 +51,7 @@ function ResumeHolder(props: any) {
   return (
     <div
       ref={setNodeRef}
-      className="bg-slate-300 border-slate-500 border-4 h-full w-4/5"
+      className="bg-slate-300 border-slate-500 border-4 h-full w-4/6"
     >
       {props.children}
     </div>
@@ -70,7 +70,7 @@ function AcceptDrop(props: any) {
   return (
     <div
       ref={setNodeRef}
-      className={`${color} border-purple-300 border-4 h-full w-20 rounded`}
+      className={`${color} border-purple-300 border-4 h-full w-32 rounded`}
     >
       {props.children}
     </div>
@@ -196,7 +196,7 @@ export default function ResumeSwiper({
 
   return (
     <section className="h-full overflow-x-hidden overflow-y-hidden">
-      <div className="w-full h-full p-4 flex justify-between">
+      <div className="w-full h-full pt-2 flex justify-between">
         <DndContext
           onDragEnd={handleDragEnd}
           onDragMove={handleDragMove}

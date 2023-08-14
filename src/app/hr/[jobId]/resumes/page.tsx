@@ -8,7 +8,7 @@ import updateApplicantStatus from "@/backend/updateApplicantStatus";
 import { ApplicationsForHR } from "@/types/job";
 import { useEffect, useState } from "react";
 import ResumeSwiper from "@/components/ResumeSwiper";
-import { list } from "postcss";
+import PostingsNavBar from "@/components/PostingsNavBar";
 import { useRouter } from "next/navigation";
 
 export default function ViewResumes({ params }: { params: { jobId: string } }) {
@@ -144,82 +144,70 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
 
   return (
     <>
-      <main className="h-main-under-nav px-4">
-        <div className="flex justify-end">
-          <h2 className="text-l block text-center mt-4 mr-4">
-            Accepted: {acceptedCount}
-          </h2>
+      <PostingsNavBar jobId={params.jobId} segment="resumes" />
+      <main className="h-main-under-nav p-4">
+        <div>
+          <h1 className="text-2xl font-bold text-center">{jobTitle}</h1>
+          <hr className="mt-3"></hr>
         </div>
-        <div className="flex justify-end">
-          <h2 className="text-l block text-center mt-2 mr-4">
-            Rejected: {rejectedCount}
-          </h2>
-        </div>
-        <div className="justify-center border-b-2 border-slate-300 pb-4">
-          <div className="justify-center">
-            <h1 className="text-2xl block text-center font-semibold text-purple-700">
-              {jobTitle}
-            </h1>
-          </div>
-          <div className="flex justify-center space-x-4 mt-2">
-            <button
-              type="button"
-              onClick={previousApplicant}
-              className="text-purple-700 hover:text-purple-300"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
+        <div className="grid grid-cols-3 w-full border-b border-purple-700">
+          <div className="col-start-2 self-center">
+            <div className="flex justify-center space-x-4 mt-2">
+              <button
+                type="button"
+                onClick={previousApplicant}
+                className="text-purple-700 hover:text-purple-300"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
-                />
-              </svg>
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
+                  />
+                </svg>
+              </button>
+              <h2 className="text-l block text-center">
+                {currentResumeIndex} of {pendingApplicantCount} Applications
+              </h2>
+              <button
+                type="button"
+                onClick={nextApplicant}
+                className=" text-purple-700 hover:text-purple-300"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div id="count-wrapper" className="justify-self-end my-2 mr-4">
             <h2 className="text-l block text-center">
-              {currentResumeIndex} of {pendingApplicantCount} Applications
+              Accepted: {acceptedCount}
             </h2>
-            <button
-              type="button"
-              onClick={nextApplicant}
-              className=" text-purple-700 hover:text-purple-300"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </button>
+            <h2 className="text-l block text-center">
+              Rejected: {rejectedCount}
+            </h2>
           </div>
-          {/**This section added for testing
-          <div>
-            <h2 className="text-l block text-center mt-2">
-              Application Index: {applicantIndex}
-            </h2>
-            <h2 className="text-l block text-center mt-2">
-              Resume Index: {currentResumeIndex}
-            </h2>
-            <h2 className="text-l block text-center mt-2">
-              Number of Applicants: {pendingApplicantCount}
-            </h2>
-        </div>*/}
         </div>
-        <div id="resumeHolder" className="w-full h-4/6 justify-center">
+        <div id="resumeHolder" className="w-full h-5/6 justify-center">
           <ResumeSwiper
             resumeLink={applicantResume}
             acceptFunction={updateApplicantAccept}

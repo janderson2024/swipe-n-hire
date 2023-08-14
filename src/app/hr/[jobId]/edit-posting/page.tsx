@@ -6,10 +6,12 @@ import getJob from "@/backend/getJob";
 import JobStatusToggle from "@/components/JobStatusToggle";
 import { JobDb } from "@/types/job";
 import updateJobStatusDB from "@/backend/updateJobStatusDB";
+import PostingsNavBar from "@/components/PostingsNavBar";
 
 export default function EditPosting({ params }: { params: { jobId: string } }) {
   const [job, setJob] = useState<JobDb>();
   const [jobTitle, setJobTitle] = useState("");
+  const [staticJobTitle, setStaticJobTitle] = useState("");
   const [department, setDepartment] = useState("");
   const [emplType, setEmplType] = useState("");
   const [salaryRange, setSalaryRange] = useState("");
@@ -26,6 +28,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
     setSalaryRange(findJob.Job_Salary);
     setLocation(findJob.Job_Location);
     setJobDescription(findJob.Job_Description);
+    setStaticJobTitle(findJob.Job_Name);
   };
 
   useEffect(() => {
@@ -42,6 +45,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
       location,
       jobDescription
     );
+    setStaticJobTitle(jobTitle);
     alert("Your job posting has been saved!");
   }
 
@@ -52,14 +56,12 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
 
   return (
     <>
-      <main>
+      <PostingsNavBar jobId={params.jobId} segment="edit-posting" />
+      <main className="h-main-under-nav p-4">
         <div>
-          <h1 className="text-2xl block text-center font-semibold text-purple-700 mt-4">
-            Add/Edit Job Posting
-          </h1>
-          <hr className="mt-4"></hr>
+          <h1 className="text-2xl font-bold text-center">{jobTitle}</h1>
+          <hr className="mt-3"></hr>
         </div>
-
         <div>
           <div className="flex justify-around py-5">
             <div>
