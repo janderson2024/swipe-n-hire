@@ -24,7 +24,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
   const [applicants, setApplicants] = useState<ApplicationsForHR[]>([]);
   const [currentApplicant, setCurrentApplicant] = useState(Object);
   const [applicantId, setApplicantId] = useState("");
-  const [currentResumeIndex, setCurrentResumeIndex] = useState(1);
+  const [currentResumeIndex, setCurrentResumeIndex] = useState(0);
   const [openApplicationCount, setOpenApplicationCount] = useState(Number);
   const router = useRouter();
 
@@ -40,6 +40,21 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     }
     fetchInitialApplicants();
   }, []);
+
+  const findOpenApplications = async () => {
+    const findJobOpenings = await getJob(params.jobId);
+    setOpenApplicationCount(findJobOpenings.Open_Application_Count);
+  };
+
+  useEffect(() => {
+    findOpenApplications();
+  }, []);
+
+  useEffect(() => {
+    if (openApplicationCount > 0) {
+      setCurrentResumeIndex(1);
+    }
+  }, [openApplicationCount]);
 
   const getHRJobData = async () => {
     const findJob = await getJob(params.jobId);
