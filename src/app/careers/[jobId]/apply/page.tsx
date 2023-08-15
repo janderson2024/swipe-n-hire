@@ -199,7 +199,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
 
   return (
     <main className="flex flex-col items-center justify-center h-max">
-      <Link href="./" className="text-purple-700 hover:text-purple-400 font-semibold flex items-center p-4">
+      <Link href="./" className="text-purple-700 hover:text-purple-400 font-semibold flex items-center pt-4 pb-7">
         <BackArrow />
         View Job Description
       </Link>
