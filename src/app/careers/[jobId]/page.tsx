@@ -42,10 +42,6 @@ async function JobDescription({ params }: { params: { jobId: string } }) {
 
         <textarea
           value={
-            job.Job_Description +
-            "\n" +
-            job.Job_Description +
-            "\n" +
             job.Job_Description
           }
           id="jobDescription"
