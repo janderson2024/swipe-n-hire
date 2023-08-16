@@ -36,7 +36,8 @@ function RejectDrop(props: any) {
   return (
     <div
       ref={setNodeRef}
-      className={`${color} border-purple-300 border-4 h-full w-32 rounded`}
+      className={`${color} border-purple-300 border-4 h-full w-32 rounded hover:bg-purple-200`}
+      onClick={props.onClick}
     >
       {props.children}
     </div>
@@ -58,7 +59,7 @@ function ResumeHolder(props: any) {
   );
 }
 
-function AcceptDrop(props: any) {
+function AcceptDrop(props:any) {
   const { isOver, setNodeRef } = useDroppable({
     id: "AcceptDrop",
   });
@@ -70,7 +71,8 @@ function AcceptDrop(props: any) {
   return (
     <div
       ref={setNodeRef}
-      className={`${color} border-purple-300 border-4 h-full w-32 rounded`}
+      className={`${color} border-purple-300 border-4 h-full w-32 rounded hover:bg-purple-200`}
+      onClick={props.onClick}
     >
       {props.children}
     </div>
@@ -202,7 +204,7 @@ export default function ResumeSwiper({
           onDragMove={handleDragMove}
           collisionDetection={pointerDetector}
         >
-          <RejectDrop>
+          <RejectDrop onClick={rejectFunction}>
             <div className="w-full h-full flex flex-col justify-center">
               <span className="text-center font-semibold">Swipe to<br/>Reject</span>
             </div>
@@ -210,7 +212,7 @@ export default function ResumeSwiper({
           <ResumeHolder>
             <DraggableResume resumeLink={resumeLink} rotateCss={rotate} />
           </ResumeHolder>
-          <AcceptDrop>
+          <AcceptDrop onClick={acceptFunction}>
             <div className="w-full h-full flex flex-col justify-center">
               <span className="text-center font-semibold">Swipe to<br/>Accept</span>
             </div>
