@@ -36,7 +36,7 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
           <hr className="mt-3"></hr>
         </div>
         <section id="Email section" className="h-4/5 px-5 pt-5">
-          <div id="Emails" className="flex h-full">
+          <div id="Emails" className="sm:flex h-full">
             <div id="Interview-email" className="grow h-full p-2">
               <label htmlFor="interviewEmail" className="block text-base mb-2">
                 <b>Interview Invitation Email</b>
@@ -64,8 +64,6 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
               />
             </div>
           </div>
-        </section>
-        <section id="submit-button">
           <div className="flex justify-center">
             <button
               onClick={changesSubmitted}
