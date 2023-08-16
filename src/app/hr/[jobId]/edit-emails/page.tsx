@@ -10,11 +10,16 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
   const [interviewEmail, setInterviewEmail] = useState("");
   const [rejectionEmail, setRejectionEmail] = useState("");
 
+  const [initInterviewEmail, setInitInterviewEmail] = useState("");
+  const [initRejectionEmail, setInitRejectionEmail] = useState("");
+
   const getJobData = async () => {
     const findJob = await getJob(params.jobId);
     setJobID(findJob.Job_ID);
     setInterviewEmail(findJob.Job_Accepted_Email);
+    setInitInterviewEmail(findJob.Job_Accepted_Email);
     setRejectionEmail(findJob.Job_Rejected_Email);
+    setInitRejectionEmail(findJob.Job_Rejected_Email);
     setJobTitle(findJob.Job_Name);
   };
 
@@ -24,6 +29,8 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
 
   const changesSubmitted = async function () {
     await updateHREmails(params.jobId, interviewEmail, rejectionEmail);
+    setInitInterviewEmail(interviewEmail);
+    setInitRejectionEmail(rejectionEmail);
     alert("Your emails have been saved!");
   };
 
@@ -64,15 +71,16 @@ export default function EditEmails({ params }: { params: { jobId: string } }) {
               />
             </div>
           </div>
-          <div className="flex justify-center">
+          {((rejectionEmail != initRejectionEmail) || (interviewEmail != initInterviewEmail)) && (
+          <div className="fixed inset-x-0 bottom-10 flex justify-center">
             <button
               onClick={changesSubmitted}
               type="button"
-              className="justify-center p-4 border-4 border-purple-300 bg-purple-100 hover:bg-purple-200 rounded py-1"
+              className="p-4 border-4 border-purple-300 bg-purple-100 rounded py-1 shadow-lg shadow-purple-300 md:shadow-none"
             >
               Submit Changes
             </button>
-          </div>
+          </div>)}
         </section>
       </main>
     </>
