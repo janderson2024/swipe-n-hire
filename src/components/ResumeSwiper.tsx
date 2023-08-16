@@ -52,7 +52,7 @@ function ResumeHolder(props: any) {
   return (
     <div
       ref={setNodeRef}
-      className="bg-slate-300 border-slate-500 border-4 h-full w-4/6"
+      className="bg-slate-300 h-full w-4/6"
     >
       {props.children}
     </div>
