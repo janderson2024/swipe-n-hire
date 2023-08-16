@@ -8,7 +8,12 @@ export default function BackToOpenings(backLink: string) {
       className="text-white font-semibold flex items-center hover:underline"
     >
       <BackArrow />
+      <span className="hidden md:block">
       Back to Openings
+      </span>
+      <span className="md:hidden">
+        Back
+      </span>
     </Link>
   );
 }
