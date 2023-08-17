@@ -119,7 +119,7 @@ const ApplicationForm = ({
       <button
         type="button"
         onClick={handleSubmit}
-        className="bg-purple-700 hover:bg-purple-500 mx-auto justify-center text-white py-2 px-4 rounded-md md cursor-pointer block w-1/4 p-2 mb-4"
+        className="bg-purple-700 hover:bg-purple-500 mx-auto justify-center text-white py-2 px-4 rounded-md md cursor-pointer block w-1/3 p-2 mb-4"
         disabled={isSubmitDisabled}
       >
         {getSubmitButtonText()}
