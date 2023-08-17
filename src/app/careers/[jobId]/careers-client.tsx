@@ -3,12 +3,16 @@
 import Link from "next/link";
 import Modal from "@/components/Modal";
 import ShareModal from "@/components/ShareModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { JobDb } from "@/types/job";
 
 function JobDescription({ job }: { job: JobDb }) {
   const [showShareModal, setShowShareModal] = useState(false);
-  const postLink = window.location.href;
+  const [postLink, setPostLink] = useState("");
+
+  useEffect(()=>{
+    setPostLink(window.location.href);
+  },[]);
 
   function openShareModal() {
     setShowShareModal(true);
