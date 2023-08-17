@@ -11,22 +11,15 @@ type Props = {
 export async function generateMetadata(
   { params }: Props
 ): Promise<Metadata> {
-  // read route params
-  const id = params.jobId
   
-  //console.log(id);
+  //console.log(params.jobId);
+
+  //get job name and description from db
 
   const company_name = getCompanyName();
 
   const title = company_name + " | Job Name"
   const description = "This is specific for the thing...";
-
- 
-  // fetch data
-  //const product = await fetch(`https://.../${id}`).then((res) => res.json())
- 
-  // optionally access and extend (rather than replace) parent metadata
-  //const previousImages = (await parent).openGraph?.images || []
  
   return {
     title: title,
@@ -37,15 +30,9 @@ export async function generateMetadata(
       description: description,
       url: "https://swipe-n-hire.com",
       images: [
-        {url: '/favicon.ico',
-        width:32,
-        height:32},
-        {url: '/iconx96.png',
-        width:96,
-        height:96},
-        {url: '/iconx192.png',
+        {url: '/icon.png',
         width:192,
-        height:192},
+        height:192}
       ],
       locale:"en-US",
       type:"website",
