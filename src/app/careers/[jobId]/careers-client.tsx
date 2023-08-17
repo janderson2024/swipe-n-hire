@@ -24,7 +24,7 @@ function JobDescription({ job }: { job: JobDb }) {
 
   return (
     <>
-      <main className="flex flex-col items-center justify-center">
+      <main className="h-main-under-nav flex flex-col items-center">
         <h1 className="text-lg font-bold mt-4">
           {job.Job_Name} - Job ID: {job.Job_ID}
         </h1>
@@ -53,20 +53,19 @@ function JobDescription({ job }: { job: JobDb }) {
           name="jobDescription"
           placeholder="Enter job description here"
           readOnly={true}
-          rows={16}
-          className="resize-none mb-4 overflow-y-auto border rounded w-2/3 text-base px-2 py-1 border-purple-600 focus:outline-0"
+          className="h-1/2 md:h-4/6 resize-none overflow-y-auto border rounded w-2/3 text-base px-2 py-1 border-purple-600 focus:outline-0"
         />
-        <div className="flex w-2/5 justify-evenly">
+        <div className="flex w-2/5 mt-2 justify-evenly">
           <Link className="mr-4" href={`/careers/${job.Job_ID}/apply`}>
             <button className="bg-purple-700 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded">
-              Apply for this Job
+              <span>Apply <span className="hidden md:inline">for this Job</span></span>
             </button>
           </Link>
           <button
             onClick={openShareModal}
             className="bg-purple-700 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded"
           >
-            Share this Job
+            <span>Share <span className="hidden md:inline">this Job</span></span>
           </button>
         </div>
         <Modal show={showShareModal} onClose={closeShareModal}>
