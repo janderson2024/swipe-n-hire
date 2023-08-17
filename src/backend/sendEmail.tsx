@@ -1,4 +1,5 @@
 "use server";
+import { getCompanyName } from "@/components/Logo";
 import { Resend } from "resend";
 const resend = new Resend(process.env["RESEND_API"]);
 
@@ -13,7 +14,7 @@ export default async function sendEmail(
   console.log(`Sending email to ${recipient}`);
   try {
     const data = await resend.emails.send({
-      from: "Company Name <no-reply@swipe-n-hire.com>",
+      from: getCompanyName + " <no-reply@swipe-n-hire.com>",
       to: [recipient],
       subject: subject,
       text: emailBody,

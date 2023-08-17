@@ -7,7 +7,7 @@ import { JobDb } from "@/types/job";
 async function getJob(jobId: string) {
   const getJobsSQL = "SELECT * from `Jobs` WHERE `Job_ID` = ?";
   const result = await dbConn.execute(getJobsSQL, [jobId]);
-  console.log(result);
+  //console.log(result);
   const job: JobDb = result.rows[0] as JobDb;
   return job;
 }
