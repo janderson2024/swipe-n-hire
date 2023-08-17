@@ -5,7 +5,7 @@ import BackArrow from "@/components/BackArrow";
 import TermsModal from "@/components/TermsModal";
 import Checkbox from "@/components/Checkbox";
 import createNewApplication from "@/backend/createNewApplication";
-import "@uploadthing/react/styles.css";
+//import "@uploadthing/react/styles.css";
 
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
@@ -89,9 +89,11 @@ const ApplicationForm = ({
       <div className="text-center pb-3 font-semibold">
         <h3>Upload Your Resume:</h3>
       </div>
-      <UploadButton 
-      <OurFileRouter>
-        className="bg-purple-700" 
+      <UploadButton<OurFileRouter>
+        appearance={{
+          button:
+            "ut-ready:bg-purple-700 ut-uploading:cursor-not-allowed rounded-r-none bg-purple-500 bg-none after:bg-purple-400",
+        }}
         endpoint="imageUploader"
         onClientUploadComplete={(res: any) => {
           console.log("Files: ", res);
@@ -117,7 +119,7 @@ const ApplicationForm = ({
       <button
         type="button"
         onClick={handleSubmit}
-        className="bg-purple-700 hover:bg-purple-500 mx-auto justify-center text-white py-2 px-4 rounded md cursor-pointer block w-32 p-2 mb-4"
+        className="bg-purple-700 hover:bg-purple-500 mx-auto justify-center text-white py-2 px-4 rounded-md md cursor-pointer block w-1/4 p-2 mb-4"
         disabled={isSubmitDisabled}
       >
         {getSubmitButtonText()}
@@ -202,7 +204,10 @@ export default function Apply({ params }: { params: { jobId: string } }) {
 
   return (
     <main className="flex flex-col items-center justify-center h-max">
-      <Link href="./" className="text-purple-700 hover:text-purple-400 font-semibold flex items-center pt-4 pb-7">
+      <Link
+        href="./"
+        className="text-purple-700 hover:text-purple-400 font-semibold flex items-center pt-4 pb-7"
+      >
         <BackArrow />
         View Job Description
       </Link>
