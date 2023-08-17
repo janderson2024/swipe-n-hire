@@ -6,6 +6,7 @@ import TermsModal from "@/components/TermsModal";
 import Checkbox from "@/components/Checkbox";
 import createNewApplication from "@/backend/createNewApplication";
 import "@uploadthing/react/styles.css";
+
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import getJob from "@/backend/getJob";
@@ -88,7 +89,9 @@ const ApplicationForm = ({
       <div className="text-center pb-3 font-semibold">
         <h3>Upload Your Resume:</h3>
       </div>
-      <UploadButton<OurFileRouter>
+      <UploadButton 
+      <OurFileRouter>
+        className="bg-purple-700" 
         endpoint="imageUploader"
         onClientUploadComplete={(res: any) => {
           console.log("Files: ", res);
