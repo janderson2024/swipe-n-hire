@@ -42,7 +42,10 @@ export async function generateMetadata(
         height:32},
         {url: '/iconx96.png',
         width:96,
-        height:96}
+        height:96},
+        {url: '/iconx192.png',
+        width:192,
+        height:192},
       ],
       locale:"en-US",
       type:"website",
