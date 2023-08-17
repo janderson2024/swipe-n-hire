@@ -28,8 +28,6 @@ export async function loginUser(email: string, password: string) {
 
   password = await hashInput(password.toString());
 
-  //console.log(userEmail, userPassword);
-
   const userSQL =
     "SELECT `Employee_ID` " +
     "FROM `HR` " +
@@ -46,7 +44,7 @@ export async function loginUser(email: string, password: string) {
   const userID = user.Employee_ID;
 
   console.log(
-    `Logged in User: ${userID} with email: ${email} password: ${password}`
+    `Logged in User: ${userID} with email: ${email} password: ********`
   );
 
   cookies().set(COOKIE_NAME, await signCookie(userID.toString()));

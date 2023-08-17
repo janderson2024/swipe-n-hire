@@ -30,7 +30,10 @@ export async function generateMetadata(
       description: description,
       url: "https://swipe-n-hire.com",
       images: [
-        {url: '/icon.png',
+        {url: '/purple-icon.png',
+        width:192,
+        height:192},
+        {url: '/white-icon.png',
         width:192,
         height:192}
       ],

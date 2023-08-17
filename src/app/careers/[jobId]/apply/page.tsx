@@ -11,6 +11,7 @@ import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import getJob from "@/backend/getJob";
 import { useRouter } from "next/navigation";
+import Modal from "@/components/modal";
 
 interface ApplicationFormProps {
   formData: any;
@@ -225,7 +226,9 @@ export default function Apply({ params }: { params: { jobId: string } }) {
         handleCheckboxClick={handleCheckboxClick}
         openModal={openModal}
       />
-      {showModal && <TermsModal show={showModal} onClose={handleModalClose} />}
+      <Modal show={showModal} onClose={handleModalClose}>
+        <TermsModal />
+      </Modal>
     </main>
   );
 }
