@@ -1,5 +1,5 @@
 "use client";
-import NavBar from "@/components/navbar";
+import NavBar from "@/components/Navbar";
 import Logo from "@/components/Logo";
 import { useEffect, useState } from "react";
 import { JobDb } from "@/types/job";

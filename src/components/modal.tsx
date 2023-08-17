@@ -9,6 +9,8 @@ interface ModalProps {
 export default function Modal({ show, onClose, children }: ModalProps) {
   if (!show) return null;
 
+
+
   return (
     <div
       onClick={onClose}
@@ -18,14 +20,14 @@ export default function Modal({ show, onClose, children }: ModalProps) {
         onClick={(event) => {
           event.stopPropagation();
         }}
-        className="bg-white p-4 w-2/3 md:w-1/2 rounded-lg max-h-screen overflow-y-auto"
+        className="bg-white p-4 w-4/5 md:w-1/2 rounded-lg max-h-screen overflow-y-auto"
       >
-        <button className="float-right" onClick={onClose}>
+        <button className="float-right font-bold text-lg" onClick={onClose}>
           x
         </button>
-        <section id="child">{children}</section>
+        <section id="child" className="w-full h-full my-2">{children}</section>
         <button
-          className="bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded mt-4"
+          className="bg-purple-700 hover:bg-purple-900 text-white font-bold py-2 px-4 rounded"
           onClick={onClose}
         >
           Close

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NavBar from "@/components/navbar";
+import NavBar from "@/components/Navbar";
 import Logo from "@/components/Logo";
 import BackArrow from "@/components/BackArrow";
 

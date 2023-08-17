@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NavBar from "./navbar";
+import NavBar from "./Navbar";
 import BackToOpenings from "./BackToOpenings";
 import HRProfileImage from "./HRProfileImage";
 

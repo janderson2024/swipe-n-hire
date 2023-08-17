@@ -11,7 +11,7 @@ import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import getJob from "@/backend/getJob";
 import { useRouter } from "next/navigation";
-import Modal from "@/components/modal";
+import Modal from "@/components/Modal";
 
 interface ApplicationFormProps {
   formData: any;

@@ -1,6 +1,6 @@
 "use client";
 
-import NavBar from "@/components/navbar";
+import NavBar from "@/components/Navbar";
 import HRProfileImage from "@/components/HRProfileImage";
 import Logo from "@/components/Logo";
 import JobStatusToggle from "@/components/JobStatusToggle";

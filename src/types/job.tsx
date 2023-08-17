@@ -21,6 +21,10 @@ export interface JobDb {
   Accepted_Application_Count?: number;
 }
 
+export interface JobMetaDataDB extends JobDb {
+  Job_Description: string;
+}
+
 export interface HRJobPostingsDB extends JobDb {
   Job_Date_Posted: string;
   Open_Application_Count: number;
