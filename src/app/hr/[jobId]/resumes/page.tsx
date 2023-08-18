@@ -150,11 +150,11 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     updateApplicantDecision(params.jobId, false);
     updateApplicantStatus(applicantId, "Rejected");
     //Email functionality works... commenting out to reduce emails while testing
-    /*await sendEmail(
+    await sendEmail(
       applicantEmail,
       `Re: Your application for ${jobTitle}`,
       rejectionEmail
-    );*/
+    );
     checkApplicantIndex();
     updateResumePage();
   };
@@ -163,11 +163,11 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     updateApplicantDecision(params.jobId, true);
     updateApplicantStatus(applicantId, "Accepted");
     //Email functionality works... commenting out to reduce emails while testing
-    /*await sendEmail(
+    await sendEmail(
       applicantEmail,
       `Re: Your application for ${jobTitle}`,
       acceptedEmail
-    );*/
+    );
     checkApplicantIndex();
     updateResumePage();
   };
