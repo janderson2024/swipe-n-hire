@@ -6,15 +6,34 @@ import { getCompanyName } from "@/components/Logo";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const title = getCompanyName() + " Careers";
+const description = "A swift and intuitive web app for HR recruiters that simplifies posting, reviewing and notifying job applicants. This website acts as an example company page and was created in 6 weeks through the TechWise program.";
+
 export const metadata: Metadata = {
-  title: getCompanyName() + " Careers",
-  description: "IDK what to put here, but yeah. This is our project 3",
+  title: title,
+  description: description,
   viewport: {
     width: "device-width",
     height: "device-height",
     initialScale: 1,
     maximumScale: 1,
     minimumScale: 1,
+  },
+  authors: [
+    { name: "Monica Tuttle" },
+    { name: "Dennis Bowen" },
+    { name: "Joshua Anderson" },
+  ],
+  openGraph: {
+    title: title,
+    description: description,
+    url: "https://swipe-n-hire.com",
+    images: [
+      { url: "/purple-icon.png", width: 192, height: 192 },
+      { url: "/white-icon.png", width: 192, height: 192 },
+    ],
+    locale: "en-US",
+    type: "website",
   },
 };
 

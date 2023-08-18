@@ -6,7 +6,6 @@ import { getCompanyName } from "@/components/Logo";
 
 export const metadata: Metadata = {
   title: getCompanyName() + " HR Portal",
-  description: "IDK what to put here, but yeah. This is our project 3",
 };
 
 export default async function RootLayout({
