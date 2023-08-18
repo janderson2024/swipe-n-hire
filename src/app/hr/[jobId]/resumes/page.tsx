@@ -246,7 +246,11 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
             />
           </div>
         )}
-        {!displayResume && <div>There are no resumes to display</div>}
+        {!displayResume && (
+          <div className="text-2xl font-bold text-purple-700 text-center p-10">
+            There are no pending applicants for this position.
+          </div>
+        )}
         {/** 
         <div>
           <button
