@@ -14,7 +14,7 @@ export default async function sendEmail(
   console.log(`Sending email to ${recipient}`);
   try {
     const data = await resend.emails.send({
-      from: getCompanyName + " <no-reply@swipe-n-hire.com>",
+      from: getCompanyName() + " <no-reply@swipe-n-hire.com>",
       to: [recipient],
       subject: subject,
       text: emailBody,
