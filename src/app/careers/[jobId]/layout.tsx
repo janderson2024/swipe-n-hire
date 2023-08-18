@@ -19,28 +19,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const job = result.rows[0] as JobMetaDataDB;
 
   const title = company_name + " | " + job.Job_Name;
+
+  const maxChars = Math.min(job.Job_Description.length, 100);
   const description =
-    job.Job_Description.slice(Math.min(100, job.Job_Description.length)) +
-    "...";
+    job.Job_Description.slice(0, maxChars) + "...";
 
   return {
     title: title,
     description: description,
-    authors: [
-      { name: "Monica Tuttle" },
-      { name: "Dennis Bowen" },
-      { name: "Joshua Anderson" },
-    ],
     openGraph: {
       title: title,
       description: description,
-      url: "https://swipe-n-hire.com",
-      images: [
-        { url: "/purple-icon.png", width: 192, height: 192 },
-        { url: "/white-icon.png", width: 192, height: 192 },
-      ],
-      locale: "en-US",
-      type: "website",
     },
   };
 }
