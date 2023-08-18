@@ -28,8 +28,8 @@ function JobDescription({ job }: { job: JobDb }) {
         <h1 className="text-lg font-bold mt-4">
           {job.Job_Name} - Job ID: {job.Job_ID}
         </h1>
-        <div className="w-full md:w-2/3 bg-blue-400 flex justify-between mb-4 px-6 lg:flex flex-wrap">
-          <div className="text-left">
+        <div className="w-full md:w-2/3 justify-between mb-4 md:flex md:justify-between">
+          <div className="text-center md:text-left">
             <p>
               <b>Department:</b> {job.Job_Department}
             </p>
@@ -37,11 +37,11 @@ function JobDescription({ job }: { job: JobDb }) {
               <b>Employment Type:</b> {job.Job_Employment_Type}
             </p>
           </div>
-          <div className="text-right bg-purple-500">
+          <div className="text-center md:text-right">
             <p>
               <b>Salary Range:</b> {job.Job_Salary}
             </p>
-            <p className="text-left">
+            <p>
               <b>Location:</b> {job.Job_Location}
             </p>
           </div>
@@ -55,17 +55,18 @@ function JobDescription({ job }: { job: JobDb }) {
           readOnly={true}
           className="h-1/2 md:h-4/6 resize-none overflow-y-auto border rounded w-2/3 text-base px-2 py-1 border-purple-600 focus:outline-0"
         />
+
         <div className="flex w-2/5 mt-2 justify-evenly">
           <Link className="mr-4" href={`/careers/${job.Job_ID}/apply`}>
-            <button className="bg-purple-700 hover:bg-purple-500 text-white font-bold py-2 px-4 rounded">
-              <span>Apply <span className="hidden md:inline">for this Job</span></span>
+            <button className="bg-purple-700 hover:bg-purple-500 text-white font-bold py-2 px-8 rounded">
+              <span>Apply <span className="hidden lg:inline">for this Job</span></span>
             </button>
           </Link>
           <button
             onClick={openShareModal}
-            className="bg-purple-700 hover:bg-purple-500 w-48 text-white font-bold py-2 px-4 rounded"
+            className="bg-purple-700 hover:bg-purple-500 text-white font-bold py-2 px-8 rounded"
           >
-            <span>Share <span className="hidden md:inline">this Job</span></span>
+            <span>Share <span className="hidden lg:inline">this Job</span></span>
           </button>
         </div>
         <Modal show={showShareModal} onClose={closeShareModal}>

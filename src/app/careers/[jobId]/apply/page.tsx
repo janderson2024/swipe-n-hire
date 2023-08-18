@@ -5,7 +5,6 @@ import BackArrow from "@/components/BackArrow";
 import TermsModal from "@/components/TermsModal";
 import Checkbox from "@/components/Checkbox";
 import createNewApplication from "@/backend/createNewApplication";
-//import "@uploadthing/react/styles.css";
 
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
@@ -93,7 +92,7 @@ const ApplicationForm = ({
       <UploadButton<OurFileRouter>
         appearance={{
           button:
-            "ut-ready:bg-purple-700 ut-uploading:cursor-not-allowed rounded-r-none bg-purple-500 bg-none after:bg-purple-400",
+            "ut-ready:bg-purple-700 ut-uploading:cursor-not-allowed bg-purple-500 bg-none after:bg-purple-400",
         }}
         endpoint="imageUploader"
         onClientUploadComplete={(res: any) => {
