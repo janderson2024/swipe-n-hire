@@ -25,7 +25,7 @@ function JobDescription({ job }: { job: JobDb }) {
   return (
     <>
       <main className="h-main-under-nav flex flex-col items-center">
-        <h1 className="text-lg font-bold mt-4">
+        <h1 className="text-lg pb-4 font-bold mt-4">
           {job.Job_Name} - Job ID: {job.Job_ID}
         </h1>
         <div className="w-full md:w-2/3 justify-between mb-4 md:flex md:justify-between">

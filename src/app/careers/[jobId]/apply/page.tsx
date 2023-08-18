@@ -92,7 +92,7 @@ const ApplicationForm = ({
       <UploadButton<OurFileRouter>
         appearance={{
           button:
-            "ut-ready:bg-purple-700 ut-uploading:cursor-not-allowed bg-purple-500 bg-none after:bg-purple-400",
+            "ut-ready:bg-purple-700 ut-uploading:cursor-not-allowed bg-purple-500 w-32 bg-none after:bg-purple-400",
         }}
         endpoint="imageUploader"
         onClientUploadComplete={(res: any) => {
@@ -119,7 +119,7 @@ const ApplicationForm = ({
       <button
         type="button"
         onClick={handleSubmit}
-        className="bg-purple-700 hover:bg-purple-500 mx-auto justify-center text-white py-2 px-4 rounded-md md cursor-pointer block w-1/3 p-2 mb-4"
+        className="bg-purple-700 hover:bg-purple-700 mx-auto justify-center text-white py-2 px-4 rounded-md md cursor-pointer block w-32 p-2 mb-4"
         disabled={isSubmitDisabled}
       >
         {getSubmitButtonText()}
@@ -206,12 +206,12 @@ export default function Apply({ params }: { params: { jobId: string } }) {
     <main className="flex flex-col items-center justify-center h-max">
       <Link
         href="./"
-        className="text-purple-700 hover:text-purple-400 font-semibold flex items-center pt-4 pb-7"
+        className="text-purple-700 hover:text-purple-400 font-semibold flex items-center pt-3 pb-4"
       >
         <BackArrow />
         View Job Description
       </Link>
-      <h2 className="text-center text-gray-600 font-semibold text-lg">
+      <h2 className="text-center text-gray-600 font-semibold text-md">
         Job ID: {params.jobId} - {jobTitle}
       </h2>
       <ApplicationForm
