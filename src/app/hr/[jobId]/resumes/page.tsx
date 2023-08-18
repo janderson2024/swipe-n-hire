@@ -26,6 +26,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
   const [applicantId, setApplicantId] = useState("");
   const [currentResumeIndex, setCurrentResumeIndex] = useState(0);
   const [openApplicationCount, setOpenApplicationCount] = useState(Number);
+  const [displayResume, setDisplayResume] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
   useEffect(() => {
     if (openApplicationCount > 0) {
       setCurrentResumeIndex(1);
+      setDisplayResume(true);
     }
   }, [openApplicationCount]);
 
@@ -91,17 +93,30 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
       params.jobId
     );
     let listLength = pendingApplicants.length;
-    if (listLength == 0) {
+    /*if (listLength == 0) {
       alert("A decision has been made on all pending applications.");
       router.push("/hr");
+    }*/
+    if (listLength == 0) {
+      setDisplayResume(false);
     }
     setApplicants(pendingApplicants);
   };
 
   function updateResumePage() {
     checkCurrentResumeIndex();
+    console.log("Applicant Index: " + applicantIndex);
+    console.log("applicants Length " + applicants.length);
+    console.log("Current resume index" + currentResumeIndex);
     getUpdatedApplicantList();
+    findOpenApplications();
     getCurrentApplicant();
+    console.log("Applicant Index: " + applicantIndex);
+    console.log("applicants Length " + applicants.length);
+    console.log("Current resume index" + currentResumeIndex);
+    if (openApplicationCount == 0) {
+      setDisplayResume(false);
+    }
   }
 
   function checkCurrentResumeIndex() {
@@ -135,11 +150,11 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     updateApplicantDecision(params.jobId, false);
     updateApplicantStatus(applicantId, "Rejected");
     //Email functionality works... commenting out to reduce emails while testing
-    await sendEmail(
+    /*await sendEmail(
       applicantEmail,
       `Re: Your application for ${jobTitle}`,
       rejectionEmail
-    );
+    );*/
     checkApplicantIndex();
     updateResumePage();
   };
@@ -148,11 +163,11 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     updateApplicantDecision(params.jobId, true);
     updateApplicantStatus(applicantId, "Accepted");
     //Email functionality works... commenting out to reduce emails while testing
-    await sendEmail(
+    /*await sendEmail(
       applicantEmail,
       `Re: Your application for ${jobTitle}`,
       acceptedEmail
-    );
+    );*/
     checkApplicantIndex();
     updateResumePage();
   };
@@ -222,13 +237,16 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
             </h2>
           </div>
         </div>
-        <div id="resumeHolder" className="w-full h-5/6 justify-center">
-          <ResumeSwiper
-            resumeLink={applicantResume}
-            acceptFunction={updateApplicantAccept}
-            rejectFunction={updateApplicantReject}
-          />
-        </div>
+        {displayResume && (
+          <div id="resumeHolder" className="w-full h-5/6 justify-center">
+            <ResumeSwiper
+              resumeLink={applicantResume}
+              acceptFunction={updateApplicantAccept}
+              rejectFunction={updateApplicantReject}
+            />
+          </div>
+        )}
+        {!displayResume && <div>There are no resumes to display</div>}
         {/** 
         <div>
           <button
