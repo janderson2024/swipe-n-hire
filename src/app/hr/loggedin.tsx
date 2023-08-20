@@ -41,10 +41,10 @@ function HRJobControls({ job }: { job: HRJobPostingsDB }) {
           />
         </svg>
       </Link>
-      <div id="non-edit" className="flex justify-around grow md:grow-[0.5]">
+      <div id="non-edit" className="flex justify-around grow">
         <div
           id="App-Counts"
-          className="flex flex-col justify-self-center hidden sm:flex"
+          className="flex flex-col w-1/2 justify-self-center hidden sm:flex"
         >
           <Link
             href={"/hr/" + job.Job_ID + "/resumes"}
@@ -57,7 +57,7 @@ function HRJobControls({ job }: { job: HRJobPostingsDB }) {
               viewBox="0 0 24 24"
               strokeWidth={2}
               stroke="currentColor"
-              className="w-5 h-5 ml-1 self-center"
+              className="w-5 h-5 ml-1 self-center inline md:hidden lg:inline"
             >
               <path
                 strokeLinecap="round"
@@ -74,7 +74,7 @@ function HRJobControls({ job }: { job: HRJobPostingsDB }) {
           </span>
         </div>
 
-        <div id="creator-toggle" className="flex flex-col justify-evenly">
+        <div id="creator-toggle" className="flex flex-col w-1/2 justify-evenly">
           <JobStatusToggle job={job} />
           <span className="text-sm hidden sm:block">
             Created By: {job.Employee_Name}

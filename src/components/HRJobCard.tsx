@@ -31,7 +31,7 @@ export default function HRJobCard({ job, RightItem }: JobCardProps) {
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className="w-5 h-5 ml-1 self-center"
+                className="w-5 h-5 ml-1 self-center inline md:hidden lg:inline"
               >
                 <path
                   strokeLinecap="round"
@@ -45,7 +45,7 @@ export default function HRJobCard({ job, RightItem }: JobCardProps) {
           Posted: {job.Job_Date_Posted}
         </span>
       </div>
-      <div id="rightSide" className="grow sm:w-2/3">
+      <div id="rightSide" className="grow sm:w-2/3 lg:pl-16">
         {RightItem && <RightItem job={job} />}
       </div>
     </div>
