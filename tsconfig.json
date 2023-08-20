@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/backend/databaseConnect.js", "src/backend/databaseConnect.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/backend/databaseConnect.js", "src/backend/databaseConnect.js", "src/app/api/uploadthing/uploader.js"],
   "exclude": ["node_modules"]
 }

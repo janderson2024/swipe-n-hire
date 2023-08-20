@@ -5,25 +5,30 @@ import updateHRjobPosting from "@/backend/updateHRJobPosting";
 import getJob from "@/backend/getJob";
 import JobStatusToggle from "@/components/JobStatusToggle";
 import { JobDb } from "@/types/job";
+import updateJobStatusDB from "@/backend/updateJobStatusDB";
+import PostingsNavBar from "@/components/PostingsNavBar";
 
 export default function EditPosting({ params }: { params: { jobId: string } }) {
-  const [jobStatus, setJobStatus] = useState("");
+  const [job, setJob] = useState<JobDb>();
   const [jobTitle, setJobTitle] = useState("");
+  const [staticJobTitle, setStaticJobTitle] = useState("");
   const [department, setDepartment] = useState("");
   const [emplType, setEmplType] = useState("");
   const [salaryRange, setSalaryRange] = useState("");
   const [location, setLocation] = useState("");
   const [jobDescription, setJobDescription] = useState("");
+  const [jobFilled, setFilled] = useState("filled");
 
   const getJobData = async () => {
     const findJob = await getJob(params.jobId);
-    //setJobStatus(findJob.Job_Status);
+    setJob(findJob);
     setJobTitle(findJob.Job_Name);
     setDepartment(findJob.Job_Department);
     setEmplType(findJob.Job_Employment_Type);
     setSalaryRange(findJob.Job_Salary);
     setLocation(findJob.Job_Location);
     setJobDescription(findJob.Job_Description);
+    setStaticJobTitle(findJob.Job_Name);
   };
 
   useEffect(() => {
@@ -40,19 +45,23 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
       location,
       jobDescription
     );
+    setStaticJobTitle(jobTitle);
     alert("Your job posting has been saved!");
+  }
+
+  async function positionFilled() {
+    updateJobStatusDB(params.jobId, jobFilled);
+    alert("The position has been filled!");
   }
 
   return (
     <>
-      <main>
+      <PostingsNavBar jobId={params.jobId} segment="edit-posting" />
+      <main className="h-main-under-nav p-4">
         <div>
-          <h1 className="text-2xl block text-center font-semibold text-purple-700 mt-4">
-            Add/Edit Job Posting
-          </h1>
-          <hr className="mt-4"></hr>
+          <h1 className="text-2xl font-bold text-center">{jobTitle}</h1>
+          <hr className="mt-3"></hr>
         </div>
-
         <div>
           <div className="flex justify-around py-5">
             <div>
@@ -156,26 +165,22 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
               </div>
             </div>
 
-            {/*<div>
+            <div>
               <div className="py-2">
                 <button
                   type="button"
-                  className="w-full border-2 border-purple-700 bg-purple-700 text-white px-2 py-1"
+                  onClick={positionFilled}
+                  className="p-4 border-4 border-purple-300 bg-purple-100 hover:bg-purple-200 rounded px-2 py-1"
                 >
                   Position Filled
                 </button>
               </div>
 
               <div className="py-2">
-                {/* Toggle Button Here}
-                <button
-                  type="button"
-                  className="w-full border-2 border-purple-700 bg-purple-700 text-white px-3 py-1"
-                >
-                  Toggle
-                </button>
+                {/* Toggle Button Here*/}
+                <JobStatusToggle job={job} />
               </div>
-            </div>*/}
+            </div>
           </div>
 
           <div className="flex justify-center px-5 py-4">
@@ -193,7 +198,7 @@ export default function EditPosting({ params }: { params: { jobId: string } }) {
             <button
               type="button"
               onClick={changesSubmitted}
-              className="justify-center w-40 border-2 border-purple-700 bg-purple-700 text-white py-1"
+              className="justify-center p-4 border-4 border-purple-300 bg-purple-100 hover:bg-purple-200 rounded py-1"
             >
               Save Posting
             </button>

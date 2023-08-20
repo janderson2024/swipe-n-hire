@@ -1,19 +1,20 @@
 "use client";
 
-import NavBar from "@/components/navbar";
+import NavBar from "@/components/Navbar";
 import HRProfileImage from "@/components/HRProfileImage";
 import Logo from "@/components/Logo";
 import JobStatusToggle from "@/components/JobStatusToggle";
-import JobCard from "@/components/JobCard";
+import HRJobCard from "@/components/HRJobCard";
 import Link from "next/link";
-import createNewPosting from "@/backend/createNewPosting";
+import createNewJob from "@/backend/createNewJob";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { getTestJobs, HRJobPostingsDB, Job, JobDb } from "@/types/job";
+import { HRJobPostingsDB } from "@/types/job";
+import { useRouter } from "next/navigation";
 
 function CenterTitle() {
-  return <span className="text-xl font-bold">Current Postings</span>;
+  return <span className="text-xl text-white font-bold">Current Postings</span>;
 }
 
 function HRJobControls({ job }: { job: HRJobPostingsDB }) {
@@ -23,13 +24,13 @@ function HRJobControls({ job }: { job: HRJobPostingsDB }) {
     <div className="flex flex-row-reverse">
       <Link
         href={HrLink}
-        className="self-center mr-6 p-2 ml-8 rounded-full border-slate-500 border-2"
+        className="self-center mr-6 p-2 ml-8 text-slate-600 hover:bg-purple-200 rounded-full border-slate-500 border-2"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          strokeWidth={2}
+          strokeWidth={1.5}
           stroke="currentColor"
           className="w-5 h-5 sm:w-10 sm:h-10"
         >
@@ -40,16 +41,30 @@ function HRJobControls({ job }: { job: HRJobPostingsDB }) {
           />
         </svg>
       </Link>
-      <div id="non-edit" className="flex justify-around grow md:grow-[0.5]">
+      <div id="non-edit" className="flex justify-around grow">
         <div
           id="App-Counts"
-          className="flex flex-col justify-self-center hidden sm:flex"
+          className="flex flex-col w-1/2 justify-self-center hidden sm:flex"
         >
           <Link
             href={"/hr/" + job.Job_ID + "/resumes"}
-            className="text-violet-600 text-base font-bold lg:text-lg"
+            className="text-purple-700 hover:text-purple-400 text-base flex font-bold lg:text-lg"
           >
             {job.Open_Application_Count} Open Applications
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-5 h-5 ml-1 self-center inline md:hidden lg:inline"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
+              />
+            </svg>
           </Link>
           <span className="text-sm">
             Accepted: {job.Accepted_Application_Count}
@@ -59,7 +74,7 @@ function HRJobControls({ job }: { job: HRJobPostingsDB }) {
           </span>
         </div>
 
-        <div id="creator-toggle" className="flex flex-col justify-evenly">
+        <div id="creator-toggle" className="flex flex-col w-1/2 justify-evenly">
           <JobStatusToggle job={job} />
           <span className="text-sm hidden sm:block">
             Created By: {job.Employee_Name}
@@ -77,6 +92,11 @@ interface HRLoggedInProps {
 
 export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
   const [showMyPosts, setShowMyPosts] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+  }, []);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setShowMyPosts(!event.target.checked);
@@ -84,7 +104,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
 
   const [filter, setFilter] = useState(" ");
   const [sorting, setSorting] = useState("id");
-  const [filterButton, setFilterButton] = useState(false);
+  const [filterButton, setFilterButton] = useState(true);
 
   const toggleFilterButton = () => {
     setFilterButton(!filterButton);
@@ -93,7 +113,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
   let processedJobs = jobs;
   //only show mine
   if (showMyPosts) {
-    processedJobs = processedJobs.filter((job) => {
+    processedJobs = processedJobs.filter((job: any) => {
       return userId == job.HR_Creator_ID?.toString();
     });
   }
@@ -104,7 +124,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
       const possibleFilters = [
         job.Job_ID.toString(),
         job.Job_Name,
-        job.Employee_Name
+        job.Employee_Name,
       ];
       return possibleFilters.some((possibleFilter) => {
         return possibleFilter?.includes(filter);
@@ -148,8 +168,11 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
           id="topcontrols"
           className="flex justify-around border-b-2 border-slate-500 p-2 h-1/6"
         >
-          <form action={createNewPosting}>
-            <button className="p-4 border-4 border-slate-700" type="submit">
+          <form action={createNewJob}>
+            <button
+              className="p-4 border-4 border-purple-300 bg-purple-100 hover:bg-purple-200 rounded"
+              type="submit"
+            >
               + New Posting
             </button>
           </form>
@@ -174,8 +197,7 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
                 className="box block 
           h-8 w-14 
           rounded-full 
-          bg-slate-400
-          peer-checked:bg-green-500"
+          bg-purple-400"
               ></div>
 
               <div
@@ -196,17 +218,17 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
             <div id="Filter-Bar" className="flex">
               <input
                 type="text"
-                className="border-2 border-slate-700 m-1"
+                className="border-2 border-slate-500 my-2 rounded w-full"
                 placeholder="Job title, Id, status..."
                 onChange={(event) => {
                   setFilter(event.target.value);
                 }}
               />
-              <button
+              {/**<button
                 className={
                   (filterButton &&
-                    "bg-slate-500 color-white hover:bg-slate-700") +
-                  " border-2 border-slate-700 m-1 hover:bg-slate-300"
+                    "bg-purple-300 color-white hover:bg-slate-700") +
+                  " border-2 border-slate-700 m-1 hover:bg-slate-300 rounded"
                 }
                 onClick={toggleFilterButton}
               >
@@ -224,11 +246,11 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
                     d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
                   />
                 </svg>
-              </button>
+              </button>*/}
             </div>
 
             <div id="sorting-input" className="flex">
-              <div className="border-2 border-slate-600">
+              <div className="border-2 border-slate-500 rounded">
                 <label htmlFor="sorting-select">Sort By: </label>
                 <select
                   name="sorting"
@@ -252,9 +274,13 @@ export default function HRLoggedIn({ jobs, userId }: HRLoggedInProps) {
           id="jobs"
           className="flex flex-nowrap pb-4 items-center flex-col divide-y-2 divide-slate-500 h-5/6 overflow-y-scroll"
         >
-          {processedJobs.map((job: HRJobPostingsDB) => (
-            <JobCard key={job.Job_ID} job={job} RightItem={HRJobControls} />
-          ))}
+          {processedJobs.length > 0 ? (
+            processedJobs.map((job: HRJobPostingsDB) => (
+              <HRJobCard key={job.Job_ID} job={job} RightItem={HRJobControls} />
+            ))
+          ) : (
+            <i className="p-4 text-center">No matching openings...</i>
+          )}
         </div>
       </main>
     </div>

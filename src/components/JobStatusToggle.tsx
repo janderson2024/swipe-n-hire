@@ -1,14 +1,18 @@
+"use client";
+
 import { JobDb } from "@/types/job";
 import { updateJobStatus } from "@/backend/editJobPosting";
 
-
-export default function JobStatusToggle({ job }: { job: JobDb }) {
+export default function JobStatusToggle({ job }: { job: JobDb | undefined }) {
+  if (job == undefined) {
+    return <></>;
+  }
   const labelLinker = "job" + job.Job_ID + "toggle";
 
-  const sendChangeToServer = async (event:any) => {
+  const sendChangeToServer = async (event: any) => {
     const sendChange = await updateJobStatus(job.Job_ID, event.target.checked);
     console.log(sendChange);
-  }
+  };
 
   return (
     <label
@@ -34,8 +38,8 @@ export default function JobStatusToggle({ job }: { job: JobDb }) {
           h-8 
           w-14 
           rounded-full 
-          bg-slate-400
-          peer-checked:bg-slate-700"
+          bg-purple-400
+          peer-checked:bg-slate-400"
         ></div>
         <div
           className="dot 

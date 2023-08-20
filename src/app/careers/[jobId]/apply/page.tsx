@@ -1,21 +1,20 @@
 "use client";
 import { useState, useEffect } from "react";
-import NavBar from "@/components/navbar";
 import Link from "next/link";
-import Logo from "@/components/Logo";
 import BackArrow from "@/components/BackArrow";
 import TermsModal from "@/components/TermsModal";
-import BackToOpenings from "@/components/BackToOpenings";
 import Checkbox from "@/components/Checkbox";
 import createNewApplication from "@/backend/createNewApplication";
-import "@uploadthing/react/styles.css";
+
 import { UploadButton } from "@uploadthing/react";
 import { OurFileRouter } from "@/app/api/uploadthing/core";
 import getJob from "@/backend/getJob";
+import { useRouter } from "next/navigation";
+import Modal from "@/components/Modal";
 
 interface ApplicationFormProps {
   formData: any;
-  setFormData:any;
+  setFormData: any;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: any;
   getSubmitButtonText: any;
@@ -88,15 +87,19 @@ const ApplicationForm = ({
         placeholder="LinkedIn/portfolio URL"
       />
       <div className="text-center pb-3 font-semibold">
-      <h3>Upload Your Resume:</h3>
-     </div>
+        <h3>Upload Your Resume:</h3>
+      </div>
       <UploadButton<OurFileRouter>
+        appearance={{
+          button:
+            "ut-ready:bg-purple-700 ut-uploading:cursor-not-allowed bg-purple-500 w-32 bg-none after:bg-purple-400",
+        }}
         endpoint="imageUploader"
-        onClientUploadComplete={(res:any) => {
+        onClientUploadComplete={(res: any) => {
           console.log("Files: ", res);
           console.log(res[0].fileUrl);
 
-          setFormData((prevFormData:any) => ({
+          setFormData((prevFormData: any) => ({
             ...prevFormData,
             ["Applicant_Resume"]: res[0].fileUrl,
           }));
@@ -107,7 +110,7 @@ const ApplicationForm = ({
           alert(`ERROR! ${error.message}`);
         }}
       />
-    
+
       <Checkbox
         isChecked={isChecked}
         handleCheckboxClick={handleCheckboxClick}
@@ -116,7 +119,7 @@ const ApplicationForm = ({
       <button
         type="button"
         onClick={handleSubmit}
-        className="bg-purple-700 hover:bg-purple-500 mx-auto justify-center text-white py-2 px-4 rounded md cursor-pointer block w-32 p-2 mb-4"
+        className="bg-purple-700 hover:bg-purple-700 mx-auto justify-center text-white py-2 px-4 rounded-md md cursor-pointer block w-32 p-2 mb-4"
         disabled={isSubmitDisabled}
       >
         {getSubmitButtonText()}
@@ -131,6 +134,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const [jobTitle, setJobTitle] = useState("");
+  const router = useRouter();
 
   const getJobData = async () => {
     const findJob = await getJob(params.jobId);
@@ -139,7 +143,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
 
   useEffect(() => {
     getJobData();
-  },[params.jobId]);
+  }, [params.jobId]);
 
   const [formData, setFormData] = useState({
     Job_ID: params.jobId,
@@ -150,16 +154,6 @@ export default function Apply({ params }: { params: { jobId: string } }) {
     Applicant_Legal: false,
     Applicant_Resume: "",
   });
-  
-  useEffect(() => {
-    if (isSubmitted) {
-      setIsSubmitDisabled(true);
-      setTimeout(() => {
-        setIsSubmitDisabled(false);
-        setIsSubmitted(false);
-      }, 5000);
-    }
-  }, [isSubmitted]);
 
   const handleCheckboxClick = (event: any) => {
     setFormData((prevFormData) => ({
@@ -195,11 +189,7 @@ export default function Apply({ params }: { params: { jobId: string } }) {
       console.log(serverResponse);
 
       setIsSubmitted(true);
-
-      setTimeout(() => {
-        setIsSubmitDisabled(false);
-        setIsSubmitted(false);
-      }, 5000);
+      router.push("/careers");
     } catch (error) {
       console.error("Error creating application:", error);
     }
@@ -213,33 +203,31 @@ export default function Apply({ params }: { params: { jobId: string } }) {
   };
 
   return (
-    <>
-      <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />
-      <main className="flex flex-col items-center justify-center min-h-screen">
-        <div className="text-center">
-          <Link href="./" className="text-purple-700 flex items-center">
-            <BackArrow />
-            View Job Description
-          </Link>
-         <p className="text-center text-gray-600 p-5">{jobTitle}</p> 
-          <p className="text-center text-gray-600 p-5">Job ID: {params.jobId}</p>
-        </div>
-        <ApplicationForm
-          formData={formData}
-          setFormData={setFormData}
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          getSubmitButtonText={getSubmitButtonText}
-          isSubmitDisabled={isSubmitDisabled}
-          isChecked={isChecked}
-          handleCheckboxClick={handleCheckboxClick}
-          openModal={openModal}
-        />
-
-        {showModal && (
-          <TermsModal show={showModal} onClose={handleModalClose} />
-        )}
-      </main>
-    </>
+    <main className="flex flex-col items-center justify-center h-max">
+      <Link
+        href="./"
+        className="text-purple-700 hover:text-purple-400 font-semibold flex items-center pt-3 pb-4"
+      >
+        <BackArrow />
+        View Job Description
+      </Link>
+      <h2 className="text-center text-gray-600 font-semibold text-md">
+        Job ID: {params.jobId} - {jobTitle}
+      </h2>
+      <ApplicationForm
+        formData={formData}
+        setFormData={setFormData}
+        handleSubmit={handleSubmit}
+        handleChange={handleChange}
+        getSubmitButtonText={getSubmitButtonText}
+        isSubmitDisabled={isSubmitDisabled}
+        isChecked={isChecked}
+        handleCheckboxClick={handleCheckboxClick}
+        openModal={openModal}
+      />
+      <Modal show={showModal} onClose={handleModalClose}>
+        <TermsModal />
+      </Modal>
+    </main>
   );
 }

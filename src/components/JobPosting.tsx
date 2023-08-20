@@ -1,21 +1,19 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { JobDb } from "@/types/job";
 
-export default function JobPosting({ job }: {job: JobDb}) {
+export default function JobPosting({ job }: { job: JobDb }) {
   return (
-    <div className="border-b py-4">
+    <div className="border-b border-zinc-400 py-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="col-span-2 md:col-span-1">
           <div className="text-s text-gray-4 m-4">ID: {job.Job_ID}</div>
-          <div className="text-purple-700 text-lg font-bold m-4">
-            <Link href={`/careers/${job.Job_ID}`}>
-              {job.Job_Name}
-            </Link>
+          <div className="pb-5">
+            <Link className="text-purple-700 text-lg font-bold m-4 hover:text-purple-400" href={`/careers/${job.Job_ID}`}>{job.Job_Name}</Link>
           </div>
           <div className="text-gray-600 ml-4">Posted {job.Job_Date_Posted}</div>
         </div>
-        <div className="flex flex-wrap justify-between md:flex-row md:gap-2 m-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 pl-4">
           <div className="flex items-center">
             <div className="bg-gray-300 p-2 rounded-full">
               <svg
@@ -87,4 +85,4 @@ export default function JobPosting({ job }: {job: JobDb}) {
       </div>
     </div>
   );
-};
+}

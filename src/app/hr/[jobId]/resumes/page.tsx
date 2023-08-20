@@ -1,24 +1,21 @@
 "use client";
 
-import { updateJobStatus } from "@/backend/editJobPosting";
 import getApplicants from "@/backend/getApplicants";
 import getJob from "@/backend/getJob";
 import sendEmail from "@/backend/sendEmail";
 import updateApplicantDecision from "@/backend/updateApplicantDecision";
 import updateApplicantStatus from "@/backend/updateApplicantStatus";
-import BackToOpenings from "@/components/BackToOpenings";
-import ChrevronRight from "@/components/ChevronRight";
 import { ApplicationsForHR } from "@/types/job";
-import { open } from "fs/promises";
-import { Fascinate_Inline } from "next/font/google";
 import { useEffect, useState } from "react";
 import ResumeSwiper from "@/components/ResumeSwiper";
+import PostingsNavBar from "@/components/PostingsNavBar";
+import { useRouter } from "next/navigation";
 
 export default function ViewResumes({ params }: { params: { jobId: string } }) {
   const [jobTitle, setJobTitle] = useState("");
   const [acceptedCount, setAcceptedCount] = useState(Number);
   const [rejectedCount, setRejectedCount] = useState(Number);
-  const [openApplications, setOpenApplications] = useState(Number);
+  const [pendingApplicantCount, setPendingApplicantCount] = useState(Number);
   const [acceptedEmail, setAcceptedEmail] = useState("");
   const [rejectionEmail, setRejectionEmail] = useState("");
   const [applicantEmail, setApplicantEmail] = useState("");
@@ -27,15 +24,17 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
   const [applicants, setApplicants] = useState<ApplicationsForHR[]>([]);
   const [currentApplicant, setCurrentApplicant] = useState(Object);
   const [applicantId, setApplicantId] = useState("");
-  const [currentResumeIndex, setCurrentResumeIndex] = useState(1);
+  const [currentResumeIndex, setCurrentResumeIndex] = useState(0);
+  const [openApplicationCount, setOpenApplicationCount] = useState(Number);
+  const [displayResume, setDisplayResume] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchInitialApplicants() {
       try {
-        const pendingApplicants: ApplicationsForHR[] = await getApplicants(
-          params.jobId
-        );
-        setApplicants(pendingApplicants);
+        const currentPendingApplicants: ApplicationsForHR[] =
+          await getApplicants(params.jobId);
+        setApplicants(currentPendingApplicants);
       } catch (error) {
         console.error("Error fetching applicants", error);
       }
@@ -43,17 +42,36 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     fetchInitialApplicants();
   }, []);
 
-  const checkApplicantIndex = async () => {
-    if (applicantIndex == applicants.length - 1) {
-      setApplicantIndex(applicantIndex - 1);
-    }
+  const findOpenApplications = async () => {
+    const findJobOpenings = await getJob(params.jobId);
+    setOpenApplicationCount(findJobOpenings.Open_Application_Count);
   };
 
-  const checkCurrentResumeIndex = async () => {
-    if (currentResumeIndex == applicants.length) {
-      setCurrentResumeIndex(currentResumeIndex - 1);
+  useEffect(() => {
+    findOpenApplications();
+  }, []);
+
+  useEffect(() => {
+    if (openApplicationCount > 0) {
+      setCurrentResumeIndex(1);
+      setDisplayResume(true);
     }
+  }, [openApplicationCount]);
+
+  const getHRJobData = async () => {
+    const findJob = await getJob(params.jobId);
+    setJobTitle(findJob.Job_Name);
+    setAcceptedCount(findJob.Accepted_Application_Count);
+    setRejectedCount(findJob.Rejected_Application_Count);
+    setAcceptedEmail(findJob.Job_Accepted_Email);
+    setRejectionEmail(findJob.Job_Rejected_Email);
+    setPendingApplicantCount(applicants.length);
   };
+
+  useEffect(() => {
+    getCurrentApplicant();
+    getHRJobData();
+  });
 
   const getCurrentApplicant = async () => {
     setCurrentApplicant(
@@ -64,31 +82,50 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
     setApplicantId(currentApplicant.Application_ID);
   };
 
+  const checkApplicantIndex = async () => {
+    if (applicantIndex == applicants.length - 1) {
+      setApplicantIndex(applicantIndex - 1);
+    }
+  };
+
   const getUpdatedApplicantList = async () => {
     const pendingApplicants: ApplicationsForHR[] = await getApplicants(
       params.jobId
     );
+    let listLength = pendingApplicants.length;
+    /*if (listLength == 0) {
+      alert("A decision has been made on all pending applications.");
+      router.push("/hr");
+    }*/
+    if (listLength == 0) {
+      setDisplayResume(false);
+    }
     setApplicants(pendingApplicants);
   };
 
-  const getHRJobData = async () => {
-    const findJob = await getJob(params.jobId);
-    setJobTitle(findJob.Job_Name);
-    setAcceptedCount(findJob.Accepted_Application_Count);
-    setRejectedCount(findJob.Rejected_Application_Count);
-    setOpenApplications(findJob.Open_Application_Count);
-    setAcceptedEmail(findJob.Job_Accepted_Email);
-    setRejectionEmail(findJob.Job_Rejected_Email);
-  };
-
-  useEffect(() => {
-    getHRJobData();
-    getCurrentApplicant();
-  });
-
   function updateResumePage() {
+    checkCurrentResumeIndex();
+    console.log("Applicant Index: " + applicantIndex);
+    console.log("applicants Length " + applicants.length);
+    console.log("Current resume index" + currentResumeIndex);
     getUpdatedApplicantList();
+    findOpenApplications();
     getCurrentApplicant();
+    console.log("Applicant Index: " + applicantIndex);
+    console.log("applicants Length " + applicants.length);
+    console.log("Current resume index" + currentResumeIndex);
+    if (openApplicationCount == 0) {
+      setDisplayResume(false);
+    }
+  }
+
+  function checkCurrentResumeIndex() {
+    let openApplications = applicants.length;
+    if (openApplications == 0) {
+      setCurrentResumeIndex(0);
+    } else if (currentResumeIndex == openApplications) {
+      setCurrentResumeIndex(currentResumeIndex - 1);
+    }
   }
 
   function previousApplicant() {
@@ -96,7 +133,6 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
       setApplicantIndex(applicantIndex - 1);
       setCurrentResumeIndex(currentResumeIndex - 1);
     }
-    console.log(applicantIndex);
   }
 
   function nextApplicant() {
@@ -104,7 +140,6 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
       setApplicantIndex(applicantIndex + 1);
       setCurrentResumeIndex(currentResumeIndex + 1);
     }
-    getCurrentApplicant;
   }
 
   //Hard-coded resume
@@ -121,7 +156,6 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
       rejectionEmail
     );
     checkApplicantIndex();
-    checkCurrentResumeIndex();
     updateResumePage();
   };
 
@@ -135,63 +169,88 @@ export default function ViewResumes({ params }: { params: { jobId: string } }) {
       acceptedEmail
     );
     checkApplicantIndex();
-    checkCurrentResumeIndex();
     updateResumePage();
   };
 
   return (
     <>
-      <main className="h-main-under-nav px-4">
-        <div className="flex justify-end">
-          <h2 className="text-l block text-center mt-4 mr-4">
-            Accepted: {acceptedCount}
-          </h2>
+      <PostingsNavBar jobId={params.jobId} segment="resumes" />
+      <main className="h-main-under-nav p-4">
+        <div>
+          <h1 className="text-2xl font-bold text-center">{jobTitle}</h1>
+          <hr className="mt-3"></hr>
         </div>
-        <div className="flex justify-end">
-          <h2 className="text-l block text-center mt-2 mr-4">
-            Rejected: {rejectedCount}
-          </h2>
-        </div>
-        <div className="justify-center">
-          <div>
-            <h1 className="text-2xl block text-center font-semibold text-purple-700 mt-1">
-              {jobTitle}
-            </h1>
+        <div className="grid grid-cols-3 w-full border-b border-purple-700">
+          <div className="col-start-2 self-center">
+            <div className="flex justify-center space-x-4 mt-2">
+              <button
+                type="button"
+                onClick={previousApplicant}
+                className="text-purple-700 hover:text-purple-300"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
+                  />
+                </svg>
+              </button>
+              <h2 className="text-l block text-center">
+                {currentResumeIndex} of {pendingApplicantCount} Applications
+              </h2>
+              <button
+                type="button"
+                onClick={nextApplicant}
+                className=" text-purple-700 hover:text-purple-300"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
-          <div className="flex justify-center space-x-10">
-            <button
-              type="button"
-              onClick={previousApplicant}
-              className="justify-center w-40 border-2 border-black text-purple-700 py-1"
-            >
-              Previous Applicant
-            </button>
-            <h2 className="text-l block text-center mt-2">
-              {currentResumeIndex} of {openApplications} Applications
+          <div id="count-wrapper" className="justify-self-end my-2 mr-4">
+            <h2 className="text-l block text-center">
+              Accepted: {acceptedCount}
             </h2>
-            <button
-              type="button"
-              onClick={nextApplicant}
-              className="justify-center w-40 border-2 border-black text-purple-700 py-1"
-            >
-              Next Applicant
-            </button>
-          </div>
-          {/** Application Index being displayed for testing
-          <div>
-            <h2 className="text-l block text-center mt-2">
-              Application Index: {applicantIndex}
+            <h2 className="text-l block text-center">
+              Rejected: {rejectedCount}
             </h2>
           </div>
-          */}
         </div>
-        <div id="resumeHolder" className="w-full h-4/6 justify-center mt-4">
-          <ResumeSwiper
-            resumeLink={applicantResume}
-            acceptFunction={updateApplicantAccept}
-            rejectFunction={updateApplicantReject}
-          />
-        </div>
+        {displayResume && (
+          <div id="resumeHolder" className="w-full h-5/6 justify-center">
+            <ResumeSwiper
+              resumeLink={applicantResume}
+              acceptFunction={updateApplicantAccept}
+              rejectFunction={updateApplicantReject}
+            />
+          </div>
+        )}
+        {!displayResume && (
+          <div className="text-2xl font-bold text-purple-700 text-center p-10">
+            There are no pending applicants for this position.
+          </div>
+        )}
         {/** 
         <div>
           <button

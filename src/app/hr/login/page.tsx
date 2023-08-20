@@ -1,10 +1,11 @@
 "use client";
 import Logo from "@/components/Logo";
 import Link from "next/link";
-import NavBar from "@/components/navbar";
+import NavBar from "@/components/Navbar";
 import { loginUser } from "@/backend/HrUser";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import BackToOpenings from "@/components/BackToOpenings";
 
 export default function HRLogin() {
   const router = useRouter();
@@ -28,13 +29,11 @@ export default function HRLogin() {
 
   return (
     <>
-      <div>
-        <NavBar LeftItem={<Logo />} />
-      </div>
-      <main className="flex h-screen items-center justify-center">
+      <NavBar LeftItem={<Logo />} RightItem={BackToOpenings("/careers")} />
+      <main className="flex h-main-under-nav items-center justify-center">
         <div className="max-h-screen w-96 p-6 bg-gray-100 rounded-md">
           <div className="text-2xl font-bold m-5 text-center">
-            <Logo />
+            <Logo className="text-black" />
           </div>
           <h1 className="text-2xl block text-center font-semibold text-purple-700">
             Sign In

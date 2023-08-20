@@ -1,17 +1,11 @@
-/*
-Master "Logo" component
-Currently Just a string, but we can replace this with a real img logo
-
-*/
-
-
-function getLogo(){
-    return "Real Company"
+export function getCompanyName() {
+  return "Real Company";
 }
 
-export default function Logo(){
-    const logo = getLogo();
-    return (
-        <span className="text-xl font-bold">{logo}</span>
-    )
+export default function Logo({ className }: { className?: string }) {
+  if (!className) {
+    className = "text-white";
+  }
+  const logo = getCompanyName();
+  return <span className={"text-xl font-bold " + className}>{logo}</span>;
 }

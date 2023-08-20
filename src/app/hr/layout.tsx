@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 
 import { redirect } from "next/navigation";
 import { getCurrentHrID } from "@/backend/HrUser";
+import { getCompanyName } from "@/components/Logo";
 
 export const metadata: Metadata = {
-  title: "Real Company HR Portal",
-  description: "IDK what to put here, but yeah. This is our project 3",
+  title: getCompanyName() + " HR Portal",
 };
 
 export default async function RootLayout({
@@ -20,7 +20,7 @@ export default async function RootLayout({
     return <>{children}</>;
   }
 
-  if (! await getCurrentHrID()) {
+  if (!(await getCurrentHrID())) {
     redirect("/hr/login");
   }
   return <>{children}</>;
