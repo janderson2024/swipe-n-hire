@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { JobDb } from "@/types/job";
 import ApplicantJobPostings from "@/backend/JobsDb";
 import JobPosting from "@/components/JobPosting";
+import Link from "next/link";
 
 export default function JobPostings() {
   const [jobs, setJobs] = useState<JobDb[]>([]);
@@ -41,7 +42,33 @@ export default function JobPostings() {
 
   return (
     <>
-      <NavBar LeftItem={<Logo />} />
+      <NavBar
+        LeftItem={<Logo />}
+        RightItem={
+          <div className="flex items-center">
+            <Link
+              href="/about"
+              className="flex items-center text-white font-semibold hover:underline"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={3}
+                stroke="currentColor"
+                className="w-4 h-4 mr-2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"
+                />
+              </svg>
+              About
+            </Link>
+          </div>
+        }
+      />
       <main className="p-8">
         <div className="flex flex-wrap md:flex-nowrap justify-between items-center">
           <h1 className="text-2xl font-bold mb-4 md:mb-0 md:mr-8">

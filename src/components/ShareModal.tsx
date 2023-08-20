@@ -11,7 +11,7 @@ export default function ShareModal({ link }: { link: string }) {
       <span className="text-2xl font-bold">Share</span>
       <section
         id="copy link"
-        className="flex w-auto my-4 mx-2 content-center justify-between "
+        className="flex w-auto my-4 mx-2 content-center justify-between"
       >
         <label className="font-bold pr-2 self-center" htmlFor="">
           Link:
